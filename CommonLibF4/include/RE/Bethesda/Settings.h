@@ -323,11 +323,11 @@ namespace RE
 		public SettingCollection<T>
 	{
 	public:
-		[[nodiscard]] static Setting* GetPtr(const char* name)
+		[[nodiscard]] Setting* GetPtr(const char* name)
 		{
 			using func_t = decltype(&SettingCollectionList::GetPtr);
 			REL::Relocation<func_t> func{ REL::ID(504957) };
-			return func(name);
+			return func(this, name);
 		}
 		// members
 		BSSimpleList<T*> settings;  // 118
