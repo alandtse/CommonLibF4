@@ -360,8 +360,11 @@ namespace RE
 
 		[[nodiscard]] iterator begin() noexcept { return static_cast<pointer>(_allocator.data()); }
 		[[nodiscard]] iterator end() noexcept { return begin() + _size; }
-
-		[[nodiscard]] size_type max_size() const noexcept { return std::numeric_limits<size_type>::max(); }
+#undef max
+		[[nodiscard]] size_type max_size() const noexcept
+		{
+			return std::numeric_limits<size_type>::max();
+		}
 
 		void reserve(size_type a_capacity)
 		{

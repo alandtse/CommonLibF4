@@ -148,6 +148,19 @@ namespace RE
 				}
 			}
 
+			[[nodiscard]] bool contains(std::basic_string_view<value_type> a_rhs) const
+			{
+				if (a_rhs.length() > length()) {
+					return false;
+				}
+				for (size_type i = 0; i < length(); ++i) {
+					if (strncmp(&c_str()[i], a_rhs.data(), a_rhs.length()) == 0) {
+						return true;
+					}
+				}
+				return false;
+			}
+
 		protected:
 			template <class>
 			friend struct RE::BSCRC32;

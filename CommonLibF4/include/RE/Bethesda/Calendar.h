@@ -10,6 +10,27 @@ namespace RE
 		public BSTSingletonSDM<Calendar>
 	{
 	public:
+		struct Months
+		{
+			enum Month
+			{
+				kJanuary,
+				kFebruary,
+				kMarch,
+				kApril,
+				kMay,
+				kJune,
+				kJuly,
+				kAugust,
+				kSeptember,
+				kOctober,
+				kNovember,
+				kDecember,
+				kTotal
+			};
+		};
+		using Month = Months::Month;
+
 		[[nodiscard]] static Calendar* GetSingleton()
 		{
 			REL::Relocation<Calendar**> singleton{ REL::ID(1444952) };
@@ -17,6 +38,7 @@ namespace RE
 		}
 
 		[[nodiscard]] float GetHoursPassed() const noexcept;
+		[[nodiscard]] std::uint32_t GetMonth() const noexcept;
 
 		// members
 		TESGlobal* gameYear;            // 08

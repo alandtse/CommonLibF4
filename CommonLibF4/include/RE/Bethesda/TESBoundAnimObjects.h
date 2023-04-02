@@ -382,6 +382,8 @@ namespace RE
 			return false;
 		}
 
+		[[nodiscard]] bool ContainsKeyword(std::string_view a_editorID) const;
+
 		[[nodiscard]] static BSTHashMap<const TESNPC*, BSTArray<BGSHeadPart*>>& GetAlternateHeadPartListMap()
 		{
 			REL::Relocation<BSTHashMap<const TESNPC*, BSTArray<BGSHeadPart*>>*> map{ REL::ID(1306546), -0x8 };
@@ -428,6 +430,26 @@ namespace RE
 				root = root->faceNPC;
 			}
 			return root;
+		}
+
+		[[nodiscard]] TESSpellList::SpellData* GetSpellList()
+		{
+			if (!spellData) {
+				spellData = new TESSpellList::SpellData();
+			}
+			return spellData;
+		}
+
+		[[nodiscard]] bool HasApplicableKeywordString(std::string_view a_editorID) const;
+
+		[[nodiscard]] bool IsInFaction(const TESFaction* a_faction)
+		{
+			for (const auto& faction : factions) {
+				if (faction.faction == a_faction && faction.rank > -1) {
+					return true;
+				}
+			}
+			return false;
 		}
 
 		[[nodiscard]] bool UsingAlternateHeadPartList() const;

@@ -57,7 +57,7 @@ namespace F4SE::log
 		}
 
 		std::filesystem::path path = knownPath.get();
-		path /= "My Games/Fallout4VR/F4SE"sv;
+		path /= REL::Module::IsF4() ? "My Games/Fallout4/F4SE"sv : "My Games/Fallout4VR/F4SE"sv;
 		return path;
 	}
 }

@@ -1,10 +1,10 @@
 name: Main CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+#   push:
+#     branches: [ master ]
+#   pull_request:
+#    branches: [ master ]
   workflow_dispatch:
 
 env:
@@ -37,7 +37,7 @@ jobs:
 
       - name: Configure CMake
         working-directory: ${{ github.workspace }}/main
-        run: cmake --preset vs2022-windows-vcpkg
+        run: cmake --preset build-release-msvc-vcpkg-all
 
       - name: Build
         working-directory: ${{ github.workspace }}/main

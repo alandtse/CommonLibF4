@@ -1427,12 +1427,12 @@ namespace RE
 		}
 
 		// members
-		std::unique_ptr<BSGFxShaderFXTarget> pickpocketInfo_mc;  // 430
-		std::uint32_t valueStolenFromContainer;                  // 438
-		bool containerAccessed;                                  // 43C
-		bool addedTempItems;                                     // 43D
-		bool plantedExplosiveWeapon;                             // 43E
-		bool containerIsAnimatingOpen;                           // 43F
+		msvc::unique_ptr<BSGFxShaderFXTarget> pickpocketInfo_mc;  // 430
+		std::uint32_t valueStolenFromContainer;                   // 438
+		bool containerAccessed;                                   // 43C
+		bool addedTempItems;                                      // 43D
+		bool plantedExplosiveWeapon;                              // 43E
+		bool containerIsAnimatingOpen;                            // 43F
 	};
 	static_assert(sizeof(ContainerMenu) == 0x440);
 
@@ -1495,14 +1495,14 @@ namespace RE
 		}
 
 		// members
-		BSTHashMap<InventoryInterface::Handle, ItemBarterData*> barteredItems;  // 430
-		std::unique_ptr<BSGFxShaderFXTarget> capsTransferInfo_mc;               // 460
-		std::unique_ptr<BSGFxShaderFXTarget> capsTransferBackground_mc;         // 468
-		ObjectRefHandle vendorChestRef;                                         // 470
-		ObjectRefHandle vendorActor;                                            // 474
-		BarterMenuTentativeInventoryUIInterface playerTentativeInv;             // 478
-		BarterMenuTentativeInventoryUIInterface containerTentativeInv;          // 4F8
-		bool confirmingTrade;                                                   // 578
+		BSTHashMap<InventoryInterface::Handle*, ItemBarterData*> barteredItems;  // 430
+		msvc::unique_ptr<BSGFxShaderFXTarget> capsTransferInfo_mc;               // 460
+		msvc::unique_ptr<BSGFxShaderFXTarget> capsTransferBackground_mc;         // 468
+		ObjectRefHandle vendorChestRef;                                          // 470
+		ObjectRefHandle vendorActor;                                             // 474
+		BarterMenuTentativeInventoryUIInterface playerTentativeInv;              // 478
+		BarterMenuTentativeInventoryUIInterface containerTentativeInv;           // 4F8
+		bool confirmingTrade;                                                    // 578
 	};
 	static_assert(sizeof(BarterMenu) == 0x580);
 

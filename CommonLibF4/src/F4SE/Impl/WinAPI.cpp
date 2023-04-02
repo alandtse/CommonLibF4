@@ -2,82 +2,45 @@
 
 #include <Windows.h>
 
-#define WIN32_LEAN_AND_MEAN
-
-#define NOGDICAPMASKS
-#define NOVIRTUALKEYCODES
-//#define NOWINMESSAGES
-#define NOWINSTYLES
-#define NOSYSMETRICS
-#define NOMENUS
-#define NOICONS
-#define NOKEYSTATES
-#define NOSYSCOMMANDS
-#define NORASTEROPS
-#define NOSHOWWINDOW
-#define OEMRESOURCE
-#define NOATOM
-#define NOCLIPBOARD
-#define NOCOLOR
-//#define NOCTLMGR
-#define NODRAWTEXT
-#define NOGDI
-#define NOKERNEL
-//#define NOUSER
-#define NONLS
-//#define NOMB
-#define NOMEMMGR
-#define NOMETAFILE
-#define NOMINMAX
-//#define NOMSG
-#define NOOPENFILE
-#define NOSCROLL
-#define NOSERVICE
-#define NOSOUND
-#define NOTEXTMETRIC
-#define NOWH
-#define NOWINOFFSETS
-#define NOCOMM
-#define NOKANJI
-#define NOHELP
-#define NOPROFILER
-#define NODEFERWINDOWPOS
-#define NOMCX
-
-#include <Windows.h>
-
 #undef GetEnvironmentVariable
 #undef GetFileVersionInfo
 #undef GetFileVersionInfoSize
 #undef GetModuleFileName
 #undef GetModuleHandle
+#undef LoadLibrary
 #undef MessageBox
 #undef OutputDebugString
+#undef RegQueryValueEx
 #undef VerQueryValue
 
-extern "C" IMAGE_DOS_HEADER __ImageBase;  // NOLINT(bugprone-reserved-identifier)
+extern "C" IMAGE_DOS_HEADER __ImageBase;
 
 namespace F4SE::WinAPI
 {
-	void*(GetCurrentModule)() noexcept
+	bool FreeLibrary(HMODULE a_module) noexcept
+	{
+		return ::FreeLibrary(reinterpret_cast<::HMODULE>(a_module));
+	}
+
+	void* GetCurrentModule() noexcept
 	{
 		return static_cast<void*>(
 			std::addressof(__ImageBase));
 	}
 
-	void*(GetCurrentProcess)() noexcept
+	void* GetCurrentProcess() noexcept
 	{
 		return static_cast<void*>(
 			::GetCurrentProcess());
 	}
 
-	std::uint32_t(GetCurrentThreadID)() noexcept
+	std::uint32_t GetCurrentThreadID() noexcept
 	{
 		return static_cast<std::uint32_t>(
 			::GetCurrentThreadId());
 	}
 
-	[[nodiscard]] std::uint32_t(GetEnvironmentVariable)(
+	[[nodiscard]] std::uint32_t GetEnvironmentVariable(
 		const char* a_name,
 		char* a_buffer,
 		std::uint32_t a_size) noexcept
@@ -89,7 +52,7 @@ namespace F4SE::WinAPI
 				static_cast<::DWORD>(a_size)));
 	}
 
-	[[nodiscard]] std::uint32_t(GetEnvironmentVariable)(
+	[[nodiscard]] std::uint32_t GetEnvironmentVariable(
 		const wchar_t* a_name,
 		wchar_t* a_buffer,
 		std::uint32_t a_size) noexcept
@@ -101,7 +64,7 @@ namespace F4SE::WinAPI
 				static_cast<::DWORD>(a_size)));
 	}
 
-	bool(GetFileVersionInfo)(
+	bool GetFileVersionInfo(
 		const char* a_filename,
 		std::uint32_t a_handle,
 		std::uint32_t a_len,
@@ -115,7 +78,7 @@ namespace F4SE::WinAPI
 				static_cast<::LPVOID>(a_data)));
 	}
 
-	bool(GetFileVersionInfo)(
+	bool GetFileVersionInfo(
 		const wchar_t* a_filename,
 		std::uint32_t a_handle,
 		std::uint32_t a_len,
@@ -129,7 +92,7 @@ namespace F4SE::WinAPI
 				static_cast<::LPVOID>(a_data)));
 	}
 
-	std::uint32_t(GetFileVersionInfoSize)(
+	std::uint32_t GetFileVersionInfoSize(
 		const char* a_filename,
 		std::uint32_t* a_handle) noexcept
 	{
@@ -139,7 +102,7 @@ namespace F4SE::WinAPI
 				reinterpret_cast<::LPDWORD>(a_handle)));
 	}
 
-	std::uint32_t(GetFileVersionInfoSize)(
+	std::uint32_t GetFileVersionInfoSize(
 		const wchar_t* a_filename,
 		std::uint32_t* a_handle) noexcept
 	{
@@ -149,12 +112,12 @@ namespace F4SE::WinAPI
 				reinterpret_cast<::LPDWORD>(a_handle)));
 	}
 
-	std::size_t(GetMaxPath)() noexcept
+	std::size_t GetMaxPath() noexcept
 	{
 		return static_cast<std::size_t>(MAX_PATH);
 	}
 
-	std::uint32_t(GetModuleFileName)(
+	std::uint32_t GetModuleFileName(
 		void* a_module,
 		char* a_filename,
 		std::uint32_t a_size) noexcept
@@ -166,7 +129,7 @@ namespace F4SE::WinAPI
 				static_cast<::DWORD>(a_size)));
 	}
 
-	std::uint32_t(GetModuleFileName)(
+	std::uint32_t GetModuleFileName(
 		void* a_module,
 		wchar_t* a_filename,
 		std::uint32_t a_size) noexcept
@@ -178,21 +141,21 @@ namespace F4SE::WinAPI
 				static_cast<::DWORD>(a_size)));
 	}
 
-	void*(GetModuleHandle)(const char* a_moduleName) noexcept
+	HMODULE GetModuleHandle(const char* a_moduleName) noexcept
 	{
-		return static_cast<void*>(
+		return reinterpret_cast<HMODULE>(
 			::GetModuleHandleA(
 				static_cast<::LPCSTR>(a_moduleName)));
 	}
 
-	void*(GetModuleHandle)(const wchar_t* a_moduleName) noexcept
+	HMODULE GetModuleHandle(const wchar_t* a_moduleName) noexcept
 	{
-		return static_cast<void*>(
+		return reinterpret_cast<HMODULE>(
 			::GetModuleHandleW(
 				static_cast<::LPCWSTR>(a_moduleName)));
 	}
 
-	void*(GetProcAddress)(void* a_module,
+	void* GetProcAddress(void* a_module,
 		const char* a_procName) noexcept
 	{
 		return reinterpret_cast<void*>(
@@ -201,7 +164,23 @@ namespace F4SE::WinAPI
 				static_cast<::LPCSTR>(a_procName)));
 	}
 
-	std::int32_t(MessageBox)(
+	bool IsDebuggerPresent() noexcept
+	{
+		return static_cast<bool>(
+			::IsDebuggerPresent());
+	}
+
+	HMODULE LoadLibrary(const char* a_libFileName) noexcept
+	{
+		return reinterpret_cast<HMODULE>(::LoadLibraryA(static_cast<::LPCSTR>(a_libFileName)));
+	}
+
+	HMODULE LoadLibrary(const wchar_t* a_libFileName) noexcept
+	{
+		return reinterpret_cast<HMODULE>(::LoadLibraryW(static_cast<::LPCWSTR>(a_libFileName)));
+	}
+
+	std::int32_t MessageBox(
 		void* a_wnd,
 		const char* a_text,
 		const char* a_caption,
@@ -215,7 +194,7 @@ namespace F4SE::WinAPI
 				static_cast<::UINT>(a_type)));
 	}
 
-	std::int32_t(MessageBox)(
+	std::int32_t MessageBox(
 		void* a_wnd,
 		const wchar_t* a_text,
 		const wchar_t* a_caption,
@@ -246,37 +225,54 @@ namespace F4SE::WinAPI
 			a_wideChar);
 	}
 
-	void(OutputDebugString)(
+	void OutputDebugString(
 		const char* a_outputString) noexcept
 	{
 		::OutputDebugStringA(
 			static_cast<::LPCSTR>(a_outputString));
 	}
 
-	void(OutputDebugString)(
+	void OutputDebugString(
 		const wchar_t* a_outputString) noexcept
 	{
 		::OutputDebugStringW(
 			static_cast<::LPCWSTR>(a_outputString));
 	}
 
-	void(TerminateProcess)(
+	long RegGetValueW(HKEY hkey, const char* subKey, const char* value, unsigned long flags, unsigned long* type,
+		void* data, unsigned long* length)
+	{
+		return ::RegGetValueA(reinterpret_cast<::HKEY>(hkey), subKey, value, flags, type, data, length);
+	}
+
+	long RegGetValueW(HKEY hkey, const wchar_t* subKey, const wchar_t* value, unsigned long flags, unsigned long* type,
+		void* data, unsigned long* length)
+	{
+		return ::RegGetValueW(reinterpret_cast<::HKEY>(hkey), subKey, value, flags, type, data, length);
+	}
+
+	void TerminateProcess(
 		void* a_process,
 		unsigned int a_exitCode) noexcept
 	{
 		::TerminateProcess(
 			static_cast<::HANDLE>(a_process),
 			static_cast<::UINT>(a_exitCode));
+#if defined(__clang__) || defined(__GNUC__)
+		__builtin_unreachable();
+#elif defined(_MSC_VER)
+		__assume(false);
+#endif
 	}
 
-	void*(TlsGetValue)(std::uint32_t a_tlsIndex) noexcept
+	void* TlsGetValue(std::uint32_t a_tlsIndex) noexcept
 	{
 		return static_cast<void*>(
 			::TlsGetValue(
 				static_cast<::DWORD>(a_tlsIndex)));
 	}
 
-	bool(TlsSetValue)(
+	bool TlsSetValue(
 		std::uint32_t a_tlsIndex,
 		void* a_tlsValue) noexcept
 	{
@@ -286,7 +282,7 @@ namespace F4SE::WinAPI
 				static_cast<::LPVOID>(a_tlsValue)));
 	}
 
-	bool(VirtualFree)(
+	bool VirtualFree(
 		void* a_address,
 		std::size_t a_size,
 		std::uint32_t a_freeType) noexcept
@@ -298,7 +294,7 @@ namespace F4SE::WinAPI
 				static_cast<::DWORD>(a_freeType)));
 	}
 
-	bool(VerQueryValue)(
+	bool VerQueryValue(
 		const void* a_block,
 		const char* a_subBlock,
 		void** a_buffer,
@@ -312,7 +308,7 @@ namespace F4SE::WinAPI
 				static_cast<::PUINT>(a_len)));
 	}
 
-	bool(VerQueryValue)(
+	bool VerQueryValue(
 		const void* a_block,
 		const wchar_t* a_subBlock,
 		void** a_buffer,
@@ -326,7 +322,7 @@ namespace F4SE::WinAPI
 				static_cast<::PUINT>(a_len)));
 	}
 
-	bool(VirtualProtect)(
+	bool VirtualProtect(
 		void* a_address,
 		std::size_t a_size,
 		std::uint32_t a_newProtect,
@@ -360,5 +356,4 @@ namespace F4SE::WinAPI
 			static_cast<::LPCCH>(a_defaultChar),
 			static_cast<::LPBOOL>(a_usedDefaultChar));
 	}
-
 }

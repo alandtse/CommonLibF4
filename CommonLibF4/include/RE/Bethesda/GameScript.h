@@ -4,6 +4,7 @@
 #include "RE/Bethesda/BSFixedString.h"
 #include "RE/Bethesda/BSLock.h"
 #include "RE/Bethesda/BSScript.h"
+#include "RE/Bethesda/BSStorage.h"
 #include "RE/Bethesda/BSTEvent.h"
 #include "RE/Bethesda/BSTFreeList.h"
 #include "RE/Bethesda/BSTHashMap.h"
@@ -13,10 +14,14 @@
 #include "RE/Bethesda/BSTTuple.h"
 #include "RE/Bethesda/BSTimer.h"
 #include "RE/Bethesda/MemoryManager.h"
+#include "RE/Bethesda/TESFile.h"
 #include "RE/NetImmerse/NiSmartPointer.h"
 
 namespace RE
 {
+	template <class F>
+	using BSTThreadScrapFunction = msvc::function<F>;
+
 	namespace BSScript
 	{
 		class IStore;
@@ -24,7 +29,7 @@ namespace RE
 		class IVMDebugInterface;
 		class IVMSaveLoadInterface;
 		class Object;
-
+		struct IHandleReaderWriter;
 		struct StatsEvent;
 	}
 
@@ -669,5 +674,44 @@ namespace RE
 			REL::Relocation<func_t> func{ REL::ID(81787) };
 			return func(a_scriptObj, a_cobj, a_vm);
 		}
+
+		class __declspec(novtable) BaseHandleReaderWriter :
+			public RE::BSScript::IHandleReaderWriter
+		{
+		public:
+			inline static constexpr auto RTTI = { RTTI::GameScript__BaseHandleReaderWriter };
+			inline static constexpr auto VTABLE = { VTABLE::GameScript__BaseHandleReaderWriter };
+
+			~BaseHandleReaderWriter() override;                                                       // 0
+			virtual std::uint16_t GetHandleVersion() const override;                                  // 142D8E390
+			virtual bool WriteHandle(BSStorage& storage, std::uint64_t) const override;               // 142D8E398
+			virtual bool ReadHandle(BSStorage const& storage, std::uint64_t&) const override;         // 142D8E3A0
+			virtual bool ReadHandleNoRemap(BSStorage const& storage, std::uint64_t&) const override;  // 142D8E3A8
+
+			virtual bool WriteFormID(BSStorage& storage, std::uint32_t) const = 0;        // 142D8E3B0
+			virtual bool ReadFormID(const BSStorage& storage, std::uint32_t&) const = 0;  // 142D8E3B8
+
+			// members
+			BSScript::IObjectHandlePolicy* objectHandlePolicy;  //08
+		};
+		static_assert(sizeof(BaseHandleReaderWriter) == 0x10);
+		class DataFileHandleReaderWriter :
+			public BaseHandleReaderWriter
+		{
+		public:
+			inline static constexpr auto RTTI = { RTTI::GameScript__DataFileHandleReaderWriter };
+			inline static constexpr auto VTABLE = { VTABLE::GameScript__DataFileHandleReaderWriter };
+
+			~DataFileHandleReaderWriter() override;  // 0
+			//DataFileHandleReaderWriter(TESFile *f, BSScript::IObjectHandlePolicy * objectHandlePolicy);
+			virtual bool WriteFormID(BSStorage& storage, std::uint32_t) const override;        // 142D8E3B0
+			virtual bool ReadFormID(const BSStorage& storage, std::uint32_t&) const override;  // 142D8E3B8
+
+			// members
+			TESFile* file;  //10
+		};
+		static_assert(sizeof(DataFileHandleReaderWriter) == 0x18);
+
 	}
+
 }

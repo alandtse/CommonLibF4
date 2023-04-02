@@ -112,7 +112,7 @@ namespace RE
 		static_assert(sizeof(FreeTreeNode) == 0x40);
 
 		// NOLINTNEXTLINE(modernize-use-equals-default)
-		~ScrapHeap() override { WinAPI::VirtualFree(baseAddress, 0, (WinAPI::MEM_RELEASE)); }  // 00
+		~ScrapHeap() override { WinAPI::VirtualFree(baseAddress, 0, (MEM_RELEASE)); }  // 00
 
 		// override (IMemoryStore)
 		std::size_t Size(void const* a_mem) const override { return *static_cast<const std::size_t*>(a_mem) & ~(std::size_t{ 3 } << 62); }  // 01
@@ -289,7 +289,11 @@ namespace RE
 
 	[[nodiscard]] inline void* calloc(std::size_t a_num, std::size_t a_size)
 	{
-		return malloc(a_num * a_size);
+		const auto ret = malloc(a_num * a_size);
+		if (ret) {
+			std::memset(ret, 0, a_num * a_size);
+		}
+		return ret;
 	}
 
 	template <class T>

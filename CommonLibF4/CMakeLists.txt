@@ -1,34 +1,47 @@
 cmake_minimum_required(VERSION 3.21)
 
 option(F4SE_SUPPORT_XBYAK "Enables trampoline support for Xbyak." OFF)
-option(BUILD_FALLOUTVR "Build for Fallout 4 VR" OFF)
+option(ENABLE_FALLOUT_F4 "Enable support for Fallout 4 in the dynamic runtime feature." ON)
+option(ENABLE_FALLOUT_VR "Enable support for Fallout 4 VR in the dynamic runtime feature." ON)
+option(BUILD_TESTS "Enable building of the unit tests." OFF)
+message("Options:")
+message("\tEnable Xbyak: ${F4SE_SUPPORT_XBYAK}")
+message("\tEnable Fallout 4: ${ENABLE_FALLOUT_F4}")
+message("\tEnable Fallout 4 VR: ${ENABLE_FALLOUT_VR}")
+message("\tBuild Tests: ${BUILD_TESTS}")
+
+if(NOT ENABLE_FALLOUT_F4 AND NOT ENABLE_FALLOUT_VR)
+	message(FATAL_ERROR "At least one Fallout runtime must be supported by the COMMONLIBF4 build.")
+endif()
 
 project(
 	CommonLibF4
 	LANGUAGES CXX
+	VERSION 1.0.0
 )
-if (NOT BUILD_FALLOUTVR)
-else()
-	add_compile_definitions(FALLOUTVR)
-endif()
 
+include(CheckIPOSupported)
 include(GNUInstallDirs)
 
 if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
 	message(FATAL_ERROR "in-source builds are not allowed")
 endif()
 
-find_package(Boost MODULE REQUIRED)
-find_package(binary_io REQUIRED CONFIG)
-find_package(mmio REQUIRED CONFIG)
+find_path(RAPIDCSV_INCLUDE_DIRS "rapidcsv.h")
 find_package(spdlog REQUIRED CONFIG)
 
 include(cmake/sourcelist.cmake)
+# include(cmake/testlist.cmake)
 
 source_group(
 	TREE "${CMAKE_CURRENT_SOURCE_DIR}"
 	FILES ${SOURCES}
 )
+
+check_ipo_supported(RESULT USE_IPO OUTPUT IPO_OUTPUT)
+if(USE_IPO)
+	set(CMAKE_INTERPROCEDURAL_OPTIMIZATION "$<$<CONFIG:RELEASE>:ON>")
+endif()
 
 add_library(
 	"${PROJECT_NAME}"
@@ -43,10 +56,12 @@ add_library("${PROJECT_NAME}::${PROJECT_NAME}" ALIAS "${PROJECT_NAME}")
 target_compile_definitions(
 	"${PROJECT_NAME}"
 	PUBLIC
-		BOOST_STL_INTERFACES_DISABLE_CONCEPTS
-		WINVER=0x0601	# windows 7, minimum supported version by fallout 4
+		WINVER=0x0601	# windows 7, minimum supported version by Fallout
 		_WIN32_WINNT=0x0601
 		"$<$<BOOL:${F4SE_SUPPORT_XBYAK}>:F4SE_SUPPORT_XBYAK=1>"
+		"$<$<BOOL:${ENABLE_FALLOUT_F4}>:ENABLE_FALLOUT_F4=1>"
+		"$<$<BOOL:${ENABLE_FALLOUT_VR}>:ENABLE_FALLOUT_VR=1>"
+		HAS_FALLOUT_MULTI_TARGETING=1
 )
 
 target_compile_features(
@@ -58,15 +73,15 @@ target_compile_features(
 if (MSVC)
 	target_compile_options(
 		"${PROJECT_NAME}"
-		PRIVATE
+		PUBLIC
 			# warnings -> errors
 			/we4715	# 'function' : not all control paths return a value
 
 			# disable warnings
+			/wd4005 # macro redefinition
 			/wd4061 # enumerator 'identifier' in switch of enum 'enumeration' is not explicitly handled by a case label
 			/wd4200 # nonstandard extension used : zero-sized array in struct/union
 			/wd4201 # nonstandard extension used : nameless struct/union
-			/wd4264 # 'virtual_function' : no override available for virtual member function from base 'class'; function is hidden
 			/wd4265 # 'type': class has virtual functions, but its non-trivial destructor is not virtual; instances of this class may not be destructed correctly
 			/wd4266 # 'function' : no override available for virtual member function from base 'type'; function is hidden
 			/wd4324 # 'struct_name' : structure was padded due to __declspec(align())
@@ -77,7 +92,6 @@ if (MSVC)
 			/wd4623 # 'derived class' : default constructor was implicitly defined as deleted because a base class default constructor is inaccessible or deleted
 			/wd4625 # 'derived class' : copy constructor was implicitly defined as deleted because a base class copy constructor is inaccessible or deleted
 			/wd4626 # 'derived class' : assignment operator was implicitly defined as deleted because a base class assignment operator is inaccessible or deleted
-			/wd4686 # 'user-defined type' : possible change in behavior, change in UDT return calling convention
 			/wd4710 # 'function' : function not inlined
 			/wd4711 # function 'function' selected for inline expansion
 			/wd4820 # 'bytes' bytes padding added after construct 'member_name'
@@ -97,12 +111,20 @@ target_include_directories(
 		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
+target_include_directories(
+	"${PROJECT_NAME}"
+	PRIVATE
+		${RAPIDCSV_INCLUDE_DIRS}
+)
+
+target_compile_definitions(
+	"${PROJECT_NAME}"
+	PUBLIC
+)
+
 target_link_libraries(
 	"${PROJECT_NAME}"
 	PUBLIC
-		binary_io::binary_io
-		Boost::headers
-		mmio::mmio
 		spdlog::spdlog
 		Version.lib
 )
@@ -137,8 +159,62 @@ install(
 
 install(
 	DIRECTORY
-		"include/F4SE"
 		"include/RE"
 		"include/REL"
+		"include/F4SE"
 	DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
 )
+
+if(BUILD_TESTS)
+	find_package(Catch2 CONFIG REQUIRED)
+	include(CTest)
+	include(Catch)
+
+	add_executable(
+		"${PROJECT_NAME}Tests"
+			${TESTS}
+	)
+
+	target_include_directories(
+		"${PROJECT_NAME}Tests"
+		PUBLIC
+			"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+			"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+	)
+
+	target_include_directories(
+		"${PROJECT_NAME}Tests"
+		PRIVATE
+			${Catch2_INCLUDE_DIRS}
+			${fmt_INCLUDE_DIRS}
+			${spdlog_INCLUDE_DIRS}
+			${RAPIDCSV_INCLUDE_DIRS}
+	)
+
+	target_compile_definitions(
+		"${PROJECT_NAME}Tests"
+		PUBLIC
+			ENABLE_COMMONLIBF4_TESTING=1
+	)
+
+	target_link_libraries(
+		"${PROJECT_NAME}Tests"
+		PRIVATE
+			${PROJECT_NAME}
+			Catch2::Catch2
+	)
+
+	target_precompile_headers(
+		"${PROJECT_NAME}Tests"
+		PRIVATE
+			include/F4SE/Impl/PCH.h
+	)
+
+	file(COPY
+			tests/REL/version-1-2-72-0.csv
+		 DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/Data/F4SE/Plugins/"
+	)
+
+	catch_discover_tests("${PROJECT_NAME}Tests")
+	add_test(NAME "${PROJECT_NAME}Tests" COMMAND "${PROJECT_NAME}Tests")
+endif()

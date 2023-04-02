@@ -1,19 +1,43 @@
 {
-  "name": "umbrella",
-  "version-string": "1",
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+  "name": "commonlibf4",
+  "version-semver": "1.0.0",
+  "port-version": 0,
+  "description": "A reverse engineered resource for developing F4SE plugins for Fallout 4",
+  "homepage": "https://github.com/alandtse/CommonLibF4",
+  "license": "MIT",
   "supports": "windows & x64",
   "dependencies": [
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    },
     "args",
     "boost-stl-interfaces",
-    "catch2",
     "fmt",
     "frozen",
-    "mmio",
     "nowide",
+    "rapidcsv",
     "robin-hood-hashing",
     "rsm-binary-io",
+    "rsm-mmio",
     "spdlog",
     "srell",
     "xbyak"
+  ],
+  "vcpkg-configuration": {
+    "overlay-ports": [ "./cmake/ports/" ]
+  },
+
+  "features": {
+    "tests": {
+      "description": "Build tests for CommonLibF4.",
+      "dependencies": [
+        "catch2"
+      ]
+    }
+  },
+  "default-features": [
+    "tests"
   ]
 }

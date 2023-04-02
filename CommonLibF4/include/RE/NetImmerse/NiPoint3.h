@@ -24,6 +24,11 @@ namespace RE
 			return reinterpret_cast<const_pointer>(std::addressof(x))[a_pos];
 		}
 
+		[[nodiscard]] bool operator==(const NiPoint3& a_rhs) const
+		{
+			return (x == a_rhs.x && y == a_rhs.y && z == a_rhs.z);
+		}
+
 		// members
 		value_type x{ 0.0F };  // 0
 		value_type y{ 0.0F };  // 4

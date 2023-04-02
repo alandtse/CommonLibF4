@@ -620,6 +620,8 @@ namespace RE
 		virtual void InitDefaultWornImpl(bool a_weapon, bool a_allowChanges);                                                                                                                                                                         // C4
 		virtual bool HasKeywordHelper(const BGSKeyword* a_keyword, const TBO_InstanceData* a_data) const;                                                                                                                                             // C5
 
+		static TESObjectREFR* FindReferenceFor3D(NiAVObject* a_object3D);
+
 		bool ActivateRef(TESObjectREFR* a_actionRef, TESBoundObject* a_objectToGet, std::int32_t a_count, bool a_defaultProcessingOnly, bool a_fromScript, bool a_looping)
 		{
 			using func_t = decltype(&TESObjectREFR::ActivateRef);
@@ -658,6 +660,13 @@ namespace RE
 			if (inventoryList) {
 				inventoryList->FindAndWriteStackDataForItem(a_object, a_compareFunc, a_writeFunc, a_objCompFn, a_alwaysContinue);
 			}
+		}
+
+		[[nodiscard]] BGSLocation* GetCurrentLocation() const
+		{
+			using func_t = decltype(&TESObjectREFR::GetCurrentLocation);
+			REL::Relocation<func_t> func{ REL::ID(1135470) };
+			return func(this);
 		}
 
 		[[nodiscard]] TESBoundObject* GetObjectReference() const noexcept { return data.objectReference; }
@@ -717,6 +726,13 @@ namespace RE
 		{
 			using func_t = decltype(&TESObjectREFR::IsCrimeToActivate);
 			REL::Relocation<func_t> func{ REL::ID(836011) };
+			return func(this);
+		}
+
+		[[nodiscard]] bool IsInWater()
+		{
+			using func_t = decltype(&TESObjectREFR::IsInWater);
+			REL::Relocation<func_t> func{ REL::ID(315318) };
 			return func(this);
 		}
 

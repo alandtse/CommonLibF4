@@ -1,123 +1,753 @@
 {
+  "version": 3,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 21,
+    "patch": 0
+  },
   "configurePresets": [
     {
-      "binaryDir": "${sourceDir}/build",
+      "name": "common",
+      "hidden": true,
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": {
-          "type": "STRING",
-          "value": "Release"
-        }
+        "CMAKE_CXX_FLAGS": "$env{PROJECT_PLATFORM_FLAGS} $env{PROJECT_TEXT_FLAGS} $env{PROJECT_COMPILER_FLAGS} $penv{CXX_FLAGS}"
       },
       "errors": {
         "deprecated": true
       },
-      "hidden": true,
-      "name": "cmake-dev",
       "warnings": {
         "deprecated": true,
         "dev": true
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "intelliSenseMode": "$env{PROJECT_PLATFORM}-$env{PROJECT_COMPILER}-$env{PROJECT_ARCHITECTURE}",
+          "enableMicrosoftCodeAnalysis": true,
+          "enableClangTidyCodeAnalysis": true
+        }
       }
     },
     {
-      "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": {
-          "type": "STRING",
-          "value": "$env{VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake"
-        },
-        "VCPKG_OVERLAY_PORTS": {
-          "type": "STRING",
-          "value": "${sourceDir}/cmake/ports/"
-        }
-      },
+      "name": "architecture-x64",
       "hidden": true,
-      "name": "vcpkg"
+      "environment": {
+        "PROJECT_ARCHITECTURE": "x64"
+      }
     },
     {
-      "cacheVariables": {
-        "Boost_USE_STATIC_LIBS": {
-          "type": "BOOL",
-          "value": "ON"
-        },
-        "Boost_USE_STATIC_RUNTIME": {
-          "type": "BOOL",
-          "value": "OFF"
-        },
-        "CMAKE_EXE_LINKER_FLAGS_RELEASE": {
-          "type": "STRING",
-          "value": "/DEBUG:FASTLINK"
-        },
-        "CMAKE_MSVC_RUNTIME_LIBRARY": {
-          "type": "STRING",
-          "value": "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
-        },
-        "VCPKG_TARGET_TRIPLET": {
-          "type": "STRING",
-          "value": "x64-windows-static-md"
-        }
-      },
+      "name": "buildtype-debug",
       "hidden": true,
-      "name": "windows"
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
     },
     {
-      "binaryDir": "${sourceDir}/buildvr",
-      "cacheVariables": {
-        "BUILD_FALLOUTVR": true
-      },
+      "name": "buildtype-release",
       "hidden": true,
-      "name": "vr"
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
     },
     {
+      "name": "buildtype-relwithdebinfo",
+      "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:anglebrackets /external:W0"
-      },
-      "generator": "Visual Studio 16 2019",
-      "inherits": [
-        "cmake-dev",
-        "vcpkg",
-        "windows"
-      ],
-      "name": "vs2019-windows-vcpkg"
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
     },
     {
+      "name": "buildtype-minsizerel",
+      "hidden": true,
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:W0"
-      },
-      "generator": "Visual Studio 17 2022",
-      "inherits": [
-        "cmake-dev",
-        "vcpkg",
-        "windows"
-      ],
-      "name": "vs2022-windows-vcpkg",
-      "toolset": "v143"
+        "CMAKE_BUILD_TYPE": "MinSizeRel"
+      }
     },
     {
+      "name": "packaging-conan",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/build/generators/conan_toolchain.cmake",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:anglebrackets /external:W0 $penv{CXXFLAGS}"
-      },
-      "generator": "Visual Studio 16 2019",
-      "inherits": [
-        "vr",
-        "cmake-dev",
-        "vcpkg",
-        "windows"
-      ],
-      "name": "vs2019-windows-vcpkg-vr"
+        "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
+        "CONAN_DISABLE_CHECK_COMPILER": "ON",
+        "USE_CONAN": "ON"
+      }
     },
     {
+      "name": "packaging-vcpkg",
+      "hidden": true,
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
       "cacheVariables": {
-        "CMAKE_CXX_FLAGS": "/EHsc /MP /W4 /WX /external:anglebrackets /external:W0 $penv{CXXFLAGS}"
+        "USE_VCPKG": "ON",
+        "VCPKG_HOST_TRIPLET": "$env{PROJECT_ARCHITECTURE}-$env{PROJECT_PLATFORM}-static-md",
+        "VCPKG_TARGET_TRIPLET": "$env{PROJECT_ARCHITECTURE}-$env{PROJECT_PLATFORM}-static-md"
+      }
+    },
+    {
+      "name": "platform-win32",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL"
       },
-      "generator": "Visual Studio 17 2022",
+      "environment": {
+        "PROJECT_PLATFORM_FLAGS": "-DWIN32_LEAN_AND_MEAN -DNOMINMAX",
+        "PROJECT_PLATFORM": "windows"
+      }
+    },
+    {
+      "name": "platform-win32-unicode",
+      "hidden": true,
+      "inherits": "platform-win32",
+      "environment": {
+        "PROJECT_TEXT_FLAGS": "-DUNICODE -D_UNICODE"
+      }
+    },
+    {
+      "name": "generator-ninja",
+      "hidden": true,
+      "generator": "Ninja"
+    },
+    {
+      "name": "compiler-clang",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      },
+      "environment": {
+        "PROJECT_COMPILER": "clang",
+        "PROJECT_COMPILER_FLAGS": "-Wno-overloaded-virtual -Wno-delete-non-abstract-non-virtual-dtor -Wno-inconsistent-missing-override -Wno-reinterpret-base-class -D__cpp_lib_char8_t -D__cpp_consteval -D__cpp_lib_format"
+      }
+    },
+    {
+      "name": "compiler-msvc",
+      "hidden": true,
+      "environment": {
+        "PROJECT_COMPILER_FLAGS": "/permissive- /Zc:preprocessor /EHsc /MP /W4 /WX /external:anglebrackets /external:W0 /bigobj",
+        "PROJECT_COMPILER": "msvc"
+      }
+    },
+    {
+      "name": "compiler-clang-cl",
+      "hidden": true,
+      "inherits": "compiler-clang",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
+      },
+      "environment": {
+        "CC": "clang-cl",
+        "CXX": "clang-cl",
+        "PROJECT_COMPILER_FLAGS": "/permissive- /EHsc /W4 /WX -Wno-overloaded-virtual -Wno-delete-non-abstract-non-virtual-dtor -Wno-inconsistent-missing-override -Wno-reinterpret-base-class -D__cpp_lib_char8_t -D__cpp_consteval -D__cpp_lib_format"
+      }
+    },
+    {
+      "name": "runtimes-all",
+      "hidden": true
+    },
+    {
+      "name": "runtimes-vr",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_FALLOUT_F4": "OFF"
+      }
+    },
+    {
+      "name": "runtimes-flat",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_FALLOUT_VR": "OFF"
+      }
+    },
+    {
+      "name": "runtimes-se",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_FALLOUT_VR": "OFF"
+      }
+    },
+    {
+      "name": "runtimes-current",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_FALLOUT_F4": "OFF"
+      }
+    },
+    {
+      "name": "build-debug-msvc-vcpkg-all",
       "inherits": [
-        "vr",
-        "cmake-dev",
-        "vcpkg",
-        "windows"
+        "buildtype-debug",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-msvc",
+        "packaging-vcpkg",
+        "runtimes-all",
+        "common"
       ],
-      "name": "vs2022-windows-vcpkg-vr",
-      "toolset": "v143"
+      "binaryDir": "${sourceDir}/build/debug-msvc-vcpkg-all"
+    },
+    {
+      "name": "build-debug-clang-cl-vcpkg-all",
+      "inherits": [
+        "buildtype-debug",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-clang-cl",
+        "packaging-vcpkg",
+        "runtimes-all",
+        "common"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-vcpkg-all"
+    },
+    {
+      "name": "build-debug-msvc-vcpkg-flat",
+      "inherits": [
+        "build-debug-msvc-vcpkg-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-vcpkg-flat"
+    },
+    {
+      "name": "build-debug-clang-cl-vcpkg-flat",
+      "inherits": [
+        "build-debug-clang-cl-vcpkg-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-vcpkg-flat"
+    },
+    {
+      "name": "build-debug-msvc-vcpkg-vr",
+      "inherits": [
+        "build-debug-msvc-vcpkg-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-vcpkg-vr"
+    },
+    {
+      "name": "build-debug-clang-cl-vcpkg-vr",
+      "inherits": [
+        "build-debug-clang-cl-vcpkg-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-vcpkg-vr"
+    },
+    {
+      "name": "build-debug-msvc-vcpkg-f4",
+      "inherits": [
+        "build-debug-msvc-vcpkg-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-vcpkg-f4"
+    },
+    {
+      "name": "build-debug-clang-cl-vcpkg-f4",
+      "inherits": [
+        "build-debug-clang-cl-vcpkg-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-vcpkg-f4"
+    },
+    {
+      "name": "build-debug-msvc-vcpkg-current",
+      "inherits": [
+        "build-debug-msvc-vcpkg-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-vcpkg-current"
+    },
+    {
+      "name": "build-debug-clang-cl-vcpkg-current",
+      "inherits": [
+        "build-debug-clang-cl-vcpkg-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-vcpkg-current"
+    },
+    {
+      "name": "build-release-msvc-vcpkg-all",
+      "inherits": [
+        "buildtype-release",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-msvc",
+        "packaging-vcpkg",
+        "runtimes-all",
+        "common"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-vcpkg-all"
+    },
+    {
+      "name": "build-release-clang-cl-vcpkg-all",
+      "inherits": [
+        "buildtype-release",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-clang-cl",
+        "packaging-vcpkg",
+        "runtimes-all",
+        "common"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-vcpkg-all"
+    },
+    {
+      "name": "build-release-msvc-vcpkg-flat",
+      "inherits": [
+        "build-release-msvc-vcpkg-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-vcpkg-flat"
+    },
+    {
+      "name": "build-release-clang-cl-vcpkg-flat",
+      "inherits": [
+        "build-release-clang-cl-vcpkg-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-vcpkg-flat"
+    },
+    {
+      "name": "build-release-msvc-vcpkg-vr",
+      "inherits": [
+        "build-release-msvc-vcpkg-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-vcpkg-vr"
+    },
+    {
+      "name": "build-release-clang-cl-vcpkg-vr",
+      "inherits": [
+        "build-release-clang-cl-vcpkg-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-vcpkg-vr"
+    },
+    {
+      "name": "build-release-msvc-vcpkg-f4",
+      "inherits": [
+        "build-release-msvc-vcpkg-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-vcpkg-f4"
+    },
+    {
+      "name": "build-release-clang-cl-vcpkg-f4",
+      "inherits": [
+        "build-release-clang-cl-vcpkg-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-vcpkg-f4"
+    },
+    {
+      "name": "build-release-msvc-vcpkg-current",
+      "inherits": [
+        "build-release-msvc-vcpkg-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-vcpkg-current"
+    },
+    {
+      "name": "build-release-clang-cl-vcpkg-current",
+      "inherits": [
+        "build-release-clang-cl-vcpkg-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-vcpkg-current"
+    },
+    {
+      "name": "build-debug-msvc-conan-all",
+      "inherits": [
+        "buildtype-debug",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-msvc",
+        "packaging-conan",
+        "runtimes-all",
+        "common"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-conan-all"
+    },
+    {
+      "name": "build-debug-clang-cl-conan-all",
+      "inherits": [
+        "buildtype-debug",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-clang-cl",
+        "packaging-conan",
+        "runtimes-all",
+        "common"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-conan-all"
+    },
+    {
+      "name": "build-debug-msvc-conan-flat",
+      "inherits": [
+        "build-debug-msvc-conan-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-conan-flat"
+    },
+    {
+      "name": "build-debug-clang-cl-conan-flat",
+      "inherits": [
+        "build-debug-clang-cl-conan-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-conan-flat"
+    },
+    {
+      "name": "build-debug-msvc-conan-vr",
+      "inherits": [
+        "build-debug-msvc-conan-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-conan-vr"
+    },
+    {
+      "name": "build-debug-clang-cl-conan-vr",
+      "inherits": [
+        "build-debug-clang-cl-conan-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-conan-vr"
+    },
+    {
+      "name": "build-debug-msvc-conan-f4",
+      "inherits": [
+        "build-debug-msvc-conan-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-conan-f4"
+    },
+    {
+      "name": "build-debug-clang-cl-conan-f4",
+      "inherits": [
+        "build-debug-clang-cl-conan-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-conan-f4"
+    },
+    {
+      "name": "build-debug-msvc-conan-current",
+      "inherits": [
+        "build-debug-msvc-conan-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-msvc-conan-current"
+    },
+    {
+      "name": "build-debug-clang-cl-conan-current",
+      "inherits": [
+        "build-debug-clang-cl-conan-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/debug-clang-cl-conan-current"
+    },
+    {
+      "name": "build-release-msvc-conan-all",
+      "inherits": [
+        "buildtype-release",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-msvc",
+        "packaging-conan",
+        "runtimes-all",
+        "common"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-conan-all"
+    },
+    {
+      "name": "build-release-clang-cl-conan-all",
+      "inherits": [
+        "buildtype-release",
+        "architecture-x64",
+        "platform-win32-unicode",
+        "generator-ninja",
+        "compiler-clang-cl",
+        "packaging-conan",
+        "runtimes-all",
+        "common"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-conan-all"
+    },
+    {
+      "name": "build-release-msvc-conan-flat",
+      "inherits": [
+        "build-release-msvc-conan-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-conan-flat"
+    },
+    {
+      "name": "build-release-clang-cl-conan-flat",
+      "inherits": [
+        "build-release-clang-cl-conan-all",
+        "runtimes-flat"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-conan-flat"
+    },
+    {
+      "name": "build-release-msvc-conan-vr",
+      "inherits": [
+        "build-release-msvc-conan-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-conan-vr"
+    },
+    {
+      "name": "build-release-clang-cl-conan-vr",
+      "inherits": [
+        "build-release-clang-cl-conan-all",
+        "runtimes-vr"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-conan-vr"
+    },
+    {
+      "name": "build-release-msvc-conan-f4",
+      "inherits": [
+        "build-release-msvc-conan-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-conan-f4"
+    },
+    {
+      "name": "build-release-clang-cl-conan-f4",
+      "inherits": [
+        "build-release-clang-cl-conan-all",
+        "runtimes-se"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-conan-f4"
+    },
+    {
+      "name": "build-release-msvc-conan-current",
+      "inherits": [
+        "build-release-msvc-conan-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/release-msvc-conan-current"
+    },
+    {
+      "name": "build-release-clang-cl-conan-current",
+      "inherits": [
+        "build-release-clang-cl-conan-all",
+        "runtimes-current"
+      ],
+      "binaryDir": "${sourceDir}/build/release-clang-cl-conan-current"
     }
   ],
-  "version": 2
+  "buildPresets": [
+    {
+      "name": "debug-msvc-vcpkg-all",
+      "displayName": "Debug (All, MSVC, Vcpkg)",
+      "configurePreset": "build-debug-msvc-vcpkg-all"
+    },
+    {
+      "name": "debug-clang-cl-vcpkg-all",
+      "displayName": "Debug (All, Clang-CL, Vcpkg)",
+      "configurePreset": "build-debug-clang-cl-vcpkg-all"
+    },
+    {
+      "name": "debug-msvc-vcpkg-vr",
+      "displayName": "Debug (VR, MSVC, Vcpkg)",
+      "configurePreset": "build-debug-msvc-vcpkg-vr"
+    },
+    {
+      "name": "debug-clang-cl-vcpkg-vr",
+      "displayName": "Debug (VR, Clang-CL, Vcpkg)",
+      "configurePreset": "build-debug-clang-cl-vcpkg-vr"
+    },
+    {
+      "name": "debug-msvc-vcpkg-flat",
+      "displayName": "Debug (flat, MSVC, Vcpkg)",
+      "configurePreset": "build-debug-msvc-vcpkg-flat"
+    },
+    {
+      "name": "debug-clang-cl-vcpkg-flat",
+      "displayName": "Debug (flat, Clang-CL, Vcpkg)",
+      "configurePreset": "build-debug-clang-cl-vcpkg-flat"
+    },
+    {
+      "name": "debug-msvc-vcpkg-f4",
+      "displayName": "Debug (F4, MSVC, Vcpkg)",
+      "configurePreset": "build-debug-msvc-vcpkg-f4"
+    },
+    {
+      "name": "debug-clang-cl-vcpkg-f4",
+      "displayName": "Debug (F4, Clang-CL, Vcpkg)",
+      "configurePreset": "build-debug-clang-cl-vcpkg-f4"
+    },
+    {
+      "name": "release-msvc-vcpkg-all",
+      "displayName": "Release (All, MSVC, Vcpkg)",
+      "configurePreset": "build-release-msvc-vcpkg-all"
+    },
+    {
+      "name": "release-clang-cl-vcpkg-all",
+      "displayName": "Release (All, Clang-CL, Vcpkg)",
+      "configurePreset": "build-release-clang-cl-vcpkg-all"
+    },
+    {
+      "name": "release-msvc-vcpkg-vr",
+      "displayName": "Release (VR, MSVC, Vcpkg)",
+      "configurePreset": "build-release-msvc-vcpkg-vr"
+    },
+    {
+      "name": "release-clang-cl-vcpkg-vr",
+      "displayName": "Release (VR, Clang-CL, Vcpkg)",
+      "configurePreset": "build-release-clang-cl-vcpkg-vr"
+    },
+    {
+      "name": "release-msvc-vcpkg-flat",
+      "displayName": "Release (flat, MSVC, Vcpkg)",
+      "configurePreset": "build-release-msvc-vcpkg-flat"
+    },
+    {
+      "name": "release-clang-cl-vcpkg-flat",
+      "displayName": "Release (flat, Clang-CL, Vcpkg)",
+      "configurePreset": "build-release-clang-cl-vcpkg-flat"
+    },
+    {
+      "name": "release-msvc-vcpkg-f4",
+      "displayName": "Release (F4, MSVC, Vcpkg)",
+      "configurePreset": "build-release-msvc-vcpkg-f4"
+    },
+    {
+      "name": "release-clang-cl-vcpkg-f4",
+      "displayName": "Release (F4, Clang-CL, Vcpkg)",
+      "configurePreset": "build-release-clang-cl-vcpkg-f4"
+    },
+    {
+      "name": "debug-msvc-conan-all",
+      "displayName": "Debug (All, MSVC, Conan)",
+      "configurePreset": "build-debug-msvc-conan-all"
+    },
+    {
+      "name": "debug-clang-cl-conan-all",
+      "displayName": "Debug (All, Clang-CL, Conan)",
+      "configurePreset": "build-debug-clang-cl-conan-all"
+    },
+    {
+      "name": "debug-msvc-conan-vr",
+      "displayName": "Debug (VR, MSVC, Conan)",
+      "configurePreset": "build-debug-msvc-conan-vr"
+    },
+    {
+      "name": "debug-clang-cl-conan-vr",
+      "displayName": "Debug (VR, Clang-CL, Conan)",
+      "configurePreset": "build-debug-clang-cl-conan-vr"
+    },
+    {
+      "name": "debug-msvc-conan-flat",
+      "displayName": "Debug (flat, MSVC, Conan)",
+      "configurePreset": "build-debug-msvc-conan-flat"
+    },
+    {
+      "name": "debug-clang-cl-conan-flat",
+      "displayName": "Debug (flat, Clang-CL, Conan)",
+      "configurePreset": "build-debug-clang-cl-conan-flat"
+    },
+    {
+      "name": "debug-msvc-conan-f4",
+      "displayName": "Debug (F4, MSVC, Conan)",
+      "configurePreset": "build-debug-msvc-conan-f4"
+    },
+    {
+      "name": "debug-clang-cl-conan-f4",
+      "displayName": "Debug (F4, Clang-CL, Conan)",
+      "configurePreset": "build-debug-clang-cl-conan-f4"
+    },
+    {
+      "name": "release-msvc-conan-all",
+      "displayName": "Release (All, MSVC, Conan)",
+      "configurePreset": "build-release-msvc-conan-all"
+    },
+    {
+      "name": "release-clang-cl-conan-all",
+      "displayName": "Release (All, Clang-CL, Conan)",
+      "configurePreset": "build-release-clang-cl-conan-all"
+    },
+    {
+      "name": "release-msvc-conan-vr",
+      "displayName": "Release (VR, MSVC, Conan)",
+      "configurePreset": "build-release-msvc-conan-vr"
+    },
+    {
+      "name": "release-clang-cl-conan-vr",
+      "displayName": "Release (VR, Clang-CL, Conan)",
+      "configurePreset": "build-release-clang-cl-conan-vr"
+    },
+    {
+      "name": "release-msvc-conan-flat",
+      "displayName": "Release (flat, MSVC, Conan)",
+      "configurePreset": "build-release-msvc-conan-flat"
+    },
+    {
+      "name": "release-clang-cl-conan-flat",
+      "displayName": "Release (flat, Clang-CL, Conan)",
+      "configurePreset": "build-release-clang-cl-conan-flat"
+    },
+    {
+      "name": "release-msvc-conan-f4",
+      "displayName": "Release (F4, MSVC, Conan)",
+      "configurePreset": "build-release-msvc-conan-f4"
+    },
+    {
+      "name": "release-clang-cl-conan-f4",
+      "displayName": "Release (F4, Clang-CL, Conan)",
+      "configurePreset": "build-release-clang-cl-conan-f4"
+    }
+  ],
+  "testPresets": [
+    {
+      "name": "all",
+      "displayName": "All Tests",
+      "configurePreset": "build-debug-msvc-vcpkg-all",
+      "output": {
+        "outputOnFailure": true
+      },
+      "execution": {
+        "noTestsAction": "error",
+        "stopOnFailure": false
+      }
+    },
+    {
+      "name": "unit",
+      "displayName": "Unit Tests",
+      "description": "Runs tests that do not require any Fallout module loaded into the process.",
+      "inherits": "all",
+      "filter": {
+        "exclude": {
+          "label": "[integration],[e2e]"
+        }
+      }
+    },
+    {
+      "name": "integration",
+      "displayName": "Integration Tests",
+      "description": "Runs tests that interact with a Fallout module at rest (do not require the Fallout module to have run any main function).",
+      "inherits": "all",
+      "filter": {
+        "include": {
+          "label": "[integration]"
+        }
+      }
+    },
+    {
+      "name": "e2e",
+      "displayName": "End-to-End Tests",
+      "description": "Runs test that depend on a fully running Fallout engine in the process.",
+      "inherits": "all",
+      "filter": {
+        "include": {
+          "label": "[e2e]"
+        }
+      }
+    }
+  ]
 }

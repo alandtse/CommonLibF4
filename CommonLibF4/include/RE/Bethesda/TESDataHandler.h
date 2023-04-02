@@ -100,18 +100,24 @@ namespace RE
 			return reinterpret_cast<BSTArray<T*>&>(formArrays[stl::to_underlying(T::FORM_ID)]);
 		}
 
-		TESForm* LookupForm(std::uint32_t a_rawFormID, std::string_view a_modName)
+		std::uint32_t LookupFormID(std::uint32_t a_rawFormID, std::string_view a_modName)
 		{
 			auto file = LookupModByName(a_modName);
 			if (!file || file->compileIndex == 0xFF) {
-				return nullptr;
+				return 0;
 			}
 
 			std::uint32_t formID = file->compileIndex << 24;
 			formID += file->smallFileCompileIndex << 12;
 			formID += a_rawFormID;
 
-			return TESForm::GetFormByID(formID);
+			return formID;
+		}
+
+		TESForm* LookupForm(std::uint32_t a_rawFormID, std::string_view a_modName)
+		{
+			auto formID = LookupFormID(a_rawFormID, a_modName);
+			return formID != 0 ? TESForm::GetFormByID(formID) : nullptr;
 		}
 
 		template <class T>

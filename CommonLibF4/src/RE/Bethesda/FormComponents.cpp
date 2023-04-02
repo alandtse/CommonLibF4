@@ -15,6 +15,45 @@ namespace RE
 		}
 	}
 
+	bool BGSKeywordForm::ContainsKeywordString(std::string_view a_editorID) const
+	{
+		if (keywords) {
+			for (std::uint32_t idx = 0; idx < numKeywords; ++idx) {
+				if (keywords[idx] && keywords[idx]->formEditorID.contains(a_editorID)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	bool BGSKeywordForm::HasKeywordID(std::uint32_t a_formID) const
+	{
+		if (keywords) {
+			for (std::uint32_t idx = 0; idx < numKeywords; ++idx) {
+				if (keywords[idx] && keywords[idx]->formID == a_formID) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	bool BGSKeywordForm::HasKeywordString(std::string_view a_editorID) const
+	{
+		if (keywords) {
+			for (std::uint32_t idx = 0; idx < numKeywords; ++idx) {
+				if (keywords[idx] && keywords[idx]->formEditorID == a_editorID) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	std::string_view TESFullName::GetFullName(const TESForm& a_form, bool a_strict)
 	{
 		if (const auto fullName = a_form.As<TESFullName>(); fullName) {

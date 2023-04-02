@@ -82,7 +82,7 @@ namespace F4SE
 
 			set_trampoline(mem, a_size,
 				[](void* a_mem, std::size_t) {
-					WinAPI::VirtualFree(a_mem, 0, (WinAPI::MEM_RELEASE));
+					WinAPI::VirtualFree(a_mem, 0, (MEM_RELEASE));
 				});
 		}
 

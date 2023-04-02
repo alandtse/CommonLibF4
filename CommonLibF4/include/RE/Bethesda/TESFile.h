@@ -78,10 +78,25 @@ namespace RE
 	public:
 		struct InteriorCellOffsetDataStruct;
 
+		enum class RecordFlag
+		{
+			kNone = 0,
+			kMaster = 1 << 0,
+			kAltered = 1 << 1,
+			kChecked = 1 << 2,
+			kActive = 1 << 3,
+			kOptimizedFile = 1 << 4,
+			kTempIDOwner = 1 << 5,
+			kDelocalized = 1 << 7,
+			kPrecalcDataOnly = 1 << 8,
+			kSmallFile = 1 << 9
+		};
+
 		[[nodiscard]] std::uint8_t GetCompileIndex() const noexcept { return compileIndex; }
 		[[nodiscard]] std::string_view GetFilename() const noexcept { return { filename }; }
 		[[nodiscard]] std::uint16_t GetSmallFileCompileIndex() const noexcept { return smallFileCompileIndex; }
 		[[nodiscard]] bool IsActive() const noexcept { return GetCompileIndex() != 0xFF; }
+		[[nodiscard]] bool IsLight() const noexcept { return flags.all(RecordFlag::kSmallFile); };
 
 		[[nodiscard]] bool CloseTES(bool a_forceClose)
 		{
@@ -100,6 +115,17 @@ namespace RE
 		[[nodiscard]] bool GetChunkData(char* a_data)
 		{
 			return GetChunkData(a_data, 0);
+		}
+
+		[[nodiscard]] bool IsFormInMod(std::uint32_t a_formID) const
+		{
+			if (!IsLight() && (a_formID >> 24) == compileIndex) {
+				return true;
+			}
+			if (IsLight() && (a_formID >> 24) == 0xFE && ((a_formID & 0x00FFF000) >> 12) == smallFileCompileIndex) {
+				return true;
+			}
+			return false;
 		}
 
 		[[nodiscard]] std::uint32_t GetTESChunk()
@@ -174,12 +200,12 @@ namespace RE
 		bool hasGroups;                                                  // 300
 		BSSystemFile::Info fileInfo;                                     // 308
 		FILE_HEADER fileHeaderInfo;                                      // 328
-		std::uint32_t flags;                                             // 334
+		stl::enumeration<RecordFlag, std::uint32_t> flags;               // 334
 		BSSimpleList<char*> masters;                                     // 338
 		BSSimpleList<_ULARGE_INTEGER*> mastersData;                      // 348
 		std::uint32_t masterCount;                                       // 358
 		TESFile** masterPtrs;                                            // 360
-		_FILETIME deletedFormTime;                                       // 368
+		F4SE::WinAPI::_FILETIME deletedFormTime;                         // 368
 		std::uint8_t compileIndex;                                       // 370
 		std::uint16_t smallFileCompileIndex;                             // 372
 		BSStringT<char> createdBy;                                       // 378

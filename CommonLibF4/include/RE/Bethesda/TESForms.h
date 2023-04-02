@@ -16,6 +16,7 @@
 #include "RE/Bethesda/Movement.h"
 #include "RE/Bethesda/Settings.h"
 #include "RE/Bethesda/TESCondition.h"
+#include "RE/Bethesda/TESFile.h"
 #include "RE/NetImmerse/NiColor.h"
 #include "RE/NetImmerse/NiFlags.h"
 #include "RE/NetImmerse/NiPoint2.h"
@@ -24,6 +25,7 @@
 
 namespace RE
 {
+	struct TESRegionList;
 	class TESForm;
 	class TESObject;
 	class TESBoundObject;
@@ -473,7 +475,6 @@ namespace RE
 	class QueuedFile;
 	class QueuedPromoteLocationReferencesTask;
 	class TBO_InstanceData;
-	class TESFile;
 	class TESPackageData;
 	class TESRegionDataList;
 	class TESRegionPointList;
@@ -805,7 +806,25 @@ namespace RE
 		[[nodiscard]] std::uint32_t GetFormFlags() const noexcept { return formFlags; }
 		[[nodiscard]] std::uint32_t GetFormID() const noexcept { return formID; }
 		[[nodiscard]] ENUM_FORM_ID GetFormType() const noexcept { return *formType; }
+
+		[[nodiscard]] std::uint32_t GetLocalFormID()
+		{
+			auto file = GetFile(0);
+
+			std::uint32_t fileIndex = file->compileIndex << (3 * 8);
+			fileIndex += file->smallFileCompileIndex << ((1 * 8) + 4);
+
+			return formID & ~fileIndex;
+		}
+
 		[[nodiscard]] bool Is(ENUM_FORM_ID a_type) const noexcept { return GetFormType() == a_type; }
+		template <class... Args>
+
+		[[nodiscard]] bool Is(Args... a_args) const noexcept  //
+			requires(std::same_as<Args, ENUM_FORM_ID>&&...)
+		{
+			return (Is(a_args) || ...);
+		}
 
 		template <class T>
 		[[nodiscard]] bool Is() const noexcept  //
@@ -820,6 +839,16 @@ namespace RE
 		[[nodiscard]] bool IsCreated() const noexcept { return (formID >> (8 * 3)) == 0xFF; }
 		[[nodiscard]] bool IsDeleted() noexcept { return (formFlags & (1u << 5)) != 0; }
 		[[nodiscard]] bool IsInitialized() const noexcept { return (formFlags & (1u << 3)) != 0; }
+
+		[[nodiscard]] bool IsNot(ENUM_FORM_ID a_type) const noexcept { return !Is(a_type); }
+		template <class... Args>
+
+		[[nodiscard]] bool IsNot(Args... a_args) const noexcept  //
+			requires(std::same_as<Args, ENUM_FORM_ID>&&...)
+		{
+			return (IsNot(a_args) && ...);
+		}
+
 		[[nodiscard]] bool IsPlayer() const noexcept { return GetFormID() == 0x00000007; }
 		[[nodiscard]] bool IsPlayerRef() const noexcept { return GetFormID() == 0x00000014; }
 		[[nodiscard]] bool IsWeapon() const noexcept { return Is(ENUM_FORM_ID::kWEAP); }
@@ -1469,6 +1498,13 @@ namespace RE
 			return func(this);
 		}
 
+		[[nodiscard]] TESRegionList* GetRegionList(bool a_createIfMissing)
+		{
+			using func_t = decltype(&TESObjectCELL::GetRegionList);
+			REL::Relocation<func_t> func{ REL::ID(1565031) };
+			return func(this, a_createIfMissing);
+		}
+
 		[[nodiscard]] TESWaterForm* GetWaterType() const noexcept;
 		[[nodiscard]] bool HasWater() const noexcept { return cellFlags.all(Flag::kHasWater); }
 		[[nodiscard]] bool IsExterior() const noexcept { return !IsInterior(); }
@@ -1857,6 +1893,13 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::BGSListForm };
 		static constexpr auto FORM_ID{ ENUM_FORM_ID::kFLST };
 
+		void AddScriptAddedForm(TESForm* a_form)
+		{
+			using func_t = decltype(&BGSListForm::AddScriptAddedForm);
+			REL::Relocation<func_t> func{ REL::ID(1064874) };
+			return func(this, a_form);
+		}
+
 		[[nodiscard]] bool ContainsItem(const TESForm* a_form)
 		{
 			using func_t = decltype(&BGSListForm::ContainsItem);
@@ -2233,6 +2276,9 @@ namespace RE
 			float data;           // 08
 		};
 		static_assert(sizeof(KEYWORD_DATA) == 0x10);
+
+		bool IsChild(const BGSLocation* a_possibleChild) const;
+		bool IsParent(const BGSLocation* a_possibleParent) const;
 
 		// members
 		BGSLocation* parentLoc;                                                 // 050

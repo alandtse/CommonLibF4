@@ -369,6 +369,16 @@ namespace RE
 			REL::Relocation<INISettingCollection**> singleton{ REL::ID(791183) };
 			return *singleton;
 		}
+
+		[[nodiscard]] Setting* GetSetting(std::string_view a_name)
+		{
+			for (auto& setting : settings) {
+				if (setting->GetKey() == a_name) {
+					return setting;
+				}
+			}
+			return nullptr;
+		}
 	};
 	static_assert(sizeof(INISettingCollection) == 0x128);
 
