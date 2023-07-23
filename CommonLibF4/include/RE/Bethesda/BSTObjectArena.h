@@ -120,7 +120,7 @@ namespace RE
 			iterator_base operator++(int) noexcept
 			{
 				iterator_base result = *this;
-				++result;
+				++(*this);
 				return result;
 			}
 

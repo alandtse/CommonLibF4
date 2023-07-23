@@ -283,7 +283,7 @@ namespace F4SE
 			counted_function_iterator operator++(int) noexcept
 			{
 				counted_function_iterator result = *this;
-				++result;
+				++(*this);
 				return result;
 			}
 
