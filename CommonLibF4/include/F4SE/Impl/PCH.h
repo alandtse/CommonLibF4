@@ -243,25 +243,14 @@ namespace F4SE
 		scope_exit(EF) -> scope_exit<EF>;
 
 		template <class F>
-		class counted_function_iterator :
-			public boost::stl_interfaces::iterator_interface<
-				counted_function_iterator<F>,
-				std::input_iterator_tag,
-				std::remove_reference_t<decltype(std::declval<F>()())>>
+		class counted_function_iterator
 		{
-		private:
-			using super =
-				boost::stl_interfaces::iterator_interface<
-					counted_function_iterator<F>,
-					std::input_iterator_tag,
-					std::remove_reference_t<decltype(std::declval<F>()())>>;
-
 		public:
-			using difference_type = typename super::difference_type;
-			using value_type = typename super::value_type;
-			using pointer = typename super::pointer;
-			using reference = typename super::reference;
-			using iterator_category = typename super::iterator_category;
+			using difference_type = std::ptrdiff_t;
+			using value_type = std::remove_const_t<std::remove_reference_t<decltype(std::declval<F>()())>>;
+			using pointer = value_type*;
+			using reference = value_type&;
+			using iterator_category = std::input_iterator_tag;
 
 			counted_function_iterator() noexcept = default;
 
@@ -279,6 +268,11 @@ namespace F4SE
 				return (*_fn)();
 			}
 
+			[[nodiscard]] pointer operator->() const noexcept
+			{
+				return &**this;
+			}
+
 			[[nodiscard]] friend bool operator==(
 				const counted_function_iterator& a_lhs,
 				const counted_function_iterator& a_rhs) noexcept
@@ -286,7 +280,12 @@ namespace F4SE
 				return a_lhs._left == a_rhs._left;
 			}
 
-			using super::operator++;
+			counted_function_iterator operator++(int) noexcept
+			{
+				counted_function_iterator result = *this;
+				++result;
+				return result;
+			}
 
 			void operator++() noexcept
 			{

@@ -57,25 +57,14 @@ namespace RE
 
 	private:
 		template <class U>
-		class iterator_base :
-			public boost::stl_interfaces::iterator_interface<
-				iterator_base<U>,
-				std::forward_iterator_tag,
-				U>
+		class iterator_base
 		{
-		private:
-			using super =
-				boost::stl_interfaces::iterator_interface<
-					iterator_base<U>,
-					std::forward_iterator_tag,
-					U>;
-
 		public:
-			using difference_type = typename super::difference_type;
-			using value_type = typename super::value_type;
-			using pointer = typename super::pointer;
-			using reference = typename super::reference;
-			using iterator_category = typename super::iterator_category;
+			using difference_type = std::ptrdiff_t;
+			using value_type = std::remove_const_t<U>;
+			using pointer = value_type*;
+			using reference = value_type&;
+			using iterator_category = std::forward_iterator_tag;
 
 			iterator_base() noexcept = default;
 
@@ -105,6 +94,11 @@ namespace RE
 				return *std::launder(reinterpret_cast<pointer>(_first));
 			}
 
+			[[nodiscard]] pointer operator->() const noexcept
+			{
+				return &**this;
+			}
+
 			template <class V>
 			[[nodiscard]] bool operator==(const iterator_base<V>& a_rhs) const noexcept
 			{
@@ -117,7 +111,18 @@ namespace RE
 				}
 			}
 
-			using super::operator++;
+			template <class V>
+			[[nodiscard]] bool operator!=(const iterator_base<V>& a_rhs) noexcept
+			{
+				return !(*this == a_rhs);
+			}
+
+			iterator_base operator++(int) noexcept
+			{
+				iterator_base result = *this;
+				++result;
+				return result;
+			}
 
 			void operator++() noexcept
 			{
