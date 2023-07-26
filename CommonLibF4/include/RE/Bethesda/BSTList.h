@@ -75,9 +75,22 @@ namespace RE
 				return get()->value;
 			}
 
-			[[nodiscard]] pointer operator->() const noexcept
+			[[nodiscard]] pointer operator->() noexcept
 			{
-				return &**this;
+				return std::pointer_traits<pointer>::pointer_to(operator*());
+			}
+
+			template <class V>
+			[[nodiscard]] bool operator==(const iterator_base<V>& a_rhs) const noexcept
+			{
+				assert(_proxy == a_rhs._proxy);
+				return _cur == a_rhs._cur;
+			}
+
+			template <class V>
+			[[nodiscard]] bool operator!=(const iterator_base<V>& a_rhs) const noexcept
+			{
+				return !operator==(a_rhs);
 			}
 
 			iterator_base& operator++() noexcept
@@ -93,22 +106,9 @@ namespace RE
 
 			iterator_base operator++(int) noexcept
 			{
-				iterator_base result = *this;
-				++(*this);
-				return result;
-			}
-
-			template <class V>
-			[[nodiscard]] bool operator==(const iterator_base<V>& a_rhs) noexcept
-			{
-				assert(_proxy == a_rhs._proxy);
-				return _cur == a_rhs._cur;
-			}
-
-			template <class V>
-			[[nodiscard]] bool operator!=(const iterator_base<V>& a_rhs) noexcept
-			{
-				return !(*this == a_rhs);
+				iterator_base tmp{ *this };
+				operator++();
+				return tmp;
 			}
 
 		protected:

@@ -59,7 +59,7 @@ namespace RE
 
 			[[nodiscard]] pointer operator->() const noexcept
 			{
-				return &**this;
+				return std::pointer_traits<pointer>::pointer_to(operator*());
 			}
 
 			template <class V>
@@ -73,37 +73,39 @@ namespace RE
 			template <class V>
 			[[nodiscard]] bool operator!=(const iterator_base<V>& a_rhs) const noexcept
 			{
-				return !(*this == a_rhs);
+				return !operator==(a_rhs);
 			}
 
-			iterator_base operator++(int) noexcept
-			{
-				iterator_base result = *this;
-				++(*this);
-				return result;
-			}
-
-			void operator++() noexcept
+			iterator_base& operator++() noexcept
 			{
 				assert(validate());
 				do {
 					++_pos;
 				} while (_pos < _tail && !slot_filled());
+				return *this;
 			}
 
-			iterator_base operator--(int) noexcept
+			iterator_base operator++(int) noexcept
 			{
-				iterator_base result = *this;
-				--(*this);
-				return result;
+				iterator_base tmp{ *this };
+				operator++();
+				return tmp;
 			}
 
-			void operator--() noexcept
+			iterator_base& operator--() noexcept
 			{
 				assert(validate());
 				do {
 					--_pos;
 				} while (_head <= _pos && !slot_filled());
+				return *this;
+			}
+
+			iterator_base operator--(int) noexcept
+			{
+				iterator_base tmp{ *this };
+				operator--();
+				return tmp;
 			}
 
 		private:

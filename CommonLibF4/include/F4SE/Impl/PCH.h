@@ -253,9 +253,7 @@ namespace F4SE
 
 			counted_function_iterator() noexcept = default;
 
-			counted_function_iterator(
-				F a_fn,
-				std::size_t a_count) noexcept :
+			counted_function_iterator(F a_fn, std::size_t a_count) noexcept :
 				_fn(std::move(a_fn)),
 				_left(a_count)
 			{}
@@ -267,9 +265,9 @@ namespace F4SE
 				return (*_fn)();
 			}
 
-			[[nodiscard]] pointer operator->() const noexcept
+			[[nodiscard]] pointer operator->() const
 			{
-				return &**this;
+				return std::pointer_traits<pointer>::pointer_to(operator*());
 			}
 
 			[[nodiscard]] friend bool operator==(
@@ -279,17 +277,18 @@ namespace F4SE
 				return a_lhs._left == a_rhs._left;
 			}
 
-			counted_function_iterator operator++(int) noexcept
-			{
-				counted_function_iterator result = *this;
-				++(*this);
-				return result;
-			}
-
-			void operator++() noexcept
+			counted_function_iterator& operator++() noexcept
 			{
 				assert(_left > 0);
 				_left -= 1;
+				return *this;
+			}
+
+			counted_function_iterator operator++(int) noexcept
+			{
+				counted_function_iterator tmp{ *this };
+				operator++();
+				return tmp;
 			}
 
 		private:
