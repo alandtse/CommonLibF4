@@ -60,7 +60,6 @@ static_assert(
 
 #pragma warning(push, 0)
 #include <binary_io/file_stream.hpp>
-#include <boost/stl_interfaces/iterator_interface.hpp>
 #include <boost/stl_interfaces/sequence_container_interface.hpp>
 #include <fmt/format.h>
 #include <mmio/mmio.hpp>
