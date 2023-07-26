@@ -1,7 +1,7 @@
 #pragma once
 
 #ifndef F4SE_TEST_SUITE
-	#include "RE/NetImmerse/NiTCollection.h"
+#	include "RE/NetImmerse/NiTCollection.h"
 #endif
 
 namespace RE

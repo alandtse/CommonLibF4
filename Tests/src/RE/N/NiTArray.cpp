@@ -2,7 +2,7 @@
 
 struct string : std::string
 {
-    operator bool() const noexcept { return this->empty(); }
+	operator bool() const noexcept { return this->empty(); }
 };
 
 TEST_CASE("test object array")
