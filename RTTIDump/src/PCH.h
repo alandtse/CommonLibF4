@@ -12,10 +12,10 @@
 #include <memory>
 #include <span>
 #include <tuple>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
-#include <robin_hood.h>
 #include <srell.hpp>
 
 #ifdef NDEBUG

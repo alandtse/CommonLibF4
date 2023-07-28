@@ -12,7 +12,7 @@ target("RTTIDump")
     add_deps("CommonLibF4")
 
     -- add packages
-    add_packages("robin-hood-hashing", "rsm-binary-io", "spdlog", "srell")
+    add_packages("spdlog", "srell")
 
     -- add source files
     add_files("src/**.cpp")

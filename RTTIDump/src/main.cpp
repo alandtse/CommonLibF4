@@ -354,7 +354,7 @@ void dump_nirtti()
 		34089,    // bhkWorldM
 	};
 	logger::debug("Dumping NiRTTI...");
-	robin_hood::unordered_flat_set<std::uintptr_t> results;
+	std::unordered_set<std::uintptr_t> results;
 	results.reserve(seeds.size());
 	for (const auto& seed : seeds) {
 		results.insert(REL::ID(seed).address());
