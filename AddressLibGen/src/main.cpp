@@ -16,10 +16,10 @@
 #include <sstream>
 #include <string>
 #include <type_traits>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
-#include <robin_hood.h>
 #include <srell.hpp>
 #pragma warning(pop)
 
@@ -145,8 +145,7 @@ using files_t = std::vector<std::tuple<Version, Version, std::filesystem::path>>
 	return results;
 }
 
-using offset_map = robin_hood::unordered_node_map<std::uint64_t, Mapping>;
-//using offset_map = std::unordered_map<std::uint64_t, Mapping>;
+using offset_map = std::unordered_map<std::uint64_t, Mapping>;
 using version_map = std::map<Version, offset_map>;
 
 [[nodiscard]] version_map load_mappings(const files_t& a_files)

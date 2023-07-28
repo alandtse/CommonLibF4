@@ -8,12 +8,10 @@ add_project(
 		"src/main.cpp"
 )
 
-find_package(robin_hood REQUIRED CONFIG)
 find_package(srell MODULE REQUIRED)
 
 target_link_libraries(
 	"${PROJECT_NAME}"
 	PRIVATE
-		robin_hood::robin_hood
 		srell::srell
 )

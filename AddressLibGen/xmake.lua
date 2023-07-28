@@ -6,7 +6,7 @@ target("AddressLibGen")
     set_group("tools")
 
     -- add packages
-    add_packages("robin-hood-hashing", "srell")
+    add_packages("srell")
 
     -- add source files
     add_files("src/**.cpp")

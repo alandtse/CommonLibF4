@@ -18,7 +18,6 @@
     "frozen",
     "nowide",
     "rapidcsv",
-    "robin-hood-hashing",
     "rsm-binary-io",
     "rsm-mmio",
     "spdlog",

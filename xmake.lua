@@ -11,7 +11,7 @@ set_warnings("allextra", "error")
 add_rules("mode.debug", "mode.release")
 
 -- require packages
-add_requires("boost", "catch2", "fmt", "rapidcsv", "robin-hood-hashing", "rsm-binary-io", "rsm-mmio", "srell", "xbyak")
+add_requires("boost", "catch2", "fmt", "rapidcsv", "rsm-binary-io", "rsm-mmio", "srell", "xbyak")
 add_requires("spdlog", { configs = { header_only = false, fmt_external = true } })
 
 -- include subprojects
