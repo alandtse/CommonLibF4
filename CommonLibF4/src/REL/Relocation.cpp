@@ -1,50 +1,5 @@
 #include "REL/Relocation.h"
 
-#define WIN32_LEAN_AND_MEAN
-
-#define NOGDICAPMASKS
-#define NOVIRTUALKEYCODES
-//#define NOWINMESSAGES
-#define NOWINSTYLES
-#define NOSYSMETRICS
-#define NOMENUS
-#define NOICONS
-#define NOKEYSTATES
-#define NOSYSCOMMANDS
-#define NORASTEROPS
-#define NOSHOWWINDOW
-#define OEMRESOURCE
-#define NOATOM
-#define NOCLIPBOARD
-#define NOCOLOR
-//#define NOCTLMGR
-#define NODRAWTEXT
-#define NOGDI
-#define NOKERNEL
-//#define NOUSER
-#define NONLS
-//#define NOMB
-#define NOMEMMGR
-#define NOMETAFILE
-#define NOMINMAX
-//#define NOMSG
-#define NOOPENFILE
-#define NOSCROLL
-#define NOSERVICE
-#define NOSOUND
-#define NOTEXTMETRIC
-#define NOWH
-#define NOWINOFFSETS
-#define NOCOMM
-#define NOKANJI
-#define NOHELP
-#define NOPROFILER
-#define NODEFERWINDOWPOS
-#define NOMCX
-
-#include <Windows.h>
-#include <winreg.h>
-
 namespace REL
 {
 	namespace detail
@@ -53,11 +8,8 @@ namespace REL
 		{
 			close();
 
-			::ULARGE_INTEGER bytes;
-			bytes.QuadPart = a_size;
-
-			_mapping = ::OpenFileMappingW(
-				FILE_MAP_READ | FILE_MAP_WRITE,
+			_mapping = WinAPI::OpenFileMapping(
+				WinAPI::FILE_MAP_READ | WinAPI::FILE_MAP_WRITE,
 				false,
 				a_name.data());
 			if (!_mapping) {
@@ -65,12 +17,12 @@ namespace REL
 				return false;
 			}
 
-			_view = ::MapViewOfFile(
+			_view = WinAPI::MapViewOfFile(
 				_mapping,
-				FILE_MAP_READ | FILE_MAP_WRITE,
+				WinAPI::FILE_MAP_READ | WinAPI::FILE_MAP_WRITE,
 				0,
 				0,
-				bytes.QuadPart);
+				a_size);
 			if (!_view) {
 				close();
 				return false;
@@ -83,32 +35,32 @@ namespace REL
 		{
 			close();
 
-			::ULARGE_INTEGER bytes;
-			bytes.QuadPart = a_size;
+			WinAPI::ULARGE_INTEGER bytes;
+			bytes.quadPart = a_size;
 
-			_mapping = ::OpenFileMappingW(
-				FILE_MAP_READ | FILE_MAP_WRITE,
+			_mapping = WinAPI::OpenFileMapping(
+				WinAPI::FILE_MAP_READ | WinAPI::FILE_MAP_WRITE,
 				false,
 				a_name.data());
 			if (!_mapping) {
-				_mapping = ::CreateFileMappingW(
-					INVALID_HANDLE_VALUE,
+				_mapping = WinAPI::CreateFileMapping(
+					WinAPI::INVALID_HANDLE_VALUE,
 					nullptr,
-					PAGE_READWRITE,
-					bytes.HighPart,
-					bytes.LowPart,
+					WinAPI::PAGE_READWRITE,
+					bytes.highPart,
+					bytes.lowPart,
 					a_name.data());
 				if (!_mapping) {
 					return false;
 				}
 			}
 
-			_view = ::MapViewOfFile(
+			_view = WinAPI::MapViewOfFile(
 				_mapping,
-				FILE_MAP_READ | FILE_MAP_WRITE,
+				WinAPI::FILE_MAP_READ | WinAPI::FILE_MAP_WRITE,
 				0,
 				0,
-				bytes.QuadPart);
+				bytes.quadPart);
 			if (!_view) {
 				return false;
 			}
@@ -119,12 +71,12 @@ namespace REL
 		void memory_map::close()
 		{
 			if (_view) {
-				::UnmapViewOfFile(static_cast<const void*>(_view));
+				WinAPI::UnmapViewOfFile(static_cast<const void*>(_view));
 				_view = nullptr;
 			}
 
 			if (_mapping) {
-				::CloseHandle(_mapping);
+				WinAPI::CloseHandle(_mapping);
 				_mapping = nullptr;
 			}
 		}
@@ -134,24 +86,24 @@ namespace REL
 
 	void Module::load_segments()
 	{
-		auto dosHeader = reinterpret_cast<const IMAGE_DOS_HEADER*>(_base);
-		auto ntHeader = stl::adjust_pointer<IMAGE_NT_HEADERS64>(dosHeader, dosHeader->e_lfanew);
-		const auto* sections = IMAGE_FIRST_SECTION(ntHeader);
-		const auto size = std::min<std::size_t>(ntHeader->FileHeader.NumberOfSections, _segments.size());
+		auto dosHeader = reinterpret_cast<const WinAPI::IMAGE_DOS_HEADER*>(_base);
+		auto ntHeader = stl::adjust_pointer<WinAPI::IMAGE_NT_HEADERS64>(dosHeader, dosHeader->lfanew);
+		const auto* sections = WinAPI::IMAGE_FIRST_SECTION(ntHeader);
+		const auto size = std::min<std::size_t>(ntHeader->fileHeader.numberOfSections, _segments.size());
 		for (std::size_t i = 0; i < size; ++i) {
 			const auto& section = sections[i];
 			const auto it = std::find_if(
 				SEGMENTS.begin(),
 				SEGMENTS.end(),
 				[&](auto&& a_elem) {
-					constexpr auto size = std::extent_v<decltype(section.Name)>;
+					constexpr auto size = std::extent_v<decltype(section.name)>;
 					const auto len = (std::min)(a_elem.first.size(), size);
-					return std::memcmp(a_elem.first.data(), section.Name, len) == 0 &&
-				           (section.Characteristics & a_elem.second) == a_elem.second;
+					return std::memcmp(a_elem.first.data(), section.name, len) == 0 &&
+				           (section.characteristics & a_elem.second) == a_elem.second;
 				});
 			if (it != SEGMENTS.end()) {
 				const auto idx = static_cast<std::size_t>(std::distance(SEGMENTS.begin(), it));
-				_segments[idx] = Segment{ _base, _base + section.VirtualAddress, section.Misc.VirtualSize };
+				_segments[idx] = Segment{ _base, _base + section.virtualAddress, section.misc.virtualSize };
 			}
 		}
 	}
