@@ -1,5 +1,7 @@
 #include "F4SE/Impl/WinAPI.h"
 
+#define WIN32_LEAN_AND_MEAN
+
 // clang-format off
 #include <Windows.h>
 #include <DbgHelp.h>

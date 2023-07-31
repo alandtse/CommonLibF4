@@ -54,7 +54,9 @@ namespace F4SE::WinAPI
 	// memory allocation types
 	inline constexpr auto MEM_COMMIT{ 0x00001000u };
 	inline constexpr auto MEM_RESERVE{ 0x00002000u };
+	inline constexpr auto MEM_DECOMMIT{ 0x00004000u };
 	inline constexpr auto MEM_RELEASE{ 0x00008000u };
+	inline constexpr auto MEM_FREE{ 0x00010000u };
 	inline constexpr auto MEM_RESET{ 0x00080000u };
 	inline constexpr auto MEM_RESET_UNDO{ 0x01000000u };
 
@@ -427,7 +429,6 @@ namespace F4SE::WinAPI
 
 	struct WIN32_FIND_DATAA
 	{
-	public:
 		// members
 		std::uint32_t dwFileAttributes;
 		FILETIME ftCreationTime;
@@ -468,8 +469,8 @@ namespace F4SE::WinAPI
 			{
 				std::uint16_t wProcessorArchitecture;
 				std::uint16_t wReserved;
-			} DUMMYSTRUCTNAME;
-		} DUMMYUNIONNAME;
+			};
+		};
 		std::uint32_t dwPageSize;
 		void* lpMinimumApplicationAddress;
 		void* lpMaximumApplicationAddress;
@@ -485,7 +486,7 @@ namespace F4SE::WinAPI
 	[[nodiscard]] bool CloseHandle(
 		void* a_handle) noexcept;
 
-	[[noreturn]] void CoTaskMemFree(
+	void CoTaskMemFree(
 		void* a_block) noexcept;
 
 	[[nodiscard]] void* CreateFileMapping(
@@ -638,7 +639,7 @@ namespace F4SE::WinAPI
 		void* a_module,
 		const char* a_procName) noexcept;
 
-	[[noreturn]] void GetSystemInfo(
+	void GetSystemInfo(
 		SYSTEM_INFO* a_info) noexcept;
 
 	[[nodiscard]] bool IsDebuggerPresent() noexcept;
@@ -710,10 +711,10 @@ namespace F4SE::WinAPI
 		bool a_inheritHandle,
 		const wchar_t* a_name) noexcept;
 
-	[[noreturn]] void OutputDebugString(
+	void OutputDebugString(
 		const char* a_outputString) noexcept;
 
-	[[noreturn]] void OutputDebugString(
+	void OutputDebugString(
 		const wchar_t* a_outputString) noexcept;
 
 	std::int32_t RegGetValue(

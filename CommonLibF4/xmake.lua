@@ -47,7 +47,7 @@ target("CommonLibF4")
     set_pcxxheader("include/F4SE/Impl/PCH.h")
 
     -- add defines
-    add_defines("WIN32_LEAN_AND_MEAN", "NOMINMAX", "BOOST_STL_INTERFACES_DISABLE_CONCEPTS")
+    add_defines("BOOST_STL_INTERFACES_DISABLE_CONCEPTS")
 
     -- add flags
     add_cxxflags("/permissive-", "cl::/Zc:preprocessor", "cl::/external:W0", "cl::/bigobj")
