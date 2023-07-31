@@ -1,9 +1,11 @@
 #include "F4SE/Impl/WinAPI.h"
 
-#include <DbgHelp.h>
-#include <ShlObj.h>
+// clang-format off
 #include <Windows.h>
+#include <DbgHelp.h>
 #include <objbase.h>
+#include <ShlObj.h>
+// clang-format on
 
 #undef CreateFileMapping
 #undef CreateProcess
