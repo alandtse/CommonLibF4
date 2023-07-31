@@ -30,7 +30,7 @@ target("CommonLibF4")
     add_options("fallout_f4", "fallout_vr", "f4se_xbyak")
 
     -- add system links
-    add_syslinks("dbghelp", "version", "user32", "shell32", "ole32", "advapi32")
+    add_syslinks("advapi32", "dbghelp", "ole32", "shell32", "user32", "version")
 
     -- add source files
     add_files("src/**.cpp")

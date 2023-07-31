@@ -10,32 +10,36 @@ namespace F4SE::WinAPI
 	inline const auto INVALID_HANDLE_VALUE{ reinterpret_cast<void*>(static_cast<std::intptr_t>(-1)) };
 	inline constexpr auto MAX_PATH{ 260u };
 
+	// standard access
+	inline constexpr auto STANDARD_RIGHTS_REQUIRED{ 0x000F0000 };
+	inline constexpr auto STANDARD_RIGHTS_ALL{ 0x001F0000 };
+
 	// code page identifiers
 	inline constexpr auto CP_UTF8{ 65001u };
 
 	// pe image header
-	constexpr auto IMAGE_DOS_SIGNATURE{ 0x5A4Du };
-	constexpr auto IMAGE_NT_SIGNATURE{ 0x00004550u };
-	constexpr auto IMAGE_NT_OPTIONAL_HDR32_MAGIC{ 0x10Bu };
-	constexpr auto IMAGE_NT_OPTIONAL_HDR64_MAGIC{ 0x20Bu };
+	inline constexpr auto IMAGE_DOS_SIGNATURE{ 0x5A4Du };
+	inline constexpr auto IMAGE_NT_SIGNATURE{ 0x00004550u };
+	inline constexpr auto IMAGE_NT_OPTIONAL_HDR32_MAGIC{ 0x10Bu };
+	inline constexpr auto IMAGE_NT_OPTIONAL_HDR64_MAGIC{ 0x20Bu };
 
 	// pe image directory entries
-	constexpr auto IMAGE_DIRECTORY_ENTRY_EXPORT{ 0u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_IMPORT{ 1u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_RESOURCE{ 2u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_EXCEPTION{ 3u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_SECURITY{ 4u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_BASERELOC{ 5u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_DEBUG{ 6u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_ARCHITECTURE{ 7u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_GLOBALPTR{ 8u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_TLS{ 9u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG{ 10u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT{ 11u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_IAT{ 12u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT{ 13u };
-	constexpr auto IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR{ 14u };
-	constexpr auto IMAGE_NUMBEROF_DIRECTORY_ENTRIES{ 16u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_EXPORT{ 0u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_IMPORT{ 1u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_RESOURCE{ 2u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_EXCEPTION{ 3u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_SECURITY{ 4u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_BASERELOC{ 5u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_DEBUG{ 6u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_ARCHITECTURE{ 7u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_GLOBALPTR{ 8u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_TLS{ 9u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG{ 10u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT{ 11u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_IAT{ 12u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT{ 13u };
+	inline constexpr auto IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR{ 14u };
+	inline constexpr auto IMAGE_NUMBEROF_DIRECTORY_ENTRIES{ 16u };
 
 	// pe image ordinal
 	inline constexpr auto IMAGE_ORDINAL_FLAG32{ 0x80000000u };
@@ -63,12 +67,51 @@ namespace F4SE::WinAPI
 	inline constexpr auto PAGE_EXECUTE_READ{ 0x00000020u };
 	inline constexpr auto PAGE_EXECUTE_READWRITE{ 0x00000040u };
 
+	// memory section
+	inline constexpr auto SECTION_QUERY{ 0x00000001 };
+	inline constexpr auto SECTION_MAP_WRITE{ 0x00000002 };
+	inline constexpr auto SECTION_MAP_READ{ 0x00000004 };
+	inline constexpr auto SECTION_MAP_EXECUTE{ 0x00000008 };
+	inline constexpr auto SECTION_EXTEND_SIZE{ 0x00000010 };
+	inline constexpr auto SECTION_MAP_EXECUTE_EXPLICIT{ 0x00000020 };
+	inline constexpr auto SECTION_ALL_ACCESS{
+		STANDARD_RIGHTS_REQUIRED | SECTION_QUERY | SECTION_MAP_WRITE | SECTION_MAP_READ | SECTION_MAP_EXECUTE | SECTION_EXTEND_SIZE
+	};
+
 	// file attributes
 	inline constexpr auto FILE_ATTRIBUTE_READONLY{ 0x00000001u };
 	inline constexpr auto FILE_ATTRIBUTE_HIDDEN{ 0x00000002u };
 	inline constexpr auto FILE_ATTRIBUTE_SYSTEM{ 0x00000004u };
 	inline constexpr auto FILE_ATTRIBUTE_DIRECTORY{ 0x00000010u };
 	inline constexpr auto FILE_ATTRIBUTE_ARCHIVE{ 0x00000020u };
+
+	// file mapping flags
+	inline constexpr auto FILE_MAP_ALL_ACCESS{ SECTION_ALL_ACCESS };
+	inline constexpr auto FILE_MAP_COPY{ 0x00000001u };
+	inline constexpr auto FILE_MAP_WRITE{ 0x00000002u };
+	inline constexpr auto FILE_MAP_READ{ 0x00000004u };
+	inline constexpr auto FILE_MAP_EXECUTE{ 0x00000020u };
+	inline constexpr auto FILE_MAP_LARGE_PAGES{ 0x20000000u };
+	inline constexpr auto FILE_MAP_TARGETS_INVALID{ 0x40000000u };
+	inline constexpr auto FILE_MAP_RESERVE{ 0x80000000u };
+
+	// known folder flags
+	inline constexpr auto KF_FLAG_DEFAULT{ 0x00000000u };
+	inline constexpr auto KF_FLAG_FORCE_APP_DATA_REDIRECTION{ 0x00080000u };
+	inline constexpr auto KF_FLAG_RETURN_FILTER_REDIRECTION_TARGET{ 0x00040000u };
+	inline constexpr auto KF_FLAG_FORCE_PACKAGE_REDIRECTION{ 0x00020000u };
+	inline constexpr auto KF_FLAG_NO_PACKAGE_REDIRECTION{ 0x00010000u };
+	inline constexpr auto KF_FLAG_FORCE_APPCONTAINER_REDIRECTION{ 0x00020000u };
+	inline constexpr auto KF_FLAG_NO_APPCONTAINER_REDIRECTION{ 0x00010000u };
+	inline constexpr auto KF_FLAG_CREATE{ 0x00008000u };
+	inline constexpr auto KF_FLAG_DONT_VERIFY{ 0x00004000u };
+	inline constexpr auto KF_FLAG_DONT_UNEXPAND{ 0x00002000u };
+	inline constexpr auto KF_FLAG_NO_ALIAS{ 0x00001000u };
+	inline constexpr auto KF_FLAG_INIT{ 0x00000800u };
+	inline constexpr auto KF_FLAG_DEFAULT_PATH{ 0x00000400u };
+	inline constexpr auto KF_FLAG_NOT_PARENT_RELATIVE{ 0x00000200u };
+	inline constexpr auto KF_FLAG_SIMPLE_IDLIST{ 0x00000100u };
+	inline constexpr auto KF_FLAG_ALIAS_ONLY{ 0x80000000u };
 
 	// string normalization forms
 	inline constexpr auto NORM_FORM_OTHER{ 0x0 };
@@ -121,6 +164,18 @@ namespace F4SE::WinAPI
 	inline constexpr auto CREATE_PRESERVE_CODE_AUTHZ_LEVEL{ 0x02000000u };
 	inline constexpr auto CREATE_DEFAULT_ERROR_MODE{ 0x04000000u };
 	inline constexpr auto CREATE_NO_WINDOW{ 0x08000000u };
+
+	// symbol name undecoration flags
+	inline constexpr auto UNDNAME_NO_MS_KEYWORDS{ 0x00000002u };
+	inline constexpr auto UNDNAME_NO_FUNCTION_RETURNS{ 0x00000004u };
+	inline constexpr auto UNDNAME_NO_ALLOCATION_MODEL{ 0x00000008u };
+	inline constexpr auto UNDNAME_NO_ALLOCATION_LANGUAGE{ 0x00000010u };
+	inline constexpr auto UNDNAME_NO_THISTYPE{ 0x00000060u };
+	inline constexpr auto UNDNAME_NO_ACCESS_SPECIFIERS{ 0x00000080u };
+	inline constexpr auto UNDNAME_NO_THROW_SIGNATURES{ 0x00000100u };
+	inline constexpr auto UNDNAME_NO_RETURN_UDT_MODEL{ 0x00000400u };
+	inline constexpr auto UNDNAME_NAME_ONLY{ 0x00001000u };
+	inline constexpr auto UNDNAME_NO_ARGUMENTS{ 0x00002000u };
 
 	struct CRITICAL_SECTION
 	{
@@ -292,6 +347,19 @@ namespace F4SE::WinAPI
 	};
 	static_assert(sizeof(IMAGE_THUNK_DATA64) == 0x8);
 
+	struct MEMORY_BASIC_INFORMATION
+	{
+		void* baseAddress;
+		void* allocationBase;
+		std::uint32_t allocationProtect;
+		std::uint16_t partitionId;
+		std::size_t regionSize;
+		std::uint32_t state;
+		std::uint32_t protect;
+		std::uint32_t type;
+	};
+	static_assert(sizeof(MEMORY_BASIC_INFORMATION) == 0x30);
+
 	struct NLSVERSIONINFO;
 
 	struct PROCESS_INFORMATION
@@ -391,11 +459,50 @@ namespace F4SE::WinAPI
 	};
 	static_assert(sizeof(WIN32_FIND_DATAW) == 0x250);
 
+	struct SYSTEM_INFO
+	{
+		union
+		{
+			std::uint32_t dwOemId;
+			struct
+			{
+				std::uint16_t wProcessorArchitecture;
+				std::uint16_t wReserved;
+			} DUMMYSTRUCTNAME;
+		} DUMMYUNIONNAME;
+		std::uint32_t dwPageSize;
+		void* lpMinimumApplicationAddress;
+		void* lpMaximumApplicationAddress;
+		std::uintptr_t dwActiveProcessorMask;
+		std::uint32_t dwNumberOfProcessors;
+		std::uint32_t dwProcessorType;
+		std::uint32_t dwAllocationGranularity;
+		std::uint16_t wProcessorLevel;
+		std::uint16_t wProcessorRevision;
+	};
+	static_assert(sizeof(SYSTEM_INFO) == 0x30);
+
 	[[nodiscard]] bool CloseHandle(
 		void* a_handle) noexcept;
 
 	[[noreturn]] void CoTaskMemFree(
 		void* a_block) noexcept;
+
+	[[nodiscard]] void* CreateFileMapping(
+		void* a_file,
+		SECURITY_ATTRIBUTES* a_mapAttr,
+		std::uint32_t a_protect,
+		std::uint32_t a_maxSizeHigh,
+		std::uint32_t a_maxSizeLow,
+		const char* a_name) noexcept;
+
+	[[nodiscard]] void* CreateFileMapping(
+		void* a_file,
+		SECURITY_ATTRIBUTES* a_mapAttr,
+		std::uint32_t a_protect,
+		std::uint32_t a_maxSizeHigh,
+		std::uint32_t a_maxSizeLow,
+		const wchar_t* a_name) noexcept;
 
 	[[nodiscard]] bool CreateProcess(
 		const char* a_name,
@@ -531,6 +638,9 @@ namespace F4SE::WinAPI
 		void* a_module,
 		const char* a_procName) noexcept;
 
+	[[noreturn]] void GetSystemInfo(
+		SYSTEM_INFO* a_info) noexcept;
+
 	[[nodiscard]] bool IsDebuggerPresent() noexcept;
 
 	[[nodiscard]] std::int32_t LCMapStringEx(
@@ -547,6 +657,21 @@ namespace F4SE::WinAPI
 	[[nodiscard]] HMODULE LoadLibrary(const char* a_fileName) noexcept;
 
 	[[nodiscard]] HMODULE LoadLibrary(const wchar_t* a_fileName) noexcept;
+
+	[[nodiscard]] void* MapViewOfFile(
+		void* a_fileMappingObject,
+		std::uint32_t a_desiredAccess,
+		std::uint32_t a_fileOffsetHigh,
+		std::uint32_t a_fileOffsetLow,
+		std::size_t a_numBytesToMap) noexcept;
+
+	[[nodiscard]] void* MapViewOfFileEx(
+		void* a_fileMappingObject,
+		std::uint32_t a_desiredAccess,
+		std::uint32_t a_fileOffsetHigh,
+		std::uint32_t a_fileOffsetLow,
+		std::size_t a_numBytesToMap,
+		void* a_baseAddress) noexcept;
 
 	std::int32_t MessageBox(
 		void* a_wnd,
@@ -574,6 +699,16 @@ namespace F4SE::WinAPI
 		std::int32_t a_srcLen,
 		wchar_t* a_destStr,
 		std::int32_t a_destLen);
+
+	[[nodiscard]] void* OpenFileMapping(
+		std::uint32_t a_desiredAccess,
+		bool a_inheritHandle,
+		const char* a_name) noexcept;
+
+	[[nodiscard]] void* OpenFileMapping(
+		std::uint32_t a_desiredAccess,
+		bool a_inheritHandle,
+		const wchar_t* a_name) noexcept;
 
 	[[noreturn]] void OutputDebugString(
 		const char* a_outputString) noexcept;
@@ -630,6 +765,25 @@ namespace F4SE::WinAPI
 		std::uint32_t a_tlsIndex,
 		void* a_tlsValue) noexcept;
 
+	[[nodiscard]] std::uint32_t UnDecorateSymbolName(
+		const char* a_name,
+		char* a_outputString,
+		std::uint32_t a_maxStringLength,
+		std::uint32_t a_flags) noexcept;
+
+	[[nodiscard]] std::uint32_t UnDecorateSymbolName(
+		const wchar_t* a_name,
+		wchar_t* a_outputString,
+		std::uint32_t a_maxStringLength,
+		std::uint32_t a_flags) noexcept;
+
+	bool UnmapViewOfFile(
+		const void* a_baseAddress) noexcept;
+
+	bool UnmapViewOfFileEx(
+		void* a_baseAddress,
+		std::uint32_t a_flags) noexcept;
+
 	bool VerQueryValue(
 		const void* a_block,
 		const char* a_subBlock,
@@ -678,6 +832,17 @@ namespace F4SE::WinAPI
 		std::size_t a_size,
 		std::uint32_t a_newProtect,
 		std::uint32_t* a_oldProtect) noexcept;
+
+	std::size_t VirtualQuery(
+		const void* a_address,
+		MEMORY_BASIC_INFORMATION* a_buffer,
+		std::size_t a_bufferLen) noexcept;
+
+	std::size_t VirtualQueryEx(
+		void* a_process,
+		const void* a_address,
+		MEMORY_BASIC_INFORMATION* a_buffer,
+		std::size_t a_bufferLen) noexcept;
 
 	[[nodiscard]] std::uint32_t WaitForSingleObject(
 		void* a_handle,

@@ -1,9 +1,11 @@
 #include "F4SE/Impl/WinAPI.h"
 
 #include <Windows.h>
+#include <DbgHelp.h>
 #include <objbase.h>
 #include <ShlObj.h>
 
+#undef CreateFileMapping
 #undef CreateProcess
 #undef FindFirstFile
 #undef FindNextFile
@@ -16,6 +18,7 @@
 #undef GetPrivateProfileString
 #undef LoadLibrary
 #undef MessageBox
+#undef OpenFileMapping
 #undef OutputDebugString
 #undef RegGetValue
 #undef RegQueryValueEx
@@ -39,6 +42,42 @@ namespace F4SE::WinAPI
 	{
 		::CoTaskMemFree(
 			static_cast<::LPVOID>(a_block));
+	}
+
+	void* CreateFileMapping(
+		void* a_file,
+		SECURITY_ATTRIBUTES* a_mapAttr,
+		std::uint32_t a_protect,
+		std::uint32_t a_maxSizeHigh,
+		std::uint32_t a_maxSizeLow,
+		const char* a_name) noexcept
+	{
+		return static_cast<void*>(
+			::CreateFileMappingA(
+				static_cast<::HANDLE>(a_file),
+				reinterpret_cast<::LPSECURITY_ATTRIBUTES>(a_mapAttr),
+				static_cast<::DWORD>(a_protect),
+				static_cast<::DWORD>(a_maxSizeHigh),
+				static_cast<::DWORD>(a_maxSizeLow),
+				static_cast<::LPCSTR>(a_name)));
+	}
+
+	void* CreateFileMapping(
+		void* a_file,
+		SECURITY_ATTRIBUTES* a_mapAttr,
+		std::uint32_t a_protect,
+		std::uint32_t a_maxSizeHigh,
+		std::uint32_t a_maxSizeLow,
+		const wchar_t* a_name) noexcept
+	{
+		return static_cast<void*>(
+			::CreateFileMappingW(
+				static_cast<::HANDLE>(a_file),
+				reinterpret_cast<::LPSECURITY_ATTRIBUTES>(a_mapAttr),
+				static_cast<::DWORD>(a_protect),
+				static_cast<::DWORD>(a_maxSizeHigh),
+				static_cast<::DWORD>(a_maxSizeLow),
+				static_cast<::LPCWSTR>(a_name)));
 	}
 
 	bool CreateProcess(
@@ -365,6 +404,13 @@ namespace F4SE::WinAPI
 				static_cast<::LPCSTR>(a_procName)));
 	}
 
+	void GetSystemInfo(
+		SYSTEM_INFO* a_info) noexcept
+	{
+		::GetSystemInfo(
+			reinterpret_cast<::LPSYSTEM_INFO>(a_info));
+	}
+
 	bool IsDebuggerPresent() noexcept
 	{
 		return static_cast<bool>(
@@ -394,18 +440,54 @@ namespace F4SE::WinAPI
 			static_cast<::LPARAM>(a_sortHandle));
 	}
 
-	HMODULE LoadLibrary(const char* a_fileName) noexcept
+	HMODULE LoadLibrary(
+		const char* a_fileName) noexcept
 	{
 		return reinterpret_cast<HMODULE>(
 			::LoadLibraryA(
 				static_cast<::LPCSTR>(a_fileName)));
 	}
 
-	HMODULE LoadLibrary(const wchar_t* a_fileName) noexcept
+	HMODULE LoadLibrary(
+		const wchar_t* a_fileName) noexcept
 	{
 		return reinterpret_cast<HMODULE>(
 			::LoadLibraryW(
 				static_cast<::LPCWSTR>(a_fileName)));
+	}
+
+	void* MapViewOfFile(
+		void* a_fileMappingObject,
+		std::uint32_t a_desiredAccess,
+		std::uint32_t a_fileOffsetHigh,
+		std::uint32_t a_fileOffsetLow,
+		std::size_t a_numBytesToMap) noexcept
+	{
+		return static_cast<void*>(
+			::MapViewOfFile(
+				static_cast<::LPVOID>(a_fileMappingObject),
+				static_cast<::DWORD>(a_desiredAccess),
+				static_cast<::DWORD>(a_fileOffsetHigh),
+				static_cast<::DWORD>(a_fileOffsetLow),
+				static_cast<::SIZE_T>(a_numBytesToMap)));
+	}
+
+	void* MapViewOfFileEx(
+		void* a_fileMappingObject,
+		std::uint32_t a_desiredAccess,
+		std::uint32_t a_fileOffsetHigh,
+		std::uint32_t a_fileOffsetLow,
+		std::size_t a_numBytesToMap,
+		void* a_baseAddress) noexcept
+	{
+		return static_cast<void*>(
+			::MapViewOfFileEx(
+				static_cast<::LPVOID>(a_fileMappingObject),
+				static_cast<::DWORD>(a_desiredAccess),
+				static_cast<::DWORD>(a_fileOffsetHigh),
+				static_cast<::DWORD>(a_fileOffsetLow),
+				static_cast<::SIZE_T>(a_numBytesToMap),
+				static_cast<::LPVOID>(a_baseAddress)));
 	}
 
 	std::int32_t MessageBox(
@@ -466,6 +548,30 @@ namespace F4SE::WinAPI
 			a_srcLen,
 			static_cast<::LPWSTR>(a_destStr),
 			a_destLen);
+	}
+
+	void* OpenFileMapping(
+		std::uint32_t a_desiredAccess,
+		bool a_inheritHandle,
+		const char* a_name) noexcept
+	{
+		return static_cast<void*>(
+			::OpenFileMappingA(
+				static_cast<::DWORD>(a_desiredAccess),
+				static_cast<::BOOL>(a_inheritHandle),
+				static_cast<::LPCSTR>(a_name)));
+	}
+
+	void* OpenFileMapping(
+		std::uint32_t a_desiredAccess,
+		bool a_inheritHandle,
+		const wchar_t* a_name) noexcept
+	{
+		return static_cast<void*>(
+			::OpenFileMappingW(
+				static_cast<::DWORD>(a_desiredAccess),
+				static_cast<::BOOL>(a_inheritHandle),
+				static_cast<::LPCWSTR>(a_name)));
 	}
 
 	void OutputDebugString(
@@ -600,6 +706,52 @@ namespace F4SE::WinAPI
 				static_cast<::LPVOID>(a_tlsValue)));
 	}
 
+	bool UnmapViewOfFile(
+		const void* a_baseAddress) noexcept
+	{
+		return static_cast<bool>(
+			::UnmapViewOfFile(
+				static_cast<::LPCVOID>(a_baseAddress)));
+	}
+
+	std::uint32_t UnDecorateSymbolName(
+		const char* a_name,
+		char* a_outputString,
+		std::uint32_t a_maxStringLength,
+		std::uint32_t a_flags) noexcept
+	{
+		return static_cast<std::uint32_t>(
+			::UnDecorateSymbolName(
+				static_cast<::PCSTR>(a_name),
+				static_cast<::PSTR>(a_outputString),
+				static_cast<::DWORD>(a_maxStringLength),
+				static_cast<::DWORD>(a_flags)));
+	}
+
+	std::uint32_t UnDecorateSymbolName(
+		const wchar_t* a_name,
+		wchar_t* a_outputString,
+		std::uint32_t a_maxStringLength,
+		std::uint32_t a_flags) noexcept
+	{
+		return static_cast<std::uint32_t>(
+			::UnDecorateSymbolNameW(
+				static_cast<::PCWSTR>(a_name),
+				static_cast<::PWSTR>(a_outputString),
+				static_cast<::DWORD>(a_maxStringLength),
+				static_cast<::DWORD>(a_flags)));
+	}
+
+	bool UnmapViewOfFileEx(
+		void* a_baseAddress,
+		std::uint32_t a_flags) noexcept
+	{
+		return static_cast<bool>(
+			::UnmapViewOfFileEx(
+				static_cast<::PVOID>(a_baseAddress),
+				static_cast<::ULONG>(a_flags)));
+	}
+
 	bool VerQueryValue(
 		const void* a_block,
 		const char* a_subBlock,
@@ -712,6 +864,32 @@ namespace F4SE::WinAPI
 				static_cast<::SIZE_T>(a_size),
 				static_cast<::DWORD>(a_newProtect),
 				reinterpret_cast<::PDWORD>(a_oldProtect)));
+	}
+
+	std::size_t VirtualQuery(
+		const void* a_address,
+		MEMORY_BASIC_INFORMATION* a_buffer,
+		std::size_t a_bufferLen) noexcept
+	{
+		return static_cast<std::size_t>(
+			::VirtualQuery(
+				static_cast<::LPCVOID>(a_address),
+				reinterpret_cast<::PMEMORY_BASIC_INFORMATION>(a_buffer),
+				static_cast<::SIZE_T>(a_bufferLen)));
+	}
+
+	std::size_t VirtualQueryEx(
+		void* a_process,
+		const void* a_address,
+		MEMORY_BASIC_INFORMATION* a_buffer,
+		std::size_t a_bufferLen) noexcept
+	{
+		return static_cast<std::size_t>(
+			::VirtualQueryEx(
+				static_cast<::HANDLE>(a_process),
+				static_cast<::LPCVOID>(a_address),
+				reinterpret_cast<::PMEMORY_BASIC_INFORMATION>(a_buffer),
+				static_cast<::SIZE_T>(a_bufferLen)));
 	}
 
 	std::uint32_t WaitForSingleObject(

@@ -129,6 +129,7 @@ target_link_libraries(
 		spdlog::spdlog
 		mmio::mmio
 		Version.lib
+		Dbghelp.lib
 )
 
 target_precompile_headers(
