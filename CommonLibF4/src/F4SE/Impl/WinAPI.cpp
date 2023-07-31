@@ -1,8 +1,8 @@
 #include "F4SE/Impl/WinAPI.h"
 
+#include <DbgHelp.h>
 #include <ShlObj.h>
 #include <Windows.h>
-#include <DbgHelp.h>
 #include <objbase.h>
 
 #undef CreateFileMapping
