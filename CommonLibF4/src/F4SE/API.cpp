@@ -159,8 +159,8 @@ namespace F4SE
 	void AllocTrampoline(std::size_t a_size) noexcept
 	{
 		auto& trampoline = GetTrampoline();
-		const auto interface = GetTrampolineInterface();
-		const auto mem = interface ? interface->AllocateFromBranchPool(a_size) : nullptr;
+		const auto intfc = GetTrampolineInterface();
+		const auto mem = intfc ? intfc->AllocateFromBranchPool(a_size) : nullptr;
 		if (mem) {
 			trampoline.set_trampoline(mem, a_size);
 		} else {
