@@ -48,9 +48,9 @@ namespace RE::BSResource
 	{
 	public:
 		// members
-		F4SE::WinAPI::_FILETIME modifyTime;  // 00
-		F4SE::WinAPI::_FILETIME createTime;  // 08
-		std::uint64_t fileSize;              // 10
+		F4SE::WinAPI::FILETIME modifyTime;  // 00
+		F4SE::WinAPI::FILETIME createTime;  // 08
+		std::uint64_t fileSize;             // 10
 	};
 	static_assert(sizeof(Info) == 0x18);
 }

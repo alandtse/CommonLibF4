@@ -1,60 +1,162 @@
 #pragma once
 
-#undef CP_UTF8
-#undef IMAGE_SCN_MEM_EXECUTE
-#undef IMAGE_SCN_MEM_WRITE
-#undef INVALID_HANDLE_VALUE
-#undef MAX_PATH
-#undef MEM_COMMIT
-#undef MEM_RESERVE
-#undef MEM_RELEASE
-#undef PAGE_EXECUTE_READWRITE
-#undef HKEY_LOCAL_MACHINE
-
-#undef GetEnvironmentVariable
-#undef GetFileVersionInfoSize
-#undef GetModuleFileName
-#undef VerQueryValue
-#undef GetFileVersionInfo
-#undef GetModuleHandle
-#undef LoadLibrary
-#undef MessageBox
-#undef OutputDebugString
+#ifdef _INC_WINAPIFAMILY
+#	error Windows API detected. Please move any Windows API includes after CommonLibF4, or remove them.
+#else
 
 namespace F4SE::WinAPI
 {
-	inline constexpr auto CP_UTF8{ static_cast<unsigned int>(65001) };
-	inline constexpr auto IMAGE_SCN_MEM_EXECUTE{ static_cast<std::uint32_t>(0x20000000) };
-	inline constexpr auto IMAGE_SCN_MEM_WRITE{ static_cast<std::uint32_t>(0x80000000) };
+	// general constants
 	inline const auto INVALID_HANDLE_VALUE{ reinterpret_cast<void*>(static_cast<std::intptr_t>(-1)) };
-	inline constexpr auto MAX_PATH{ static_cast<std::uint32_t>(260) };
-	inline constexpr auto MEM_COMMIT{ static_cast<std::uint32_t>(0x00001000) };
-	inline constexpr auto MEM_RESERVE{ static_cast<std::uint32_t>(0x00002000) };
-	inline constexpr auto MEM_RELEASE{ static_cast<std::uint32_t>(0x00008000) };
-	inline constexpr auto PAGE_EXECUTE_READWRITE{ static_cast<std::uint32_t>(0x40) };
+	inline constexpr auto MAX_PATH{ 260u };
+
+	// code page identifiers
+	inline constexpr auto CP_UTF8{ 65001u };
+
+	// pe image header
+	constexpr auto IMAGE_DOS_SIGNATURE{ 0x5A4Du };
+	constexpr auto IMAGE_NT_SIGNATURE{ 0x00004550u };
+	constexpr auto IMAGE_NT_OPTIONAL_HDR32_MAGIC{ 0x10Bu };
+	constexpr auto IMAGE_NT_OPTIONAL_HDR64_MAGIC{ 0x20Bu };
+
+	// pe image directory entries
+	constexpr auto IMAGE_DIRECTORY_ENTRY_EXPORT{ 0u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_IMPORT{ 1u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_RESOURCE{ 2u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_EXCEPTION{ 3u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_SECURITY{ 4u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_BASERELOC{ 5u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_DEBUG{ 6u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_ARCHITECTURE{ 7u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_GLOBALPTR{ 8u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_TLS{ 9u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_LOAD_CONFIG{ 10u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_BOUND_IMPORT{ 11u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_IAT{ 12u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_DELAY_IMPORT{ 13u };
+	constexpr auto IMAGE_DIRECTORY_ENTRY_COM_DESCRIPTOR{ 14u };
+	constexpr auto IMAGE_NUMBEROF_DIRECTORY_ENTRIES{ 16u };
+
+	// pe image ordinal
+	inline constexpr auto IMAGE_ORDINAL_FLAG32{ 0x80000000u };
+	inline constexpr auto IMAGE_ORDINAL_FLAG64{ 0x8000000000000000ull };
+
+	// pe image section header characteristics
+	inline constexpr auto IMAGE_SCN_MEM_SHARED{ 0x10000000u };
+	inline constexpr auto IMAGE_SCN_MEM_EXECUTE{ 0x20000000u };
+	inline constexpr auto IMAGE_SCN_MEM_READ{ 0x40000000u };
+	inline constexpr auto IMAGE_SCN_MEM_WRITE{ 0x80000000u };
+
+	// memory allocation types
+	inline constexpr auto MEM_COMMIT{ 0x00001000u };
+	inline constexpr auto MEM_RESERVE{ 0x00002000u };
+	inline constexpr auto MEM_RELEASE{ 0x00008000u };
+	inline constexpr auto MEM_RESET{ 0x00080000u };
+	inline constexpr auto MEM_RESET_UNDO{ 0x01000000u };
+
+	// memory page protection attributes
+	inline constexpr auto PAGE_NOACCESS{ 0x00000001u };
+	inline constexpr auto PAGE_READONLY{ 0x00000002u };
+	inline constexpr auto PAGE_READWRITE{ 0x00000004u };
+	inline constexpr auto PAGE_WRITECOPY{ 0x00000008u };
+	inline constexpr auto PAGE_EXECUTE{ 0x00000010u };
+	inline constexpr auto PAGE_EXECUTE_READ{ 0x00000020u };
+	inline constexpr auto PAGE_EXECUTE_READWRITE{ 0x00000040u };
+
+	// file attributes
+	inline constexpr auto FILE_ATTRIBUTE_READONLY{ 0x00000001u };
+	inline constexpr auto FILE_ATTRIBUTE_HIDDEN{ 0x00000002u };
+	inline constexpr auto FILE_ATTRIBUTE_SYSTEM{ 0x00000004u };
+	inline constexpr auto FILE_ATTRIBUTE_DIRECTORY{ 0x00000010u };
+	inline constexpr auto FILE_ATTRIBUTE_ARCHIVE{ 0x00000020u };
+
+	// string normalization forms
+	inline constexpr auto NORM_FORM_OTHER{ 0x0 };
+	inline constexpr auto NORM_FORM_C{ 0x1 };
+	inline constexpr auto NORM_FORM_D{ 0x2 };
+	inline constexpr auto NORM_FORM_KC{ 0x5 };
+	inline constexpr auto NORM_FORM_KD{ 0x6 };
+
+	// locale map flags
+	inline constexpr auto LCMAP_LOWERCASE{ 0x00000100u };
+	inline constexpr auto LCMAP_UPPERCASE{ 0x00000200u };
+	inline constexpr auto LCMAP_TITLECASE{ 0x00000300u };
+	inline constexpr auto LCMAP_SORTKEY{ 0x00000400u };
+	inline constexpr auto LCMAP_BYTEREV{ 0x00000800u };
+	inline constexpr auto LCMAP_HIRAGANA{ 0x00100000u };
+	inline constexpr auto LCMAP_KATAKANA{ 0x00200000u };
+	inline constexpr auto LCMAP_HALFWIDTH{ 0x00400000u };
+	inline constexpr auto LCMAP_FULLWIDTH{ 0x00800000u };
+	inline constexpr auto LCMAP_LINGUISTIC_CASING{ 0x01000000u };
+	inline constexpr auto LCMAP_SIMPLIFIED_CHINESE{ 0x02000000u };
+	inline constexpr auto LCMAP_TRADITIONAL_CHINESE{ 0x04000000u };
+
+	// locale names
+	inline constexpr auto LOCALE_NAME_USER_DEFAULT{ nullptr };
+	inline constexpr auto LOCALE_NAME_INVARIANT{ L"" };
+	inline constexpr auto LOCALE_NAME_SYSTEM_DEFAULT{ L"!x-sys-default-locale" };
+
+	// process creation flags
+	inline constexpr auto DEBUG_PROCESS{ 0x00000001u };
+	inline constexpr auto DEBUG_ONLY_THIS_PROCESS{ 0x00000002u };
+	inline constexpr auto CREATE_SUSPENDED{ 0x00000004u };
+	inline constexpr auto DETACHED_PROCESS{ 0x00000008u };
+	inline constexpr auto CREATE_NEW_CONSOLE{ 0x00000010u };
+	inline constexpr auto NORMAL_PRIORITY_CLASS{ 0x00000020u };
+	inline constexpr auto IDLE_PRIORITY_CLASS{ 0x00000040u };
+	inline constexpr auto HIGH_PRIORITY_CLASS{ 0x00000080u };
+	inline constexpr auto REALTIME_PRIORITY_CLASS{ 0x00000100u };
+	inline constexpr auto CREATE_NEW_PROCESS_GROUP{ 0x00000200u };
+	inline constexpr auto CREATE_UNICODE_ENVIRONMENT{ 0x00000400u };
+	inline constexpr auto CREATE_FORCEDOS{ 0x00002000u };
+	inline constexpr auto BELOW_NORMAL_PRIORITY_CLASS{ 0x00004000u };
+	inline constexpr auto ABOVE_NORMAL_PRIORITY_CLASS{ 0x00008000u };
+	inline constexpr auto INHERIT_PARENT_AFFINITY{ 0x00010000u };
+	inline constexpr auto CREATE_PROTECTED_PROCESS{ 0x00040000u };
+	inline constexpr auto EXTENDED_STARTUPINFO_PRESENT{ 0x00080000u };
+	inline constexpr auto PROCESS_MODE_BACKGROUND_BEGIN{ 0x00100000u };
+	inline constexpr auto PROCESS_MODE_BACKGROUND_END{ 0x00200000u };
+	inline constexpr auto CREATE_SECURE_PROCESS{ 0x00400000 };
+	inline constexpr auto CREATE_BREAKAWAY_FROM_JOB{ 0x01000000u };
+	inline constexpr auto CREATE_PRESERVE_CODE_AUTHZ_LEVEL{ 0x02000000u };
+	inline constexpr auto CREATE_DEFAULT_ERROR_MODE{ 0x04000000u };
+	inline constexpr auto CREATE_NO_WINDOW{ 0x08000000u };
 
 	struct CRITICAL_SECTION
 	{
 	public:
 		// members
-		void* DebugInfo;              // 00
-		std::int32_t LockCount;       // 08
-		std::int32_t RecursionCount;  // 0C
-		void* OwningThread;           // 10
-		void* LockSemaphore;          // 18
-		std::uint64_t* SpinCount;     // 20
+		void* debugInfo;              // 00
+		std::int32_t lockCount;       // 08
+		std::int32_t recursionCount;  // 0C
+		void* owningThread;           // 10
+		void* lockSemaphore;          // 18
+		std::uint64_t* spinCount;     // 20
 	};
 	static_assert(sizeof(CRITICAL_SECTION) == 0x28);
 
-	struct _FILETIME
+	struct FILETIME
 	{
 	public:
 		// members
 		std::uint32_t dwLowDateTime;   // 00
 		std::uint32_t dwHighDateTime;  // 04
 	};
-	static_assert(sizeof(_FILETIME) == 0x8);
-	using FILETIME = _FILETIME;
+	static_assert(sizeof(FILETIME) == 0x8);
+
+	struct GUID
+	{
+		std::uint32_t data1;
+		std::uint16_t data2;
+		std::uint16_t data3;
+		std::uint8_t  data4[8];
+	};
+	static_assert(sizeof(GUID) == 0x10);
+
+	// known folder ids
+	inline constexpr GUID FOLDERID_Documents{ 0xFDD39AD0u, 0x238Fu, 0x46AFu, 0xADu, 0xB4u, 0x6Cu, 0x85u, 0x48u, 0x03u, 0x69u, 0xC7u };
+	inline constexpr GUID FOLDERID_Pictures{ 0x33E28130u, 0x4E1Eu, 0x4676u, 0x83u, 0x5Au, 0x98u, 0x39u, 0x5Cu, 0x3Bu, 0xC3u, 0xBBu };
+	inline constexpr GUID FOLDERID_ProgramData{ 0x62AB5D82u, 0xFDC1u, 0x4DC3u, 0xA9u, 0xDDu, 0x07u, 0x0Du, 0x1Du, 0x49u, 0x5Du, 0x97u };
 
 	struct HWND__;
 	using HWND = HWND__*;
@@ -66,9 +168,196 @@ namespace F4SE::WinAPI
 	struct HKEY__;
 	using HKEY = HKEY__*;
 
-	inline auto HKEY_LOCAL_MACHINE = reinterpret_cast<HKEY>(static_cast<uintptr_t>(0x80000002));
+	inline auto HKEY_CLASSES_ROOT{ reinterpret_cast<HKEY>(0x80000000ull) };
+	inline auto HKEY_CURRENT_USER{ reinterpret_cast<HKEY>(0x80000001ull) };
+	inline auto HKEY_LOCAL_MACHINE{ reinterpret_cast<HKEY>(0x80000002ull) };
 
-	struct _WIN32_FIND_DATAA
+	struct IMAGE_DATA_DIRECTORY
+	{
+		std::uint32_t virtualAddress;
+		std::uint32_t size;
+	};
+	static_assert(sizeof(IMAGE_DATA_DIRECTORY) == 0x8);
+
+	struct IMAGE_DOS_HEADER
+	{
+		std::uint16_t magic;
+		std::uint16_t cblp;
+		std::uint16_t cp;
+		std::uint16_t crlc;
+		std::uint16_t cparhdr;
+		std::uint16_t minalloc;
+		std::uint16_t maxalloc;
+		std::uint16_t ss;
+		std::uint16_t sp;
+		std::uint16_t csum;
+		std::uint16_t ip;
+		std::uint16_t cs;
+		std::uint16_t lfarlc;
+		std::uint16_t ovno;
+		std::uint16_t res[4];
+		std::uint16_t oemid;
+		std::uint16_t oeminfo;
+		std::uint16_t res2[10];
+		std::int32_t lfanew;
+	};
+	static_assert(sizeof(IMAGE_DOS_HEADER) == 0x40);
+
+	struct IMAGE_FILE_HEADER
+	{
+		std::uint16_t machine;
+		std::uint16_t numberOfSections;
+		std::uint32_t timeDateStamp;
+		std::uint32_t pointerToSymbolTable;
+		std::uint32_t numberOfSymbols;
+		std::uint16_t sizeOfOptionalHeader;
+		std::uint16_t characteristics;
+	};
+	static_assert(sizeof(IMAGE_FILE_HEADER) == 0x14);
+
+	struct IMAGE_IMPORT_BY_NAME
+	{
+		std::uint16_t hint;
+		char name[1];
+	};
+	static_assert(sizeof(IMAGE_IMPORT_BY_NAME) == 0x4);
+
+	struct IMAGE_IMPORT_DESCRIPTOR
+	{
+		union
+		{
+			std::uint32_t characteristics;
+			std::uint32_t originalFirstThunk;
+		};
+
+		std::uint32_t timeDateStamp;
+		std::uint32_t forwarderChain;
+		std::uint32_t name;
+		std::uint32_t firstThunk;
+	};
+	static_assert(sizeof(IMAGE_IMPORT_DESCRIPTOR) == 0x14);
+
+	struct IMAGE_OPTIONAL_HEADER64
+	{
+		std::uint16_t magic;
+		std::uint8_t majorLinkerVersion;
+		std::uint8_t minorLinkerVersion;
+		std::uint32_t sizeOfCode;
+		std::uint32_t sizeOfInitializedData;
+		std::uint32_t sizeOfUninitializedData;
+		std::uint32_t addressOfEntryPoint;
+		std::uint32_t baseOfCode;
+		std::uint64_t imageBase;
+		std::uint32_t sectionAlignment;
+		std::uint32_t fileAlignment;
+		std::uint16_t majorOperatingSystemVersion;
+		std::uint16_t minorOperatingSystemVersion;
+		std::uint16_t majorImageVersion;
+		std::uint16_t minorImageVersion;
+		std::uint16_t majorSubsystemVersion;
+		std::uint16_t minorSubsystemVersion;
+		std::uint32_t win32VersionValue;
+		std::uint32_t sizeOfImage;
+		std::uint32_t sizeOfHeaders;
+		std::uint32_t checkSum;
+		std::uint16_t subsystem;
+		std::uint16_t dllCharacteristics;
+		std::uint64_t sizeOfStackReserve;
+		std::uint64_t sizeOfStackCommit;
+		std::uint64_t sizeOfHeapReserve;
+		std::uint64_t sizeOfHeapCommit;
+		std::uint32_t loaderFlags;
+		std::uint32_t numberOfRvaAndSizes;
+		IMAGE_DATA_DIRECTORY dataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
+	};
+	static_assert(sizeof(IMAGE_OPTIONAL_HEADER64) == 0xF0);
+
+	struct IMAGE_NT_HEADERS64
+	{
+		std::uint32_t signature;
+		IMAGE_FILE_HEADER fileHeader;
+		IMAGE_OPTIONAL_HEADER64 optionalHeader;
+	};
+	static_assert(sizeof(IMAGE_NT_HEADERS64) == 0x108);
+
+	struct IMAGE_THUNK_DATA64
+	{
+		union
+		{
+			std::uint64_t forwarderString;  // PBYTE
+			std::uint64_t function;         // PDWORD
+			std::uint64_t ordinal;
+			std::uint64_t addressOfData;    // PIMAGE_IMPORT_BY_NAME
+		} u1;
+	};
+	static_assert(sizeof(IMAGE_THUNK_DATA64) == 0x8);
+
+	struct NLSVERSIONINFO;
+
+	struct PROCESS_INFORMATION
+	{
+		void* hProcess;
+		void* hThread;
+		std::uint32_t dwProcessId;
+		std::uint32_t dwThreadId;
+	};
+	static_assert(sizeof(PROCESS_INFORMATION) == 0x18);
+
+	struct SECURITY_ATTRIBUTES
+	{
+		std::uint32_t nLength;
+		void* lpSecurityDescriptor;
+		bool bInheritHandle;
+	};
+	static_assert(sizeof(SECURITY_ATTRIBUTES) == 0x18);
+
+	struct STARTUPINFOA
+	{
+		std::uint32_t cb;
+		char* lpReserved;
+		char* lpDesktop;
+		char* lpTitle;
+		std::uint32_t dwX;
+		std::uint32_t dwY;
+		std::uint32_t dwXSize;
+		std::uint32_t dwYSize;
+		std::uint32_t dwXCountChars;
+		std::uint32_t dwYCountChars;
+		std::uint32_t dwFillAttribute;
+		std::uint32_t dwFlags;
+		std::uint16_t wShowWindow;
+		std::uint16_t cbReserved2;
+		std::uint8_t* lpReserved2;
+		void* hStdInput;
+		void* hStdOutput;
+		void* hStdError;
+	};
+	static_assert(sizeof(STARTUPINFOA) == 0x68);
+
+	struct STARTUPINFOW
+	{
+		std::uint32_t cb;
+		wchar_t* lpReserved;
+		wchar_t* lpDesktop;
+		wchar_t* lpTitle;
+		std::uint32_t dwX;
+		std::uint32_t dwY;
+		std::uint32_t dwXSize;
+		std::uint32_t dwYSize;
+		std::uint32_t dwXCountChars;
+		std::uint32_t dwYCountChars;
+		std::uint32_t dwFillAttribute;
+		std::uint32_t dwFlags;
+		std::uint16_t wShowWindow;
+		std::uint16_t cbReserved2;
+		std::uint8_t* lpReserved2;
+		void* hStdInput;
+		void* hStdOutput;
+		void* hStdError;
+	};
+	static_assert(sizeof(STARTUPINFOW) == 0x68);
+
+	struct WIN32_FIND_DATAA
 	{
 	public:
 		// members
@@ -83,10 +372,90 @@ namespace F4SE::WinAPI
 		char cFileName[MAX_PATH];
 		char cAlternateFileName[14];
 	};
-	static_assert(sizeof(_WIN32_FIND_DATAA) == 0x140);
-	using WIN32_FIND_DATAA = _WIN32_FIND_DATAA;
+	static_assert(sizeof(WIN32_FIND_DATAA) == 0x140);
 
-	bool FreeLibrary(HMODULE a_module) noexcept;
+	struct WIN32_FIND_DATAW
+	{
+	public:
+		// members
+		std::uint32_t dwFileAttributes;
+		FILETIME      ftCreationTime;
+		FILETIME      ftLastAccessTime;
+		FILETIME      ftLastWriteTime;
+		std::uint32_t nFileSizeHigh;
+		std::uint32_t nFileSizeLow;
+		std::uint32_t dwReserved0;
+		std::uint32_t dwReserved1;
+		wchar_t       cFileName[MAX_PATH];
+		wchar_t       cAlternateFileName[14];
+	};
+	static_assert(sizeof(WIN32_FIND_DATAW) == 0x250);
+
+	[[nodiscard]] bool CloseHandle(
+		void* a_handle) noexcept;
+
+	[[noreturn]] void CoTaskMemFree(
+		void* a_block) noexcept;
+
+	[[nodiscard]] bool CreateProcess(
+		const char* a_name,
+		char* a_cmd,
+		SECURITY_ATTRIBUTES* a_procAttr,
+		SECURITY_ATTRIBUTES* a_threadAttr,
+		bool a_inherit,
+		std::uint32_t a_flags,
+		void* a_env,
+		const char* a_curDir,
+		STARTUPINFOA* a_startInfo,
+		PROCESS_INFORMATION* a_procInfo) noexcept;
+
+	[[nodiscard]] bool CreateProcess(
+		const wchar_t* a_name,
+		wchar_t* a_cmd,
+		SECURITY_ATTRIBUTES* a_procAttr,
+		SECURITY_ATTRIBUTES* a_threadAttr,
+		bool a_inherit,
+		std::uint32_t a_flags,
+		void* a_env,
+		const wchar_t* a_curDir,
+		STARTUPINFOW* a_startInfo,
+		PROCESS_INFORMATION* a_procInfo) noexcept;
+
+	[[nodiscard]] void* CreateRemoteThread(
+		void* a_process,
+		SECURITY_ATTRIBUTES* a_threadAttr,
+		std::size_t a_stackSize,
+		std::uint32_t (*a_startAddr)(void*),
+		void* a_param,
+		std::uint32_t a_flags,
+		std::uint32_t* a_threadId) noexcept;
+
+	[[nodiscard]] bool FindClose(
+		void* a_findFile) noexcept;
+
+	[[nodiscard]] void* FindFirstFile(
+		const char* a_fileName,
+		WIN32_FIND_DATAA* a_findFileData) noexcept;
+
+	[[nodiscard]] void* FindFirstFile(
+		const wchar_t* a_fileName,
+		WIN32_FIND_DATAW* a_findFileData) noexcept;
+
+	[[nodiscard]] bool FindNextFile(
+		void* a_findFile,
+		WIN32_FIND_DATAA* a_findFileData) noexcept;
+
+	[[nodiscard]] bool FindNextFile(
+		void* a_findFile,
+		WIN32_FIND_DATAW* a_findFileData) noexcept;
+
+	[[nodiscard]] bool FlushInstructionCache(
+		void* a_process,
+		const void* a_baseAddr,
+		std::size_t a_size) noexcept;
+
+	bool FreeLibrary(
+		HMODULE a_module) noexcept;
 
 	[[nodiscard]] void* GetCurrentModule() noexcept;
 
@@ -94,23 +463,23 @@ namespace F4SE::WinAPI
 
 	[[nodiscard]] std::uint32_t GetCurrentThreadID() noexcept;
 
-	[[nodiscard]] std::uint32_t GetEnvironmentVariable(
+	std::uint32_t GetEnvironmentVariable(
 		const char* a_name,
 		char* a_buffer,
 		std::uint32_t a_size) noexcept;
 
-	[[nodiscard]] std::uint32_t GetEnvironmentVariable(
+	std::uint32_t GetEnvironmentVariable(
 		const wchar_t* a_name,
 		wchar_t* a_buffer,
 		std::uint32_t a_size) noexcept;
 
-	[[nodiscard]] bool GetFileVersionInfo(
+	bool GetFileVersionInfo(
 		const char* a_filename,
 		std::uint32_t a_handle,
 		std::uint32_t a_len,
 		void* a_data) noexcept;
 
-	[[nodiscard]] bool GetFileVersionInfo(
+	bool GetFileVersionInfo(
 		const wchar_t* a_filename,
 		std::uint32_t a_handle,
 		std::uint32_t a_len,
@@ -123,6 +492,8 @@ namespace F4SE::WinAPI
 	[[nodiscard]] std::uint32_t GetFileVersionInfoSize(
 		const wchar_t* a_filename,
 		std::uint32_t* a_handle) noexcept;
+
+	[[nodiscard]] std::uint32_t GetLastError() noexcept;
 
 	[[nodiscard]] std::size_t GetMaxPath() noexcept;
 
@@ -140,90 +511,199 @@ namespace F4SE::WinAPI
 
 	[[nodiscard]] HMODULE GetModuleHandle(const wchar_t* a_moduleName) noexcept;
 
+	[[nodiscard]] std::uint32_t GetPrivateProfileString(
+		const char* a_appName,
+		const char* a_keyName,
+		const char* a_default,
+		char* a_outString,
+		std::uint32_t a_size,
+		const char* a_fileName) noexcept;
+
+	[[nodiscard]] std::uint32_t GetPrivateProfileString(
+		const wchar_t* a_appName,
+		const wchar_t* a_keyName,
+		const wchar_t* a_default,
+		wchar_t* a_outString,
+		std::uint32_t a_size,
+		const wchar_t* a_fileName) noexcept;
+
 	[[nodiscard]] void* GetProcAddress(
 		void* a_module,
 		const char* a_procName) noexcept;
 
 	[[nodiscard]] bool IsDebuggerPresent() noexcept;
 
-	[[nodiscard]] HMODULE LoadLibrary(const char* a_libFileName) noexcept;
+	[[nodiscard]] std::int32_t LCMapStringEx(
+		const wchar_t* a_localeName,
+		std::uint32_t a_mapFlags,
+		const wchar_t* a_srcStr,
+		std::int32_t a_srcLen,
+		wchar_t* a_destStr,
+		std::int32_t a_destLen,
+		NLSVERSIONINFO* a_verInfo,
+		void* a_reserved,
+		std::intptr_t a_sortHandle) noexcept;
 
-	[[nodiscard]] HMODULE LoadLibrary(const wchar_t* a_libFileName) noexcept;
+	[[nodiscard]] HMODULE LoadLibrary(const char* a_fileName) noexcept;
+
+	[[nodiscard]] HMODULE LoadLibrary(const wchar_t* a_fileName) noexcept;
 
 	std::int32_t MessageBox(
 		void* a_wnd,
 		const char* a_text,
 		const char* a_caption,
-		unsigned int a_type) noexcept;
+		std::uint32_t a_type) noexcept;
 
 	std::int32_t MessageBox(
 		void* a_wnd,
 		const wchar_t* a_text,
 		const wchar_t* a_caption,
-		unsigned int a_type) noexcept;
+		std::uint32_t a_type) noexcept;
 
-	[[nodiscard]] int MultiByteToWideChar(
-		unsigned int a_codePage,
+	[[nodiscard]] std::int32_t MultiByteToWideChar(
+		std::uint32_t a_codePage,
 		std::uint32_t a_flags,
 		const char* a_multiByteStr,
-		int a_multiByte,
+		std::int32_t a_multiByte,
 		wchar_t* a_wideCharStr,
-		int a_wideChar);
+		std::int32_t a_wideChar);
 
-	void OutputDebugString(
+	[[nodiscard]] std::int32_t NormalizeString(
+		std::int32_t a_normForm,
+		const wchar_t* a_srcStr,
+		std::int32_t a_srcLen,
+		wchar_t* a_destStr,
+		std::int32_t a_destLen);
+
+	[[noreturn]] void OutputDebugString(
 		const char* a_outputString) noexcept;
 
-	void OutputDebugString(
+	[[noreturn]] void OutputDebugString(
 		const wchar_t* a_outputString) noexcept;
 
-	long RegGetValueW(HKEY hkey, const char* subKey, const char* value, unsigned long flags, unsigned long* type,
-		void* data, unsigned long* length);
+	std::int32_t RegGetValue(
+		HKEY a_key,
+		const char* a_subKey,
+		const char* a_value,
+		std::uint32_t a_flags,
+		std::uint32_t* a_type,
+		void* a_data,
+		std::uint32_t* a_length);
 
-	long RegGetValueW(HKEY hkey, const wchar_t* subKey, const wchar_t* value, unsigned long flags, unsigned long* type,
-		void* data, unsigned long* length);
+	std::int32_t RegGetValue(
+		HKEY a_key,
+		const wchar_t* a_subKey,
+		const wchar_t* a_value,
+		std::uint32_t a_flags,
+		std::uint32_t* a_type,
+		void* a_data,
+		std::uint32_t* a_length);
 
-	[[noreturn]] void TerminateProcess(
+	[[nodiscard]] std::uint32_t ResumeThread(
+		void* a_handle) noexcept;
+
+	bool SetEnvironmentVariable(
+		const char* a_name,
+		const char* a_value) noexcept;
+
+	bool SetEnvironmentVariable(
+		const wchar_t* a_name,
+		const wchar_t* a_value) noexcept;
+
+	std::int32_t SHGetKnownFolderPath(
+		const GUID& a_id,
+		std::uint32_t a_flags,
+		void* a_token,
+		wchar_t** a_path) noexcept;
+
+	[[nodiscard]] std::int32_t ShowCursor(
+		bool a_show) noexcept;
+
+	bool TerminateProcess(
 		void* a_process,
-		unsigned int a_exitCode) noexcept;
+		std::uint32_t a_exitCode) noexcept;
 
-	[[nodiscard]] void* TlsGetValue(std::uint32_t a_tlsIndex) noexcept;
+	[[nodiscard]] void* TlsGetValue(
+		std::uint32_t a_tlsIndex) noexcept;
 
 	bool TlsSetValue(
 		std::uint32_t a_tlsIndex,
 		void* a_tlsValue) noexcept;
+
+	bool VerQueryValue(
+		const void* a_block,
+		const char* a_subBlock,
+		void** a_buffer,
+		std::uint32_t* a_len) noexcept;
+
+	bool VerQueryValue(
+		const void* a_block,
+		const wchar_t* a_subBlock,
+		void** a_buffer,
+		std::uint32_t* a_len) noexcept;
+
+	void* VirtualAlloc(
+		void* a_address,
+		std::size_t a_size,
+		std::uint32_t a_type,
+		std::uint32_t a_protect) noexcept;
+
+	void* VirtualAllocEx(
+		void* a_process,
+		void* a_address,
+		std::size_t a_size,
+		std::uint32_t a_type,
+		std::uint32_t a_protect) noexcept;
 
 	bool VirtualFree(
 		void* a_address,
 		std::size_t a_size,
 		std::uint32_t a_freeType) noexcept;
 
-	[[nodiscard]] bool VerQueryValue(
-		const void* a_block,
-		const char* a_subBlock,
-		void** a_buffer,
-		unsigned int* a_len) noexcept;
+	bool VirtualFreeEx(
+		void* a_process,
+		void* a_address,
+		std::size_t a_size,
+		std::uint32_t a_freeType) noexcept;
 
-	[[nodiscard]] bool VerQueryValue(
-		const void* a_block,
-		const wchar_t* a_subBlock,
-		void** a_buffer,
-		unsigned int* a_len) noexcept;
-
-	[[nodiscard]] bool VirtualProtect(
+	bool VirtualProtect(
 		void* a_address,
 		std::size_t a_size,
 		std::uint32_t a_newProtect,
 		std::uint32_t* a_oldProtect) noexcept;
 
-	[[nodiscard]] int WideCharToMultiByte(
-		unsigned int a_codePage,
+	bool VirtualProtectEx(
+		void* a_process,
+		void* a_address,
+		std::size_t a_size,
+		std::uint32_t a_newProtect,
+		std::uint32_t* a_oldProtect) noexcept;
+
+	[[nodiscard]] std::uint32_t WaitForSingleObject(
+		void* a_handle,
+		std::uint32_t a_milliseconds) noexcept;
+
+	[[nodiscard]] std::uint32_t WaitForSingleObjectEx(
+		void* a_handle,
+		std::uint32_t a_milliseconds,
+		bool a_alertable) noexcept;
+
+	[[nodiscard]] std::int32_t WideCharToMultiByte(
+		std::uint32_t a_codePage,
 		std::uint32_t a_flags,
 		const wchar_t* a_wideCharStr,
-		int a_wideChar,
+		std::int32_t a_wideChar,
 		char* a_multiByteStr,
-		int a_multiByte,
+		std::int32_t a_multiByte,
 		const char* a_defaultChar,
-		int* a_usedDefaultChar);
+		std::int32_t* a_usedDefaultChar);
+
+	bool WriteProcessMemory(
+		void* a_process,
+		void* a_address,
+		const void* a_buffer,
+		std::size_t a_size,
+		std::size_t* a_written) noexcept;
 }
 
 namespace RE::DirectX
@@ -236,3 +716,5 @@ namespace RE::DirectX
 	};
 	static_assert(sizeof(XMFLOAT4X4) == 0x40);
 }
+
+#endif // _INC_WINAPIFAMILY

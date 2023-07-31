@@ -20,10 +20,10 @@ namespace RE
 		{
 		public:
 			// members
-			F4SE::WinAPI::_FILETIME accessTime;  // 00
-			F4SE::WinAPI::_FILETIME modifyTime;  // 08
-			F4SE::WinAPI::_FILETIME createTime;  // 10
-			std::size_t fileSize;                // 18
+			F4SE::WinAPI::FILETIME accessTime;  // 00
+			F4SE::WinAPI::FILETIME modifyTime;  // 08
+			F4SE::WinAPI::FILETIME createTime;  // 10
+			std::size_t fileSize;               // 18
 		};
 		static_assert(sizeof(Info) == 0x20);
 

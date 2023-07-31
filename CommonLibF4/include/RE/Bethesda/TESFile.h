@@ -205,7 +205,7 @@ namespace RE
 		BSSimpleList<_ULARGE_INTEGER*> mastersData;                      // 348
 		std::uint32_t masterCount;                                       // 358
 		TESFile** masterPtrs;                                            // 360
-		F4SE::WinAPI::_FILETIME deletedFormTime;                         // 368
+		F4SE::WinAPI::FILETIME deletedFormTime;                          // 368
 		std::uint8_t compileIndex;                                       // 370
 		std::uint16_t smallFileCompileIndex;                             // 372
 		BSStringT<char> createdBy;                                       // 378
