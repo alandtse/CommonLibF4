@@ -149,7 +149,7 @@ namespace F4SE::WinAPI
 		std::uint32_t data1;
 		std::uint16_t data2;
 		std::uint16_t data3;
-		std::uint8_t  data4[8];
+		std::uint8_t data4[8];
 	};
 	static_assert(sizeof(GUID) == 0x10);
 
@@ -287,7 +287,7 @@ namespace F4SE::WinAPI
 			std::uint64_t forwarderString;  // PBYTE
 			std::uint64_t function;         // PDWORD
 			std::uint64_t ordinal;
-			std::uint64_t addressOfData;    // PIMAGE_IMPORT_BY_NAME
+			std::uint64_t addressOfData;  // PIMAGE_IMPORT_BY_NAME
 		} u1;
 	};
 	static_assert(sizeof(IMAGE_THUNK_DATA64) == 0x8);
@@ -379,15 +379,15 @@ namespace F4SE::WinAPI
 	public:
 		// members
 		std::uint32_t dwFileAttributes;
-		FILETIME      ftCreationTime;
-		FILETIME      ftLastAccessTime;
-		FILETIME      ftLastWriteTime;
+		FILETIME ftCreationTime;
+		FILETIME ftLastAccessTime;
+		FILETIME ftLastWriteTime;
 		std::uint32_t nFileSizeHigh;
 		std::uint32_t nFileSizeLow;
 		std::uint32_t dwReserved0;
 		std::uint32_t dwReserved1;
-		wchar_t       cFileName[MAX_PATH];
-		wchar_t       cAlternateFileName[14];
+		wchar_t cFileName[MAX_PATH];
+		wchar_t cAlternateFileName[14];
 	};
 	static_assert(sizeof(WIN32_FIND_DATAW) == 0x250);
 
@@ -717,4 +717,4 @@ namespace RE::DirectX
 	static_assert(sizeof(XMFLOAT4X4) == 0x40);
 }
 
-#endif // _INC_WINAPIFAMILY
+#endif  // _INC_WINAPIFAMILY

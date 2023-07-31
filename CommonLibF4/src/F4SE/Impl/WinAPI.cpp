@@ -1,8 +1,8 @@
 #include "F4SE/Impl/WinAPI.h"
 
+#include <ShlObj.h>
 #include <Windows.h>
 #include <objbase.h>
-#include <ShlObj.h>
 
 #undef CreateProcess
 #undef FindFirstFile
@@ -483,12 +483,12 @@ namespace F4SE::WinAPI
 	}
 
 	std::int32_t RegGetValue(
-		HKEY hkey, 
-		const char* subKey, 
-		const char* value, 
-		std::uint32_t flags, 
+		HKEY hkey,
+		const char* subKey,
+		const char* value,
+		std::uint32_t flags,
 		std::uint32_t* type,
-		void* data, 
+		void* data,
 		std::uint32_t* length)
 	{
 		return static_cast<std::int32_t>(
@@ -503,12 +503,12 @@ namespace F4SE::WinAPI
 	}
 
 	std::int32_t RegGetValue(
-		HKEY hkey, 
+		HKEY hkey,
 		const wchar_t* subKey,
-		const wchar_t* value, 
-		std::uint32_t flags, 
+		const wchar_t* value,
+		std::uint32_t flags,
 		std::uint32_t* type,
-		void* data, 
+		void* data,
 		std::uint32_t* length)
 	{
 		return static_cast<std::int32_t>(
@@ -533,7 +533,7 @@ namespace F4SE::WinAPI
 	bool SetEnvironmentVariable(
 		const char* a_name,
 		const char* a_value) noexcept
-	{ 
+	{
 		return static_cast<bool>(
 			::SetEnvironmentVariableA(
 				static_cast<::LPCSTR>(a_name),
@@ -715,7 +715,7 @@ namespace F4SE::WinAPI
 	}
 
 	std::uint32_t WaitForSingleObject(
-		void* a_handle, 
+		void* a_handle,
 		std::uint32_t a_milliseconds) noexcept
 	{
 		return static_cast<std::uint32_t>(
