@@ -20,6 +20,7 @@
 #undef GetModuleFileName
 #undef GetModuleHandle
 #undef GetPrivateProfileString
+#undef IMAGE_FIRST_SECTION
 #undef LoadLibrary
 #undef MessageBox
 #undef OpenFileMapping
@@ -413,6 +414,15 @@ namespace F4SE::WinAPI
 	{
 		::GetSystemInfo(
 			reinterpret_cast<::LPSYSTEM_INFO>(a_info));
+	}
+
+	IMAGE_SECTION_HEADER* IMAGE_FIRST_SECTION(
+		const IMAGE_NT_HEADERS64* a_header) noexcept
+	{
+		constexpr auto opt = __builtin_offsetof(IMAGE_NT_HEADERS64, optionalHeader);
+		const auto optSize = a_header->fileHeader.sizeOfOptionalHeader;
+		const auto section = reinterpret_cast<std::uintptr_t>(a_header) + opt + optSize;
+		return reinterpret_cast<IMAGE_SECTION_HEADER*>(section);
 	}
 
 	bool IsDebuggerPresent() noexcept

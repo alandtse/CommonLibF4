@@ -50,6 +50,8 @@ namespace F4SE::WinAPI
 	inline constexpr auto IMAGE_SCN_MEM_EXECUTE{ 0x20000000u };
 	inline constexpr auto IMAGE_SCN_MEM_READ{ 0x40000000u };
 	inline constexpr auto IMAGE_SCN_MEM_WRITE{ 0x80000000u };
+	inline constexpr auto IMAGE_SIZEOF_SECTION_HEADER{ 40u };
+	inline constexpr auto IMAGE_SIZEOF_SHORT_NAME{ 8u };
 
 	// memory allocation types
 	inline constexpr auto MEM_COMMIT{ 0x00001000u };
@@ -337,6 +339,25 @@ namespace F4SE::WinAPI
 	};
 	static_assert(sizeof(IMAGE_NT_HEADERS64) == 0x108);
 
+	struct IMAGE_SECTION_HEADER
+	{
+		std::uint8_t name[IMAGE_SIZEOF_SHORT_NAME];
+		union
+		{
+			std::uint32_t physicalAddress;
+			std::uint32_t virtualSize;
+		} misc;
+		std::uint32_t virtualAddress;
+		std::uint32_t sizeOfRawData;
+		std::uint32_t pointerToRawData;
+		std::uint32_t pointerToRelocations;
+		std::uint32_t pointerToLinenumbers;
+		std::uint16_t numberOfRelocations;
+		std::uint16_t numberOfLinenumbers;
+		std::uint32_t characteristics;
+	};
+	static_assert(sizeof(IMAGE_SECTION_HEADER) == 0x28);
+
 	struct IMAGE_THUNK_DATA64
 	{
 		union
@@ -483,7 +504,22 @@ namespace F4SE::WinAPI
 	};
 	static_assert(sizeof(SYSTEM_INFO) == 0x30);
 
-	[[nodiscard]] bool CloseHandle(
+	union ULARGE_INTEGER
+	{
+		struct
+		{
+			std::uint32_t lowPart;
+			std::uint32_t highPart;
+		};
+		struct
+		{
+			std::uint32_t lowPart;
+			std::uint32_t highPart;
+		} u;
+		std::uint64_t quadPart;
+	};
+
+	bool CloseHandle(
 		void* a_handle) noexcept;
 
 	void CoTaskMemFree(
@@ -549,15 +585,15 @@ namespace F4SE::WinAPI
 		const wchar_t* a_fileName,
 		WIN32_FIND_DATAW* a_findFileData) noexcept;
 
-	[[nodiscard]] bool FindNextFile(
+	bool FindNextFile(
 		void* a_findFile,
 		WIN32_FIND_DATAA* a_findFileData) noexcept;
 
-	[[nodiscard]] bool FindNextFile(
+	bool FindNextFile(
 		void* a_findFile,
 		WIN32_FIND_DATAW* a_findFileData) noexcept;
 
-	[[nodiscard]] bool FlushInstructionCache(
+	bool FlushInstructionCache(
 		void* a_process,
 		const void* a_baseAddr,
 		std::size_t a_size) noexcept;
@@ -641,6 +677,9 @@ namespace F4SE::WinAPI
 
 	void GetSystemInfo(
 		SYSTEM_INFO* a_info) noexcept;
+
+	[[nodiscard]] IMAGE_SECTION_HEADER* IMAGE_FIRST_SECTION(
+		const IMAGE_NT_HEADERS64* a_header) noexcept;
 
 	[[nodiscard]] bool IsDebuggerPresent() noexcept;
 
