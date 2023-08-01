@@ -6,7 +6,7 @@ target("AddressLibDecoder")
     set_group("tools")
     
     -- add packages
-    add_packages("fmt", "rsm-mmio")
+    add_packages("rsm-mmio")
 
     -- add source files
     add_files("src/**.cpp")

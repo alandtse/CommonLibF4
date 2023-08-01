@@ -1,19 +1,14 @@
-#pragma warning(push)
 #include <cstddef>
 #include <cstdint>
-#include <cstdlib>
 #include <filesystem>
+#include <format>
 #include <fstream>
 #include <iostream>
 #include <span>
 #include <stdexcept>
 #include <string>
-#include <type_traits>
-#include <utility>
 
-#include <fmt/format.h>
 #include <mmio/mmio.hpp>
-#pragma warning(pop)
 
 using namespace std::literals;
 
@@ -45,10 +40,10 @@ int main(int a_argc, char* a_argv[])
 				reinterpret_cast<const Pair*>(input.data() + sizeof(std::uint64_t)),
 				*reinterpret_cast<const std::uint64_t*>(input.data()));
 			if (!data.empty()) {
-				const auto width = fmt::format(FMT_STRING("{}"), data.back().id);
-				const auto format = fmt::format(FMT_STRING("{{: >{}}}\t{{:0>7X}}\n"), width.length());
-				for (const auto& elem : data) {
-					output << fmt::format(fmt::runtime(format), elem.id, elem.offset);
+				const auto width = std::format("{}", data.back().id);
+				const auto format = std::format("{{: >{}}}\t{{:0>7X}}\n", width.length());
+				for (const auto& [id, offset] : data) {
+					output << std::vformat(format, std::make_format_args(id, offset));
 				}
 			}
 

@@ -8,12 +8,10 @@ add_project(
 		"src/main.cpp"
 )
 
-find_package(fmt REQUIRED CONFIG)
 find_package(mmio REQUIRED CONFIG)
 
 target_link_libraries(
 	"${PROJECT_NAME}"
 	PUBLIC
-		fmt::fmt
 		mmio::mmio
 )
