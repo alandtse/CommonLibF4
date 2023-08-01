@@ -51,7 +51,7 @@ namespace RE
 					isLatent(a_isLatent)
 				{
 					for (std::size_t i = 0; i < descTable.paramCount; ++i) {
-						descTable.entries[i].first = fmt::format(FMT_STRING("param{}"), i + 1);
+						descTable.entries[i].first = std::format("param{}", i + 1);
 					}
 				}
 

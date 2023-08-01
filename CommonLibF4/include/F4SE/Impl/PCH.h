@@ -748,7 +748,7 @@ namespace F4SE
 				}
 
 				return utf8_to_utf16(
-					fmt::format(
+					std::format(
 						"{}({}): {}"sv,
 						filename,
 						a_loc.line(),

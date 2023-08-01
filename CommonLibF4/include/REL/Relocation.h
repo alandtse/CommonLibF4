@@ -893,7 +893,7 @@ namespace REL
 			_filePath = _filename;
 			if (!moduleHandle) {
 				stl::report_and_fail(
-					fmt::format(
+					std::format(
 						"Failed to obtain module handle for: \"{0}\".\n"
 						"You have likely renamed the executable to something unexpected. "
 						"Renaming the executable back to \"{0}\" may resolve the issue."sv,
@@ -941,7 +941,7 @@ namespace REL
 				return true;
 			}
 			return stl::report_and_error(
-				fmt::format(
+				std::format(
 					"Failed to obtain file version info for: {}\n"
 					"Please contact the author of this script extender plugin for further assistance."sv,
 					stl::utf16_to_utf8(_filename).value_or("<unicode conversion error>"s)),
@@ -1033,7 +1033,7 @@ namespace REL
 					});
 				if (it == _offset2id.end()) {
 					stl::report_and_fail(
-						fmt::format(
+						std::format(
 							"Failed to find the offset within the database: 0x{:08X}"sv,
 							a_offset));
 				}
@@ -1122,7 +1122,7 @@ namespace REL
 			}
 			if (failed) {
 				stl::report_and_fail(
-					fmt::format(
+					std::format(
 						"Failed to find the id within the address library: {}\n"
 						"This means this script extender plugin is incompatible with the address "
 						"library for this version of the game, and thus does not support it."sv,
@@ -1194,7 +1194,7 @@ namespace REL
 				a_in.readin(format);
 				if (format != a_formatVersion) {
 					stl::report_and_fail(
-						fmt::format(
+						std::format(
 							"Unsupported address library format: {}\n"
 							"This means this script extender plugin is incompatible with the address "
 							"library available for this version of the game, and thus does not "
@@ -1247,7 +1247,7 @@ namespace REL
 			if FALLOUT_REL_CONSTEXPR (Module::IsVR()) {
 				const auto filename =
 					stl::utf8_to_utf16(
-						fmt::format(
+						std::format(
 							"Data/F4SE/Plugins/version-{}.csv"sv,
 							version.string()))
 						.value_or(L"<unknown filename>"s);
@@ -1255,7 +1255,7 @@ namespace REL
 			} else {
 				const auto filename =
 					stl::utf8_to_utf16(
-						fmt::format("Data/F4SE/Plugins/version-{}.bin"sv,
+						std::format("Data/F4SE/Plugins/version-{}.bin"sv,
 							version.string()))
 						.value_or(L"<unknown filename>"s);
 				load_file(filename, true);
@@ -1266,7 +1266,7 @@ namespace REL
 		{
 			try {
 				if (!_mmiomap.open(a_filename)) {
-					stl::report_and_fail(fmt::format("failed to open: {}", stl::utf16_to_utf8(a_filename).value_or("<unknown filename>"s)));
+					stl::report_and_fail(std::format("failed to open: {}", stl::utf16_to_utf8(a_filename).value_or("<unknown filename>"s)));
 				}
 				// Add the offset and remove the const qualifer
 				std::byte* _start = const_cast<std::byte*>(_mmiomap.data() + sizeof(std::uint64_t));
@@ -1276,7 +1276,7 @@ namespace REL
 				};
 			} catch (const std::system_error&) {
 				return stl::report_and_error(
-					fmt::format(
+					std::format(
 						"Failed to locate an appropriate address library with the path: {}\n"
 						"This means you are missing the address library for this specific version of "
 						"the game. Please continue to the mod page for address library to download "
@@ -1294,7 +1294,7 @@ namespace REL
 			auto nstring = F4SE::stl::utf16_to_utf8(a_filename).value_or(""s);
 			if (!std::filesystem::exists(nstring)) {
 				return stl::report_and_error(
-					fmt::format("Required VR Address Library file {} does not exist"sv, nstring),
+					std::format("Required VR Address Library file {} does not exist"sv, nstring),
 					a_failOnError);
 			}
 			rapidcsv::Document in(nstring);
@@ -1312,12 +1312,12 @@ namespace REL
 			_id2offset = { static_cast<mapping_t*>(_mmap.data()), static_cast<std::size_t>(address_count) };
 			if (in.GetRowCount() > address_count + 1) {
 				return stl::report_and_error(
-					fmt::format("VR Address Library {} tried to exceed {} allocated entries."sv,
+					std::format("VR Address Library {} tried to exceed {} allocated entries."sv,
 						version, address_count),
 					a_failOnError);
 			} else if (in.GetRowCount() < address_count + 1) {
 				return stl::report_and_error(
-					fmt::format(
+					std::format(
 						"VR Address Library {} loaded only {} entries but expected {}. Please redownload."sv,
 						version, in.GetRowCount() - 1, address_count),
 					a_failOnError);
@@ -1938,7 +1938,7 @@ namespace REL
 				if (!this->match(a_address)) {
 					const auto version = Module::get().version();
 					stl::report_and_fail(
-						fmt::format(
+						std::format(
 							"A pattern has failed to match.\n"
 							"This means the plugin is incompatible with the current version of the game ({}.{}.{}). "
 							"Head to the mod page of this plugin to see if an update is available."sv,
