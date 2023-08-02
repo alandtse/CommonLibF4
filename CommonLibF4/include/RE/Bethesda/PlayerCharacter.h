@@ -263,27 +263,6 @@ namespace RE
 			return singleton->get();
 		}
 
-		void RemoveLastUsedPowerArmor()
-		{
-			using func_t = decltype(&PlayerCharacter::RemoveLastUsedPowerArmor);
-			REL::Relocation<func_t> func{ REL::ID(1488486) };
-			return func(this);
-		}
-
-		void SelectPerk(std::uint32_t a_formID, std::int8_t a_rank = 0)
-		{
-			using func_t = decltype(&PlayerCharacter::SelectPerk);
-			REL::Relocation<func_t> func{ REL::ID(1397326) };
-			return func(this, a_formID, a_rank);
-		}
-
-		void SetEscaping(bool a_flag, bool a_escaped)
-		{
-			using func_t = decltype(&PlayerCharacter::SetEscaping);
-			REL::Relocation<func_t> func{ REL::ID(25528) };
-			return func(this, a_flag, a_escaped);
-		}
-
 		bool IsGodMode()
 		{
 			using func_t = decltype(&PlayerCharacter::IsGodMode);
@@ -305,12 +284,16 @@ namespace RE
 			return func(this);
 		}
 
+		bool IsLockedOutOfTerminal(ObjectRefHandle a_handle);
+
 		bool IsPipboyLightOn()
 		{
 			using func_t = decltype(&PlayerCharacter::IsPipboyLightOn);
 			REL::Relocation<func_t> func{ REL::ID(426550) };
 			return func(this);
 		}
+
+		void LockOutOfTerminal(ObjectRefHandle a_handle);
 
 		void PauseHolotape(BGSNote* a_holotape)
 		{
@@ -324,6 +307,27 @@ namespace RE
 			using func_t = decltype(&PlayerCharacter::PlayHolotape);
 			REL::Relocation<func_t> func{ REL::ID(1581042) };
 			return func(this, a_holotape);
+		}
+
+		void RemoveLastUsedPowerArmor()
+		{
+			using func_t = decltype(&PlayerCharacter::RemoveLastUsedPowerArmor);
+			REL::Relocation<func_t> func{ REL::ID(1488486) };
+			return func(this);
+		}
+
+		void SelectPerk(std::uint32_t a_formID, std::int8_t a_rank = 0)
+		{
+			using func_t = decltype(&PlayerCharacter::SelectPerk);
+			REL::Relocation<func_t> func{ REL::ID(1397326) };
+			return func(this, a_formID, a_rank);
+		}
+
+		void SetEscaping(bool a_flag, bool a_escaped)
+		{
+			using func_t = decltype(&PlayerCharacter::SetEscaping);
+			REL::Relocation<func_t> func{ REL::ID(25528) };
+			return func(this, a_flag, a_escaped);
 		}
 
 		void SetVATSCriticalCount(uint32_t a_critCount)

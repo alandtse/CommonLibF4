@@ -14,6 +14,7 @@
 namespace RE
 {
 	enum class CREATURE_SOUND;
+	enum class LOCK_LEVEL;
 
 	class MenuOpenCloseEvent;
 
@@ -558,6 +559,20 @@ namespace RE
 			std::int8_t flags;                 // 22
 		};
 		static_assert(sizeof(MenuItem) == 0x28);
+
+		LOCK_LEVEL GetHackDifficultyLockLevel(TESObjectREFR* a_refr)
+		{
+			using func_t = decltype(&BGSTerminal::GetHackDifficultyLockLevel);
+			REL::Relocation<func_t> func{ REL::ID(537273) };
+			return func(this, a_refr);
+		}
+
+		static bool IsTerminalRefInUse(TESObjectREFR* a_refr)
+		{
+			using func_t = decltype(&BGSTerminal::IsTerminalRefInUse);
+			REL::Relocation<func_t> func{ REL::ID(1093565) };
+			return func(a_refr);
+		}
 
 		// members
 		BSTArray<BodyTextItem> bodyTextItems;   // 1A0

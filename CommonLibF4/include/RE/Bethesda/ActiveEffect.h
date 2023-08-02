@@ -31,7 +31,7 @@ namespace RE
 
 		bool CheckDisplacementSpellOnTarget()
 		{
-			using func_t = decltype(&RE::ActiveEffect::CheckDisplacementSpellOnTarget);
+			using func_t = decltype(&ActiveEffect::CheckDisplacementSpellOnTarget);
 			REL::Relocation<func_t> func{ REL::ID(1415178) };
 			return func(this);
 		}

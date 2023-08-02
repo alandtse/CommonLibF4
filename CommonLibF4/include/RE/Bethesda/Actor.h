@@ -270,7 +270,7 @@ namespace RE
 
 		void SetupFireSounds(Actor& a_actor, BGSObjectInstanceT<TESObjectWEAP>& a_weapon)
 		{
-			using func_t = decltype(&RE::EquippedWeaponData::SetupFireSounds);
+			using func_t = decltype(&EquippedWeaponData::SetupFireSounds);
 			REL::Relocation<func_t> func{ REL::ID(1468462) };
 			return func(this, a_actor, a_weapon);
 		}
@@ -500,6 +500,13 @@ namespace RE
 			return func(this, a_equipIndex);
 		}
 
+		[[nodiscard]] ObjectRefHandle GetOccupiedFurniture()
+		{
+			using func_t = decltype(&AIProcess::GetOccupiedFurniture);
+			REL::Relocation<func_t> func{ REL::ID(1162965) };
+			return func(this);
+		}
+
 		void KnockExplosion(Actor* a_actor, const NiPoint3& a_location, float a_magnitude)
 		{
 			using func_t = decltype(&AIProcess::KnockExplosion);
@@ -534,6 +541,13 @@ namespace RE
 			using func_t = decltype(&AIProcess::PlayIdle);
 			REL::Relocation<func_t> func{ REL::ID(1446774) };
 			return func(this, a, flag, idle, unk01, unk02);
+		}
+
+		bool ProcessGreet(Actor* a_actor, DIALOGUE_TYPE a_type, DIALOGUE_SUBTYPE a_subType, TESObjectREFR* a_target, BGSDialogueBranch* a_branch, bool a_forceSub, bool a_stop, bool a_que, bool a_sayCallback)
+		{
+			using func_t = decltype(&AIProcess::ProcessGreet);
+			REL::Relocation<func_t> func{ REL::ID(1174935) };
+			return func(this, a_actor, a_type, a_subType, a_target, a_branch, a_forceSub, a_stop, a_que, a_sayCallback);
 		}
 
 		bool RequestLoadAnimationsForWeaponChange(Actor& a_actor)

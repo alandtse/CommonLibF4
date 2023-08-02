@@ -41,7 +41,7 @@ namespace RE
 
 		inline void AddItemCardInfoEntry(Scaleform::GFx::Value& a_array, const char* a_name, Scaleform::GFx::Value a_value)
 		{
-			RE::Scaleform::GFx::Value entry;
+			Scaleform::GFx::Value entry;
 			detail::AddItemCardInfoEntry(a_array, entry, a_name, a_value);
 		}
 	}

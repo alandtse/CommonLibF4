@@ -107,7 +107,7 @@ namespace RE
 
 		[[nodiscard]] bool GetChunkData(void* a_data, std::uint32_t a_maxSize)
 		{
-			using func_t = bool (RE::TESFile::*)(void*, uint32_t);
+			using func_t = bool (TESFile::*)(void*, uint32_t);
 			REL::Relocation<func_t> func{ REL::ID(188910) };
 			return func(this, a_data, a_maxSize);
 		}

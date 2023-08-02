@@ -91,7 +91,7 @@ namespace RE
 
 		bool SetStage(uint16_t stage)
 		{
-			using func_t = decltype(&RE::TESQuest::SetStage);
+			using func_t = decltype(&TESQuest::SetStage);
 			REL::Relocation<func_t> func{ REL::ID(952799) };
 			return func(this, stage);
 		}

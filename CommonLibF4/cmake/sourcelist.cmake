@@ -354,6 +354,7 @@ set(SOURCES
 	src/RE/Bethesda/Calendar.cpp
 	src/RE/Bethesda/FormComponents.cpp
 	src/RE/Bethesda/MenuCursor.cpp
+	src/RE/Bethesda/PlayerCharacter.cpp
 	src/RE/Bethesda/TESBoundAnimObjects.cpp
 	src/RE/Bethesda/TESForms.cpp
 	src/RE/Bethesda/TESObjectREFRs.cpp

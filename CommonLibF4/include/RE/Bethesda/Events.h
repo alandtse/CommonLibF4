@@ -205,6 +205,7 @@ namespace RE
 		{
 		public:
 		};
+		static_assert(std::is_empty_v<LocksPicked::Event>);
 
 		[[nodiscard]] static BSTEventSource<LocksPicked::Event>* GetEventSource()
 		{
@@ -214,7 +215,6 @@ namespace RE
 		}
 	};
 	static_assert(std::is_empty_v<LocksPicked>);
-	static_assert(std::is_empty_v<LocksPicked::Event>);
 
 	class MenuModeChangeEvent
 	{
@@ -337,6 +337,26 @@ namespace RE
 	public:
 	};
 	static_assert(sizeof(QuickContainerStateEvent) == 0xC0);
+
+	class TerminalHacked
+	{
+	public:
+		struct Event
+		{
+		public:
+			// members
+			ObjectRefHandle terminal;  // 00
+		};
+		static_assert(sizeof(Event) == 0x04);
+
+		[[nodiscard]] static BSTEventSource<TerminalHacked::Event>* GetEventSource()
+		{
+			using func_t = decltype(&TerminalHacked::GetEventSource);
+			REL::Relocation<func_t> func{ REL::ID(425579) };
+			return func();
+		}
+	};
+	static_assert(std::is_empty_v<TerminalHacked>);
 
 	struct TESActivateEvent
 	{

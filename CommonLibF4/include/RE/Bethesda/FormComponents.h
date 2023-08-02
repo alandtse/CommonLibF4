@@ -593,7 +593,7 @@ namespace RE
 	class BGSTypedKeywordValueArray
 	{
 	public:
-		void AddKeyword(RE::BGSKeyword* a_keyword)
+		void AddKeyword(BGSKeyword* a_keyword)
 		{
 			if (a_keyword && !HasKeyword(a_keyword)) {
 				MemoryManager& mm = MemoryManager::GetSingleton();
@@ -602,7 +602,7 @@ namespace RE
 					newArray[i] = array[i];
 				}
 				BGSTypedKeywordValue<TYPE> newValue;
-				newValue.keywordIndex = detail::BGSKeywordGetIndexForTypedKeyword(a_keyword, RE::BGSKeyword::KeywordType::kAttachPoint);
+				newValue.keywordIndex = detail::BGSKeywordGetIndexForTypedKeyword(a_keyword, BGSKeyword::KeywordType::kAttachPoint);
 				newArray[size] = newValue;
 				mm.Deallocate(array, false);
 				array = newArray;
@@ -610,7 +610,7 @@ namespace RE
 			}
 		}
 
-		[[nodiscard]] bool HasKeyword(RE::BGSKeyword* a_keyword)
+		[[nodiscard]] bool HasKeyword(BGSKeyword* a_keyword)
 		{
 			for (std::uint32_t i = 0; i < size; ++i) {
 				const auto kywd = detail::BGSKeywordGetTypedKeywordByIndex(TYPE, array[i].keywordIndex);
@@ -643,7 +643,7 @@ namespace RE
 
 		void SetParentGroupNumber(BGSKeyword* keyword, uint32_t i)
 		{
-			using func_t = decltype(&RE::BGSAttachParentArray::SetParentGroupNumber);
+			using func_t = decltype(&BGSAttachParentArray::SetParentGroupNumber);
 			REL::Relocation<func_t> func{ REL::ID(1412266) };
 			return func(this, keyword, i);
 		}
@@ -935,7 +935,7 @@ namespace RE
 
 		void RemoveKeyword(BGSKeyword* kwd)
 		{
-			using func_t = decltype(&RE::BGSKeywordForm::RemoveKeyword);
+			using func_t = decltype(&BGSKeywordForm::RemoveKeyword);
 			REL::Relocation<func_t> func{ REL::ID(921694) };
 			return func(this, kwd);
 		}

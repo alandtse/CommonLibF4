@@ -1239,4 +1239,80 @@ namespace RE::BSScript
 			SetCallableFromTasklets(a_object.data(), a_function.data(), *a_taskletCallable);
 		}
 	}
+
+	namespace detail
+	{
+		template <class... Args>
+		BSScrapArray<Variable> PackVariables(Args&&... a_args)
+		{
+			constexpr auto size = sizeof...(a_args);
+			auto args = std::make_tuple(std::forward<Args>(a_args)...);
+			BSScrapArray<Variable> result{ size };
+			[&]<std::size_t... p>(std::index_sequence<p...>)
+			{
+				((BSScript::PackVariable(result.at(p), std::get<p>(args))), ...);
+			}
+			(std::make_index_sequence<size>{});
+			return result;
+		}
+
+		class FunctionArgsBase
+		{
+		public:
+			FunctionArgsBase() = delete;
+			FunctionArgsBase(IVirtualMachine* a_vm) :
+				vm(a_vm)
+			{}
+
+			bool operator()(BSScrapArray<Variable>& a_args)
+			{
+				args->ReplaceArray(a_args, *vm);
+				return true;
+			}
+
+		protected:
+			ArrayWrapper<Variable>* args;  // 00
+			IVirtualMachine* vm;           // 08
+		};
+		static_assert(sizeof(FunctionArgsBase) == 0x10);
+
+		inline BSTThreadScrapFunction<bool(BSScrapArray<Variable>&)>
+			CreateThreadScrapFunction(FunctionArgsBase& a_args)
+		{
+			using func_t = decltype(&detail::CreateThreadScrapFunction);
+			REL::Relocation<func_t> func{ REL::ID(69733) };
+			return func(a_args);
+		}
+
+		template <class... Args>
+		class FunctionArgs :
+			public FunctionArgsBase
+		{
+		public:
+			FunctionArgs() = delete;
+			FunctionArgs(IVirtualMachine* a_vm, Args... a_args) :
+				FunctionArgsBase(a_vm)
+			{
+				auto scrap = PackVariables(a_args...);
+				args = new ArrayWrapper<Variable>(scrap, *vm);
+			}
+		};
+	}
+
+	template <class... Args>
+	void IVirtualMachine::DispatchMethodCall(
+		std::uint64_t a_objHandle,
+		const BSFixedString& a_objName,
+		const BSFixedString& a_funcName,
+		const BSTSmartPointer<IStackCallbackFunctor>& a_callback,
+		Args... a_args)
+	{
+		auto args = detail::FunctionArgs{ this, a_args... };
+		DispatchMethodCall(
+			a_objHandle,
+			a_objName,
+			a_funcName,
+			detail::CreateThreadScrapFunction(args),
+			a_callback);
+	}
 }

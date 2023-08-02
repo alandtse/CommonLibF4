@@ -198,6 +198,13 @@ namespace RE
 			return func(this, a_newstate);
 		}
 
+		void StartFurnitureMode(TESObjectREFR* a_furniture)
+		{
+			using func_t = decltype(&PlayerCamera::StartFurnitureMode);
+			REL::Relocation<func_t> func{ REL::ID(10202) };
+			return func(this, a_furniture);
+		}
+
 		// members
 		ActorHandle cameraTarget;                                                               // 064
 		BSTSmallArray<BSTSmartPointer<TESCameraState>, CameraStates::kTotal> tempReturnStates;  // 068
