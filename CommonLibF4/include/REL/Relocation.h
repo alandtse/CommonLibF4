@@ -746,9 +746,9 @@ namespace REL
 		}
 
 		static bool mock(
-			REL::Version a_version, 
+			REL::Version a_version,
 			Runtime a_runtime = Runtime::Unknown,
-			std::wstring_view a_filename = L"Fallout4.exe"sv, 
+			std::wstring_view a_filename = L"Fallout4.exe"sv,
 			std::uintptr_t a_base = 0,
 			std::array<std::uintptr_t, Segment::total> a_segmentSizes = { 0x1603000, 0, 0x8ee000, 0x1887000, 0x15c000, 0x3000, 0x2000, 0x1000 })
 		{
