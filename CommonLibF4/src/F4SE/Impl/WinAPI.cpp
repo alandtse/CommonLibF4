@@ -11,6 +11,7 @@
 
 #undef CreateFileMapping
 #undef CreateProcess
+#undef ExpandEnvironmentStrings
 #undef FindFirstFile
 #undef FindNextFile
 #undef GetEnvironmentVariable
@@ -155,6 +156,30 @@ namespace F4SE::WinAPI
 				static_cast<::LPVOID>(a_param),
 				static_cast<::DWORD>(a_flags),
 				reinterpret_cast<::LPDWORD>(a_threadId)));
+	}
+
+	std::uint32_t ExpandEnvironmentStrings(
+		const char* a_src,
+		char* a_dest,
+		std::uint32_t a_size) noexcept
+	{
+		return static_cast<std::uint32_t>(
+			::ExpandEnvironmentStringsA(
+				static_cast<::LPCSTR>(a_src),
+				static_cast<::LPSTR>(a_dest),
+				static_cast<::DWORD>(a_size)));
+	}
+
+	std::uint32_t ExpandEnvironmentStrings(
+		const wchar_t* a_src,
+		wchar_t* a_dest,
+		std::uint32_t a_size) noexcept
+	{
+		return static_cast<std::uint32_t>(
+			::ExpandEnvironmentStringsW(
+				static_cast<::LPCWSTR>(a_src),
+				static_cast<::LPWSTR>(a_dest),
+				static_cast<::DWORD>(a_size)));
 	}
 
 	bool FindClose(

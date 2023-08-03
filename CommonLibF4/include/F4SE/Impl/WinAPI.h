@@ -574,7 +574,17 @@ namespace F4SE::WinAPI
 		std::uint32_t a_flags,
 		std::uint32_t* a_threadId) noexcept;
 
-	[[nodiscard]] bool FindClose(
+	std::uint32_t ExpandEnvironmentStrings(
+		const char* a_src,
+		char* a_dest,
+		std::uint32_t a_size) noexcept;
+
+	std::uint32_t ExpandEnvironmentStrings(
+		const wchar_t* a_src,
+		wchar_t* a_dest,
+		std::uint32_t a_size) noexcept;
+
+	bool FindClose(
 		void* a_findFile) noexcept;
 
 	[[nodiscard]] void* FindFirstFile(
