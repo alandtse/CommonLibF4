@@ -3,6 +3,7 @@ set(SOURCES
 	include/F4SE/F4SE.h
 	include/F4SE/Impl/PCH.h
 	include/F4SE/Impl/WinAPI.h
+	include/F4SE/Impl/WinSTL.h
 	include/F4SE/Interfaces.h
 	include/F4SE/Logger.h
 	include/F4SE/Trampoline.h

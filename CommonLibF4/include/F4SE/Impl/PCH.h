@@ -67,6 +67,7 @@ static_assert(
 #pragma warning(pop)
 
 #include "F4SE/Impl/WinAPI.h"
+#include "F4SE/Impl/WinSTL.h"
 
 namespace F4SE
 {
@@ -861,6 +862,7 @@ namespace RE
 	using namespace std::literals;
 	namespace stl = F4SE::stl;
 	namespace WinAPI = F4SE::WinAPI;
+	namespace WinSTL = F4SE::WinSTL;
 }
 
 namespace REL
@@ -868,6 +870,7 @@ namespace REL
 	using namespace std::literals;
 	namespace stl = F4SE::stl;
 	namespace WinAPI = F4SE::WinAPI;
+	namespace WinSTL = F4SE::WinSTL;
 }
 
 #include "REL/Relocation.h"
