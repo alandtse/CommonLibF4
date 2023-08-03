@@ -861,25 +861,10 @@ namespace REL
 
 		Module& operator=(Module&&) = delete;
 
-		static inline std::wstring safeGetEnvWstring(const std::wstring_view& envVar, std::size_t maxSize)
-		{
-			if (!maxSize) {
-				return std::wstring();
-			}
-			std::wstring _tempstr;
-			_tempstr.resize(maxSize + 1);
-			std::fill(_tempstr.begin(), _tempstr.end(), '\0');
-			const auto result = WinAPI::GetEnvironmentVariable(
-				envVar.data(),
-				_tempstr.data(),
-				static_cast<std::uint32_t>(maxSize));
-			return { _tempstr.c_str() };  // wstring_view(wchar_t*) constructor removes trailing '\0'
-		}
-
 		bool init()
 		{
 			auto sz = _filename.size();
-			_filename = safeGetEnvWstring(ENVIRONMENT, sz);
+			_filename = WinSTL::GetEnvironmentVariable(ENVIRONMENT, sz);
 			void* moduleHandle = nullptr;
 			if (_filename.empty() || _filename.size() != sz) {
 				for (auto runtime : RUNTIMES) {
