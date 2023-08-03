@@ -1,13 +1,13 @@
 option("fallout_f4", function()
     set_default(true)
     set_description("Enable runtime support for Fallout 4")
-    add_defines("ENABLE_FALLOUT_F4=1")
+    add_defines("FALLOUT_SUPPORT_F4=1")
 end)
 
 option("fallout_vr", function()
     set_default(true)
     set_description("Enable runtime support for Fallout 4 VR")
-    add_defines("ENABLE_FALLOUT_VR=1")
+    add_defines("FALLOUT_SUPPORT_VR=1")
 end)
 
 option("f4se_xbyak", function()

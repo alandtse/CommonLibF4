@@ -148,28 +148,28 @@
       "name": "runtimes-vr",
       "hidden": true,
       "cacheVariables": {
-        "ENABLE_FALLOUT_F4": "OFF"
+        "FALLOUT_SUPPORT_F4": "OFF"
       }
     },
     {
       "name": "runtimes-flat",
       "hidden": true,
       "cacheVariables": {
-        "ENABLE_FALLOUT_VR": "OFF"
+        "FALLOUT_SUPPORT_VR": "OFF"
       }
     },
     {
-      "name": "runtimes-se",
+      "name": "runtimes-f4",
       "hidden": true,
       "cacheVariables": {
-        "ENABLE_FALLOUT_VR": "OFF"
+        "FALLOUT_SUPPORT_VR": "OFF"
       }
     },
     {
       "name": "runtimes-current",
       "hidden": true,
       "cacheVariables": {
-        "ENABLE_FALLOUT_F4": "OFF"
+        "FALLOUT_SUPPORT_F4": "OFF"
       }
     },
     {
@@ -236,7 +236,7 @@
       "name": "build-debug-msvc-vcpkg-f4",
       "inherits": [
         "build-debug-msvc-vcpkg-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/debug-msvc-vcpkg-f4"
     },
@@ -244,7 +244,7 @@
       "name": "build-debug-clang-cl-vcpkg-f4",
       "inherits": [
         "build-debug-clang-cl-vcpkg-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/debug-clang-cl-vcpkg-f4"
     },
@@ -328,7 +328,7 @@
       "name": "build-release-msvc-vcpkg-f4",
       "inherits": [
         "build-release-msvc-vcpkg-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/release-msvc-vcpkg-f4"
     },
@@ -336,7 +336,7 @@
       "name": "build-release-clang-cl-vcpkg-f4",
       "inherits": [
         "build-release-clang-cl-vcpkg-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/release-clang-cl-vcpkg-f4"
     },
@@ -420,7 +420,7 @@
       "name": "build-debug-msvc-conan-f4",
       "inherits": [
         "build-debug-msvc-conan-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/debug-msvc-conan-f4"
     },
@@ -428,7 +428,7 @@
       "name": "build-debug-clang-cl-conan-f4",
       "inherits": [
         "build-debug-clang-cl-conan-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/debug-clang-cl-conan-f4"
     },
@@ -512,7 +512,7 @@
       "name": "build-release-msvc-conan-f4",
       "inherits": [
         "build-release-msvc-conan-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/release-msvc-conan-f4"
     },
@@ -520,7 +520,7 @@
       "name": "build-release-clang-cl-conan-f4",
       "inherits": [
         "build-release-clang-cl-conan-all",
-        "runtimes-se"
+        "runtimes-f4"
       ],
       "binaryDir": "${sourceDir}/build/release-clang-cl-conan-f4"
     },

@@ -58,14 +58,14 @@
 	REL_MAKE_MEMBER_FUNCTION_NON_POD_TYPE_HELPER(&, ##__VA_ARGS__) \
 	REL_MAKE_MEMBER_FUNCTION_NON_POD_TYPE_HELPER(&&, ##__VA_ARGS__)
 
-#if defined(ENABLE_FALLOUT_VR) && (defined(ENABLE_FALLOUT_F4))
+#if defined(FALLOUT_SUPPORT_F4) && (FALLOUT_SUPPORT_VR)
 /**
  * Defined to indicate that this build supports both VR and non-VR runtimes.
  */
-#	define FALLOUT_CROSS_VR
+#	define FALLOUT_SUPPORT_CROSS 1
 #endif
 
-#if (!defined(ENABLE_FALLOUT_F4) && !defined(ENABLE_FALLOUT_VR))
+#if !defined(FALLOUT_SUPPORT_F4) && !defined(FALLOUT_SUPPORT_VR)
 /**
  * A macro which defines a modifier for expressions that vary by FALLOUT Address Library IDs.
  *
@@ -85,7 +85,7 @@
 #	define FALLOUT_ADDR inline
 #endif
 
-#if !defined(ENABLE_FALLOUT_VR) || (!defined(ENABLE_FALLOUT_F4) && !defined(ENABLE_FALLOUT_VR)) || (!defined(ENABLE_FALLOUT_F4))
+#if !defined(FALLOUT_SUPPORT_F4) || (!defined(FALLOUT_SUPPORT_F4) && !defined(FALLOUT_SUPPORT_VR)) || !defined(FALLOUT_SUPPORT_VR)
 /**
  * A macro which defines a modifier for expressions that vary by the specific FALLOUT runtime.
  *
@@ -123,9 +123,9 @@
 #	define FALLOUT_REL_CONSTEXPR
 #endif
 
-#ifndef FALLOUT_CROSS_VR
+#ifndef FALLOUT_SUPPORT_CROSS
 /**
- * A macro which defines a modifier for expressions that vary between FALLOUT SE/AE and FALLOUT VR.
+ * A macro which defines a modifier for expressions that vary between FALLOUT 4 and FALLOUT VR.
  *
  * <p>
  * Currently defined as <code>constexpr</code> since this build is only for VR or non-VR.
@@ -687,7 +687,7 @@ namespace REL
 			return _instance;
 		}
 
-#ifdef ENABLE_COMMONLIBF4_TESTING
+#ifdef COMMONLIBF4_ENABLE_TESTING
 		/**
          * Forcibly set the singleton <code>Module</code> instance to a specific executable file.
          *
@@ -736,7 +736,7 @@ namespace REL
 					LR"(SOFTWARE\Bethesda Softworks\Fallout 4)";
 			unsigned long length = bufferSize * sizeof(wchar_t);
 			std::uint8_t value[bufferSize];
-			if (WinAPI::RegGetValueW(WinAPI::HKEY_LOCAL_MACHINE, subKey, L"Installed Path", 0x20002, nullptr, value, &length) !=
+			if (WinAPI::RegGetValue(WinAPI::HKEY_LOCAL_MACHINE, subKey, L"Installed Path", 0x20002, nullptr, value, &length) !=
 				0) {
 				return false;
 			}
@@ -745,8 +745,11 @@ namespace REL
 			return inject(installPath.c_str());
 		}
 
-		static bool mock(REL::Version a_version, Runtime a_runtime = Runtime::Unknown,
-			std::wstring_view a_filename = L"Fallout4.exe"sv, std::uintptr_t a_base = 0,
+		static bool mock(
+			REL::Version a_version, 
+			Runtime a_runtime = Runtime::Unknown,
+			std::wstring_view a_filename = L"Fallout4.exe"sv, 
+			std::uintptr_t a_base = 0,
 			std::array<std::uintptr_t, Segment::total> a_segmentSizes = { 0x1603000, 0, 0x8ee000, 0x1887000, 0x15c000, 0x3000, 0x2000, 0x1000 })
 		{
 			_instance.clear();
@@ -760,11 +763,8 @@ namespace REL
 			_instance._version = a_version;
 			if (a_runtime == Runtime::Unknown) {
 				switch (a_version[1]) {
-				case 4:
+				case 2:
 					_instance._runtime = Runtime::VR;
-					break;
-				case 6:
-					_instance._runtime = Runtime::AE;
 					break;
 				default:
 					_instance._runtime = Runtime::F4;
@@ -817,9 +817,9 @@ namespace REL
          */
 		[[nodiscard]] static FALLOUT_REL Runtime GetRuntime() noexcept
 		{
-#if (!defined(ENABLE_FALLOUT_VR))
+#if !defined(FALLOUT_SUPPORT_VR)
 			return Runtime::F4;
-#elif (!defined(ENABLE_FALLOUT_F4))
+#elif !defined(FALLOUT_SUPPORT_F4)
 			return Runtime::VR;
 #else
 			return get()._runtime;
@@ -839,9 +839,9 @@ namespace REL
          */
 		[[nodiscard]] static FALLOUT_REL_VR bool IsVR() noexcept
 		{
-#ifndef ENABLE_FALLOUT_VR
+#if !defined(FALLOUT_SUPPORT_VR)
 			return false;
-#elif !defined(ENABLE_FALLOUT_F4)
+#elif !defined(FALLOUT_SUPPORT_F4)
 			return true;
 #else
 			return GetRuntime() == Runtime::VR;
@@ -850,15 +850,12 @@ namespace REL
 
 	private:
 		Module() = default;
-
 		Module(const Module&) = delete;
-
 		Module(Module&&) = delete;
 
 		~Module() noexcept = default;
 
 		Module& operator=(const Module&) = delete;
-
 		Module& operator=(Module&&) = delete;
 
 		bool init()
@@ -1059,7 +1056,7 @@ namespace REL
 			return _instance;
 		}
 
-#ifdef ENABLE_COMMONLIBF4_TESTING
+#ifdef COMMONLIBF4_ENABLE_TESTING
 		[[nodiscard]] static bool inject(std::wstring_view a_filePath, Format a_format)
 		{
 			return inject(a_filePath, a_format, Module::get().version());
@@ -1215,15 +1212,12 @@ namespace REL
 		};
 
 		IDDatabase() = default;
-
 		IDDatabase(const IDDatabase&) = delete;
-
 		IDDatabase(IDDatabase&&) = delete;
 
 		~IDDatabase() = default;
 
 		IDDatabase& operator=(const IDDatabase&) = delete;
-
 		IDDatabase& operator=(IDDatabase&&) = delete;
 
 		void load()
@@ -1446,36 +1440,36 @@ namespace REL
 		std::size_t _offset{ 0 };
 	};
 
-	class VariantOffset
+	class Offset2
 	{
 	public:
-		constexpr VariantOffset() noexcept = default;
+		constexpr Offset2() noexcept = default;
 
-		explicit constexpr VariantOffset([[maybe_unused]] std::size_t a_f4Offset,
+		explicit constexpr Offset2(
+			[[maybe_unused]] std::size_t a_f4Offset,
 			[[maybe_unused]] std::size_t a_vrOffset) noexcept
 		{
-#ifdef ENABLE_FALLOUT_F4
+#ifdef FALLOUT_SUPPORT_F4
 			_f4Offset = a_f4Offset;
 #endif
-#ifdef ENABLE_FALLOUT_VR
+#ifdef FALLOUT_SUPPORT_VR
 			_vrOffset = a_vrOffset;
 #endif
 		}
 
 		[[nodiscard]] std::uintptr_t address() const
 		{
-			auto thisOffset = offset();
-			return thisOffset ? base() + thisOffset : 0;
+			return offset() ? base() + offset() : 0;
 		}
 
 		[[nodiscard]] FALLOUT_REL std::size_t offset() const noexcept
 		{
 			switch (Module::GetRuntime()) {
-#ifdef ENABLE_FALLOUT_F4
+#ifdef FALLOUT_SUPPORT_F4
 			case Module::Runtime::F4:
 				return _f4Offset;
 #endif
-#ifdef ENABLE_FALLOUT_VR
+#ifdef FALLOUT_SUPPORT_VR
 			case Module::Runtime::VR:
 				return _vrOffset;
 #endif
@@ -1489,10 +1483,10 @@ namespace REL
 	private:
 		[[nodiscard]] static std::uintptr_t base() { return Module::get().base(); }
 
-#ifdef ENABLE_FALLOUT_F4
+#ifdef FALLOUT_SUPPORT_F4
 		std::size_t _f4Offset{ 0 };
 #endif
-#ifdef ENABLE_FALLOUT_VR
+#ifdef FALLOUT_SUPPORT_VR
 		std::size_t _vrOffset{ 0 };
 #endif
 	};
@@ -1523,52 +1517,52 @@ namespace REL
 		std::uint64_t _id{ 0 };
 	};
 
-	class RelocationID
+	class ID2
 	{
 	public:
-		constexpr RelocationID() noexcept = default;
+		constexpr ID2() noexcept = default;
 
-		explicit constexpr RelocationID([[maybe_unused]] std::uint64_t a_f4ID) noexcept
+		explicit constexpr ID2(
+			[[maybe_unused]] std::uint64_t a_f4ID) noexcept
 		{
-#ifdef ENABLE_FALLOUT_F4
+#ifdef FALLOUT_SUPPORT_F4
 			_f4ID = a_f4ID;
 #endif
-#ifdef ENABLE_FALLOUT_VR
+#ifdef FALLOUT_SUPPORT_VR
 			_vrID = a_f4ID;
 #endif
 		}
 
-		explicit constexpr RelocationID([[maybe_unused]] std::uint64_t a_f4ID,
+		explicit constexpr ID2(
+			[[maybe_unused]] std::uint64_t a_f4ID,
 			[[maybe_unused]] std::uint64_t a_vrID) noexcept
 		{
-#ifdef ENABLE_FALLOUT_F4
+#ifdef FALLOUT_SUPPORT_F4
 			_f4ID = a_f4ID;
 #endif
-#ifdef ENABLE_FALLOUT_VR
+#ifdef FALLOUT_SUPPORT_VR
 			_vrID = a_vrID;
 #endif
 		}
 
 		[[nodiscard]] std::uintptr_t address() const
 		{
-			auto thisOffset = offset();
-			return thisOffset ? base() + offset() : 0;
+			return offset() ? base() + offset() : 0;
 		}
 
 		[[nodiscard]] std::size_t offset() const
 		{
-			auto thisID = id();
-			return thisID ? IDDatabase::get().id2offset(thisID) : 0;
+			return id() ? IDDatabase::get().id2offset(id()) : 0;
 		}
 
 		[[nodiscard]] FALLOUT_REL std::uint64_t id() const noexcept
 		{
 			switch (Module::GetRuntime()) {
-#ifdef ENABLE_FALLOUT_F4
+#ifdef FALLOUT_SUPPORT_F4
 			case Module::Runtime::F4:
 				return _f4ID;
 #endif
-#ifdef ENABLE_FALLOUT_VR
+#ifdef FALLOUT_SUPPORT_VR
 			case Module::Runtime::VR:
 				return _vrID;
 #endif
@@ -1585,60 +1579,11 @@ namespace REL
 	private:
 		[[nodiscard]] static std::uintptr_t base() { return Module::get().base(); }
 
-#ifdef ENABLE_FALLOUT_F4
+#ifdef FALLOUT_SUPPORT_F4
 		std::uint64_t _f4ID{ 0 };
 #endif
-#ifdef ENABLE_FALLOUT_VR
+#ifdef FALLOUT_SUPPORT_VR
 		std::uint64_t _vrID{ 0 };
-#endif
-	};
-
-	class VariantID
-	{
-	public:
-		constexpr VariantID() noexcept = default;
-
-		explicit constexpr VariantID([[maybe_unused]] std::uint64_t a_f4ID,
-			[[maybe_unused]] std::uint64_t a_vrOffset) noexcept
-		{
-#ifdef ENABLE_FALLOUT_F4
-			_f4ID = a_f4ID;
-#endif
-#ifdef ENABLE_FALLOUT_VR
-			_vrOffset = a_vrOffset;
-#endif
-		}
-
-		[[nodiscard]] std::uintptr_t address() const
-		{
-			auto thisOffset = offset();
-			return thisOffset ? base() + offset() : 0;
-		}
-
-		[[nodiscard]] std::size_t offset() const
-		{
-			switch (Module::GetRuntime()) {
-#ifdef ENABLE_FALLOUT_F4
-			case Module::Runtime::F4:
-				return _f4ID ? IDDatabase::get().id2offset(_f4ID) : 0;
-#endif
-#ifdef ENABLE_FALLOUT_VR
-			case Module::Runtime::VR:
-				return _vrOffset;
-#endif
-			default:
-				return 0;
-			}
-		}
-
-	private:
-		[[nodiscard]] static std::uintptr_t base() { return Module::get().base(); }
-
-#ifdef ENABLE_FALLOUT_F4
-		std::uint64_t _f4ID{ 0 };
-#endif
-#ifdef ENABLE_FALLOUT_VR
-		std::uint64_t _vrOffset{ 0 };
 #endif
 	};
 
@@ -1660,7 +1605,7 @@ namespace REL
 		explicit Relocation(Offset a_offset) :
 			_impl{ a_offset.address() } {}
 
-		explicit Relocation(VariantOffset a_offset) :
+		explicit Relocation(Offset2 a_offset) :
 			_impl{ a_offset.address() } {}
 
 		explicit Relocation(ID a_id) :
@@ -1672,31 +1617,19 @@ namespace REL
 		explicit Relocation(ID a_id, Offset a_offset) :
 			_impl{ a_id.address() + a_offset.offset() } {}
 
-		explicit Relocation(ID a_id, VariantOffset a_offset) :
+		explicit Relocation(ID a_id, Offset2 a_offset) :
 			_impl{ a_id.address() + a_offset.offset() } {}
 
-		explicit Relocation(RelocationID a_id) :
+		explicit Relocation(ID2 a_id) :
 			_impl{ a_id.address() } {}
 
-		explicit Relocation(RelocationID a_id, std::ptrdiff_t a_offset) :
+		explicit Relocation(ID2 a_id, std::ptrdiff_t a_offset) :
 			_impl{ a_id.address() + a_offset } {}
 
-		explicit Relocation(RelocationID a_id, Offset a_offset) :
+		explicit Relocation(ID2 a_id, Offset a_offset) :
 			_impl{ a_id.address() + a_offset.offset() } {}
 
-		explicit Relocation(RelocationID a_id, VariantOffset a_offset) :
-			_impl{ a_id.address() + a_offset.offset() } {}
-
-		explicit Relocation(VariantID a_id) :
-			_impl{ a_id.address() } {}
-
-		explicit Relocation(VariantID a_id, std::ptrdiff_t a_offset) :
-			_impl{ a_id.address() + a_offset } {}
-
-		explicit Relocation(VariantID a_id, Offset a_offset) :
-			_impl{ a_id.address() + a_offset.offset() } {}
-
-		explicit Relocation(VariantID a_id, VariantOffset a_offset) :
+		explicit Relocation(ID2 a_id, Offset2 a_offset) :
 			_impl{ a_id.address() + a_offset.offset() } {}
 
 		constexpr Relocation& operator=(std::uintptr_t a_address) noexcept
@@ -1711,7 +1644,7 @@ namespace REL
 			return *this;
 		}
 
-		Relocation& operator=(VariantOffset a_offset)
+		Relocation& operator=(Offset2 a_offset)
 		{
 			_impl = a_offset.address();
 			return *this;
@@ -1723,13 +1656,7 @@ namespace REL
 			return *this;
 		}
 
-		Relocation& operator=(RelocationID a_id)
-		{
-			_impl = a_id.address();
-			return *this;
-		}
-
-		Relocation& operator=(VariantID a_id)
+		Relocation& operator=(ID2 a_id)
 		{
 			_impl = a_id.address();
 			return *this;
@@ -2017,18 +1944,16 @@ namespace REL
      * </p>
      *
      * @tparam T the type of value to return.
-     * @param a_f4 the value to use for SE.
-     * @param a_ae the value to use for AE.
+     * @param a_f4 the value to use for F4.
      * @param a_vr the value to use for VR.
-     * @return Either <code>a_f4</code> if the current runtime is FALLOUT SE, or <code>a_ae</code> if the runtime is AE, or
-     * <code>a_vr</code> if running FALLOUT VR.
+     * @return Either <code>a_f4</code> if the current runtime is F4, or <code>a_vr</code> if the runtime is VR
      */
 	template <class T>
 	[[nodiscard]] FALLOUT_REL T Relocate([[maybe_unused]] T a_f4, [[maybe_unused]] T a_vr) noexcept
 	{
-#if !defined(ENABLE_FALLOUT_VR)
+#if !defined(FALLOUT_SUPPORT_VR)
 		return a_f4;
-#elif !defined(ENABLE_FALLOUT_F4)
+#elif !defined(FALLOUT_SUPPORT_F4)
 		return a_vr;
 #else
 		switch (Module::get().GetRuntime()) {
@@ -2100,7 +2025,7 @@ namespace REL
      * Invokes a virtual function in a cross-platform way where the vtable structure is variant across AE/SE and VR runtimes.
      *
      * <p>
-     * Some classes in FALLOUT VR add new virtual functions in the middle of the vtable structure, which makes it ABI-incompatible with AE/SE.
+     * Some classes in FALLOUT VR add new virtual functions in the middle of the vtable structure, which makes it ABI-incompatible with F4.
      * A naive virtual function call, therefore, cannot work across all runtimes without the plugin being recompiled specifically for VR.
      * This call works with types which have variant vtables to allow a non-virtual function definition to be created in the virtual function's
      * place, and to have that call dynamically lookup the correct function based on the vtable structure expected in the current runtime.
@@ -2108,7 +2033,7 @@ namespace REL
      *
      * @tparam Fn the type of the function being called.
      * @tparam Args the types of the arguments being passed.
-     * @param a_f4tableOffset the offset from the <code>this</code> pointer to the vtable with the virtual function in SE/AE.
+     * @param a_f4tableOffset the offset from the <code>this</code> pointer to the vtable with the virtual function in F4.
      * @param a_vrVtableIndex the offset from the <code>this</code> pointer to the vtable with the virtual function in VR.
      * @param a_f4tableIndex the index of the function in the class' vtable in F4.
      * @param a_vrVtableIndex the index of the function in the class' vtable in VR.
@@ -2124,10 +2049,10 @@ namespace REL
 	{
 		return (*reinterpret_cast<typename detail::RelocateVirtualHelper<Fn>::function_type**>(
 			*reinterpret_cast<const uintptr_t*>(reinterpret_cast<uintptr_t>(a_f4lf) +
-#ifndef ENABLE_FALLOUT_VR
+#if !defined(FALLOUT_SUPPORT_VR)
 												a_f4tableOffset) +
 			a_f4tableIndex
-#elif !defined(ENABLE_FALLOUT_F4)
+#elif !defined(FALLOUT_SUPPORT_F4)
 												a_vrVtableOffset) +
 			a_vrVtableIndex
 #else
@@ -2141,7 +2066,7 @@ namespace REL
      * Invokes a virtual function in a cross-platform way where the vtable structure is variant across AE/SE and VR runtimes.
      *
      * <p>
-     * Some classes in FALLOUT VR add new virtual functions in the middle of the vtable structure, which makes it ABI-incompatible with AE/SE.
+     * Some classes in FALLOUT VR add new virtual functions in the middle of the vtable structure, which makes it ABI-incompatible with F4.
      * A naive virtual function call, therefore, cannot work across all runtimes without the plugin being recompiled specifically for VR.
      * This call works with types which have variant vtables to allow a non-virtual function definition to be created in the virtual function's
      * place, and to have that call dynamically lookup the correct function based on the vtable structure expected in the current runtime.
@@ -2234,6 +2159,7 @@ namespace std
 #endif
 }
 
+#ifdef FMT_VERSION
 namespace fmt
 {
 	template <class CharT>
@@ -2246,6 +2172,7 @@ namespace fmt
 		}
 	};
 }
+#endif
 
 #undef REL_MAKE_MEMBER_FUNCTION_NON_POD_TYPE
 #undef REL_MAKE_MEMBER_FUNCTION_NON_POD_TYPE_HELPER

@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 3.21)
 
 option(F4SE_SUPPORT_XBYAK "Enables trampoline support for Xbyak." OFF)
-option(ENABLE_FALLOUT_F4 "Enable support for Fallout 4 in the dynamic runtime feature." ON)
-option(ENABLE_FALLOUT_VR "Enable support for Fallout 4 VR in the dynamic runtime feature." ON)
+option(FALLOUT_SUPPORT_F4 "Enable support for Fallout 4 in the dynamic runtime feature." ON)
+option(FALLOUT_SUPPORT_VR "Enable support for Fallout 4 VR in the dynamic runtime feature." ON)
 option(BUILD_TESTS "Enable building of the unit tests." OFF)
 message("Options:")
 message("\tEnable Xbyak: ${F4SE_SUPPORT_XBYAK}")
-message("\tEnable Fallout 4: ${ENABLE_FALLOUT_F4}")
-message("\tEnable Fallout 4 VR: ${ENABLE_FALLOUT_VR}")
+message("\tEnable Fallout 4: ${FALLOUT_SUPPORT_F4}")
+message("\tEnable Fallout 4 VR: ${FALLOUT_SUPPORT_VR}")
 message("\tBuild Tests: ${BUILD_TESTS}")
 
-if(NOT ENABLE_FALLOUT_F4 AND NOT ENABLE_FALLOUT_VR)
+if(NOT FALLOUT_SUPPORT_F4 AND NOT FALLOUT_SUPPORT_VR)
 	message(FATAL_ERROR "At least one Fallout runtime must be supported by the COMMONLIBF4 build.")
 endif()
 
@@ -60,9 +60,8 @@ target_compile_definitions(
 		WINVER=0x0601	# windows 7, minimum supported version by Fallout
 		_WIN32_WINNT=0x0601
 		"$<$<BOOL:${F4SE_SUPPORT_XBYAK}>:F4SE_SUPPORT_XBYAK=1>"
-		"$<$<BOOL:${ENABLE_FALLOUT_F4}>:ENABLE_FALLOUT_F4=1>"
-		"$<$<BOOL:${ENABLE_FALLOUT_VR}>:ENABLE_FALLOUT_VR=1>"
-		HAS_FALLOUT_MULTI_TARGETING=1
+		"$<$<BOOL:${FALLOUT_SUPPORT_F4}>:FALLOUT_SUPPORT_F4=1>"
+		"$<$<BOOL:${FALLOUT_SUPPORT_VR}>:FALLOUT_SUPPORT_VR=1>"
 )
 
 target_compile_features(
@@ -197,7 +196,7 @@ if(BUILD_TESTS)
 	target_compile_definitions(
 		"${PROJECT_NAME}Tests"
 		PUBLIC
-			ENABLE_COMMONLIBF4_TESTING=1
+			COMMONLIBF4_ENABLE_TESTING=1
 	)
 
 	target_link_libraries(

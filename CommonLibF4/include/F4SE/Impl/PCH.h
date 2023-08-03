@@ -788,7 +788,7 @@ namespace F4SE
 				a_msg);
 
 			if (a_fail) {
-#ifdef ENABLE_COMMONLIBF4_TESTING
+#ifdef COMMONLIBF4_ENABLE_TESTING
 				throw std::runtime_error(utf16_to_utf8(caption.empty() ? body.c_str() : caption.c_str())->c_str());
 #else
 				WinAPI::MessageBox(nullptr, body.c_str(), (caption.empty() ? nullptr : caption.c_str()), 0);
