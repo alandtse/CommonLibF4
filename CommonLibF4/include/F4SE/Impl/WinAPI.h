@@ -820,10 +820,6 @@ namespace F4SE::WinAPI
 	bool UnmapViewOfFile(
 		const void* a_baseAddress) noexcept;
 
-	bool UnmapViewOfFileEx(
-		void* a_baseAddress,
-		std::uint32_t a_flags) noexcept;
-
 	bool VerQueryValue(
 		const void* a_block,
 		const char* a_subBlock,

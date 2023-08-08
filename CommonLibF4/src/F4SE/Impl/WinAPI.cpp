@@ -2,6 +2,10 @@
 
 #define WIN32_LEAN_AND_MEAN
 
+// windows 7 is the minimum supported version by fallout
+#define WINVER 0x0601
+#define _WIN32_WINNT 0x0601
+
 // clang-format off
 #include <Windows.h>
 #include <DbgHelp.h>
@@ -720,14 +724,6 @@ namespace F4SE::WinAPI
 				static_cast<::LPVOID>(a_tlsValue)));
 	}
 
-	bool UnmapViewOfFile(
-		const void* a_baseAddress) noexcept
-	{
-		return static_cast<bool>(
-			::UnmapViewOfFile(
-				static_cast<::LPCVOID>(a_baseAddress)));
-	}
-
 	std::uint32_t UnDecorateSymbolName(
 		const char* a_name,
 		char* a_outputString,
@@ -756,14 +752,12 @@ namespace F4SE::WinAPI
 				static_cast<::DWORD>(a_flags)));
 	}
 
-	bool UnmapViewOfFileEx(
-		void* a_baseAddress,
-		std::uint32_t a_flags) noexcept
+	bool UnmapViewOfFile(
+		const void* a_baseAddress) noexcept
 	{
 		return static_cast<bool>(
-			::UnmapViewOfFileEx(
-				static_cast<::PVOID>(a_baseAddress),
-				static_cast<::ULONG>(a_flags)));
+			::UnmapViewOfFile(
+				static_cast<::LPCVOID>(a_baseAddress)));
 	}
 
 	bool VerQueryValue(
