@@ -1491,7 +1491,7 @@ namespace REL
 #endif
 	};
 
-	using VariantOffset = Offset2; // deprecated
+	using VariantOffset = Offset2;  // deprecated
 
 	class ID
 	{
@@ -1589,7 +1589,7 @@ namespace REL
 #endif
 	};
 
-	using RelocationID = ID2; // deprecated
+	using RelocationID = ID2;  // deprecated
 
 	template <class T>
 	class Relocation
