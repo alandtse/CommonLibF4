@@ -1491,6 +1491,8 @@ namespace REL
 #endif
 	};
 
+	using VariantOffset = Offset2; // deprecated
+
 	class ID
 	{
 	public:
@@ -1586,6 +1588,8 @@ namespace REL
 		std::uint64_t _vrID{ 0 };
 #endif
 	};
+
+	using RelocationID = ID2; // deprecated
 
 	template <class T>
 	class Relocation
