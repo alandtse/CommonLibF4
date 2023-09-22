@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "name": "commonlibf4",
   "version-semver": "1.0.0",
   "port-version": 0,
@@ -24,10 +24,7 @@
     "srell",
     "xbyak"
   ],
-  "vcpkg-configuration": {
-    "overlay-ports": [ "./cmake/ports/" ]
-  },
-
+  "builtin-baseline":"4cfabe769eaceb209ea37267e8c50c43b86a4a7b",
   "features": {
     "tests": {
       "description": "Build tests for CommonLibF4.",
