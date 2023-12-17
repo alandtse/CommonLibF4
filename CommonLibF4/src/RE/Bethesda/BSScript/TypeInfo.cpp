@@ -29,7 +29,7 @@ namespace RE::BSScript
 		return IsComplex() ? reinterpret_cast<IComplexType*>(
 								 reinterpret_cast<std::uintptr_t>(data.complexTypeInfo) &
 								 ~static_cast<std::uintptr_t>(1)) :
-                             nullptr;
+		                     nullptr;
 	}
 	ObjectTypeInfo* TypeInfo::GetObjectTypeInfo() const
 	{

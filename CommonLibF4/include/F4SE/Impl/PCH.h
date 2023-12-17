@@ -175,7 +175,7 @@ namespace F4SE
 			};
 
 			template <class CharT, std::size_t N>
-			string(const CharT(&)[N]) -> string<CharT, N - 1>;
+			string(const CharT (&)[N]) -> string<CharT, N - 1>;
 		}
 
 		template <class EF>                                    //
@@ -388,7 +388,7 @@ namespace F4SE
 				return (_impl & (static_cast<underlying_type>(a_args) | ...)) == static_cast<underlying_type>(0);
 			}
 
-		private :
+		private:
 			underlying_type _impl{ 0 };
 		};
 

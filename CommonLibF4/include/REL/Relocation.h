@@ -732,8 +732,8 @@ namespace REL
 			constexpr std::size_t bufferSize = 4096;  // Max NTFS path length.
 			const wchar_t* subKey =
 				a_runtime == Runtime::VR ?
-                    LR"(SOFTWARE\Bethesda Softworks\Fallout 4 VR)" :
-                    LR"(SOFTWARE\Bethesda Softworks\Fallout 4)";
+					LR"(SOFTWARE\Bethesda Softworks\Fallout 4 VR)" :
+					LR"(SOFTWARE\Bethesda Softworks\Fallout 4)";
 			unsigned long length = bufferSize * sizeof(wchar_t);
 			std::uint8_t value[bufferSize];
 			if (WinAPI::RegGetValueW(WinAPI::HKEY_LOCAL_MACHINE, subKey, L"Installed Path", 0x20002, nullptr, value, &length) !=
@@ -1801,7 +1801,7 @@ namespace REL
 			return write_vfunc(a_idx, stl::unrestricted_cast<std::uintptr_t>(a_newFunc));
 		}
 
-	private :
+	private:
 		// clang-format off
         [[nodiscard]] static std::uintptr_t base() { return Module::get().base(); }
 		// clang-format on
