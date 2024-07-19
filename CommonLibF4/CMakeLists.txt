@@ -175,6 +175,7 @@ install(
 
 install(
 	DIRECTORY
+ 	"include/F4SE"
 	"include/RE"
 	"include/REL"
 	"include/REX"
