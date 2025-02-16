@@ -9,7 +9,7 @@ namespace RE
 	class __declspec(novtable) BGSSaveGameBuffer
 	{
 	public:
-		static constexpr auto RTTI { RTTI::BGSSaveGameBuffer };
+		static constexpr auto RTTI{ RTTI::BGSSaveGameBuffer };
 		static constexpr auto VTABLE{ VTABLE::BGSSaveGameBuffer };
 
 		virtual ~BGSSaveGameBuffer();
