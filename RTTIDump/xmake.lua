@@ -1,4 +1,4 @@
-target("commonlibf4-rttidump")
+target("commonlibf4-ng-rttidump")
     -- set build kind
     set_kind("shared")
 
@@ -6,16 +6,19 @@ target("commonlibf4-rttidump")
     set_default(false)
 
     -- set build group
-    set_group("commonlibf4/plugin")
+    set_group("commonlibf4-ng/plugin")
 
     -- add dependencies
-    add_deps("commonlibf4")
+    add_deps("commonlibf4-ng")
 
     -- add packages
     add_packages("spdlog")
 
     -- add source files
     add_files("src/**.cpp")
+
+    -- add header files
+    add_headerfiles("src/**.h")
 
     -- add header files
     add_includedirs("src")

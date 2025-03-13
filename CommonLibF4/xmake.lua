@@ -5,22 +5,57 @@ option("f4se_xbyak", function()
     add_defines("F4SE_SUPPORT_XBYAK=1")
 end)
 
+-- define options
+option("fallout_f4")
+    set_default(true)
+    set_description("Enable runtime support for Fallout 4")
+    add_defines("ENABLE_FALLOUT_F4=1")
+option_end()
+
+option("fallout_f4ng")
+    set_default(true)
+    set_description("Enable runtime support for Fallout 4 NG")
+    add_defines("ENABLE_FALLOUT_NG=1")
+option_end()
+
+option("fallout_f4vr")
+    set_default(true)
+    set_description("Enable runtime support for Fallout 4 VR")
+    add_defines("ENABLE_FALLOUT_VR=1")
+option_end()
+
+-- require packages
+if has_config("f4se_xbyak") then
+    add_requires("xbyak")
+end
+
+if has_config("fallout_f4vr") then
+    add_requires("rapidcsv")
+end
+
 -- define targets
-target("commonlibf4", function()
+target("commonlibf4-ng", function()
     set_kind("static")
 
+    -- set build by default
+    set_default(path.directory(os.scriptdir()) == os.projectdir())
+
     -- set build group
-    set_group("commonlibf4")
+    set_group("commonlibf4-ng")
 
     -- add packages
     add_packages("rsm-binary-io", "rsm-mmio", "spdlog", { public = true })
 
+    if has_config("fallout_f4vr") then
+        add_packages("rapidcsv", { public = true })
+    end
+
     if has_config("f4se_xbyak") then
-        add_packages("xbyak")
+        add_packages("xbyak", { public = true })
     end
 
     -- add options
-    add_options("f4se_xbyak", { public = true })
+    add_options("f4se_xbyak", "fallout_f4", "fallout_f4ng", "fallout_f4vr", { public = true })
 
     -- add system links
     add_syslinks("advapi32", "bcrypt", "d3d11", "d3dcompiler", "dbghelp", "dxgi", "ole32", "shell32", "user32", "version")
@@ -73,6 +108,7 @@ end)
 
 local PLUGIN_FILE = [[
 #include <F4SE/F4SE.h>
+
 F4SE_EXPORT constinit auto F4SEPlugin_Version = []() noexcept {
     F4SE::PluginVersionData v{};
     v.PluginVersion({ ${PLUGIN_VERSION_MAJOR}, ${PLUGIN_VERSION_MINOR}, ${PLUGIN_VERSION_PATCH}, 0 });
@@ -85,6 +121,15 @@ F4SE_EXPORT constinit auto F4SEPlugin_Version = []() noexcept {
     v.CompatibleVersions({ F4SE::RUNTIME_LATEST });
     return v;
 }();
+
+F4SE_EXPORT bool F4SEPlugin_Query(const F4SE::QueryInterface*, F4SE::PluginInfo* a_info)
+{
+	a_info->infoVersion = F4SE::PluginInfo::kVersion;
+	a_info->name = "${PLUGIN_NAME}";
+	a_info->version = REL::Version(${PLUGIN_VERSION_MAJOR}, ${PLUGIN_VERSION_MINOR}, ${PLUGIN_VERSION_PATCH}, 0).pack();
+
+	return true;
+}
 ]]
 
 local PLUGIN_RC_FILE = [[
@@ -122,15 +167,15 @@ BEGIN
 END]]
 
 -- git submodule usage:
--- add_deps("commonlibf4")
--- add_rules("commonlibf4.plugin", {
+-- add_deps("commonlibf4-ng")
+-- add_rules("commonlibf4-ng.plugin", {
 --     name = "PluginName",
 --     author = "Author Name",
 --     description = "Plugin Description"
 -- })
 
 -- define rules
-rule("commonlibf4.plugin")
+rule("commonlibf4-ng.plugin")
     add_deps("win.sdk.resource")
 
     on_config(function(target)
@@ -141,8 +186,17 @@ rule("commonlibf4.plugin")
         target:set("arch", "x64")
         target:set("kind", "shared")
 
-        local conf = target:extraconf("rules", "commonlibf4.plugin")
-        local conf_dir = path.join(target:autogendir(), "rules", "commonlibf4", "plugin")
+        target:add("installfiles", target:targetfile(), { prefixdir = "F4SE/Plugins" })
+        target:add("installfiles", target:symbolfile(), { prefixdir = "F4SE/Plugins" })
+
+        if os.getenv("XSE_FO4_MODS_PATH") then
+            target:set("installdir", path.join(os.getenv("XSE_FO4_MODS_PATH"), target:name()))
+        elseif os.getenv("XSE_FO4_GAME_PATH") then
+            target:set("installdir", path.join(os.getenv("XSE_FO4_GAME_PATH"), "Data"))
+        end
+
+        local conf = target:extraconf("rules", "commonlibf4-ng.plugin")
+        local conf_dir = path.join(target:autogendir(), "rules", "commonlibf4-ng", "plugin")
 
         local conf_map = {
             PLUGIN_AUTHOR                = conf.author or "",
@@ -185,4 +239,53 @@ rule("commonlibf4.plugin")
 
         add_file("plugin.cpp", PLUGIN_FILE)
         add_file("version.rc", PLUGIN_RC_FILE)
+    end)
+
+    on_install(function(target)
+        local srcfiles, dstfiles = target:installfiles()
+        if srcfiles and #srcfiles > 0 and dstfiles and #dstfiles > 0 then
+            for idx, srcfile in ipairs(srcfiles) do
+                os.trycp(srcfile, dstfiles[idx])
+            end
+        end
+    end)
+
+    on_package(function(target)
+        import("core.project.config")
+        import("core.project.project")
+        import("utils.archive")
+
+        local archive_name = target:name() .. "-" .. (target:version() or "0.0.0") .. ".zip"
+        print("packing %s .. ", archive_name)
+
+        local root_dir = path.join(os.tmpdir(), "packages", project.name() or "", target:name())
+        os.tryrm(root_dir)
+
+        local srcfiles, dstfiles = target:installfiles(path.join(root_dir, "Data"))
+        if srcfiles and #srcfiles > 0 and dstfiles and #dstfiles > 0 then
+            for idx, srcfile in ipairs(srcfiles) do
+                os.trycp(srcfile, dstfiles[idx])
+            end
+        else
+            return
+        end
+
+        local archive_path = path.join(config.buildir(), "packages", archive_name)
+        local old_dir = os.cd(root_dir)
+        local archive_files = os.files("**")
+        os.cd(old_dir)
+        archive.archive(path.absolute(archive_path), archive_files, { curdir = root_dir })
+    end)
+
+    after_build(function(target)
+        import("core.project.depend")
+        import("core.project.project")
+        import("core.project.task")
+
+        depend.on_changed(function()
+            local srcfiles, dstfiles = target:installfiles()
+            if srcfiles and #srcfiles > 0 and dstfiles and #dstfiles > 0 then 
+                task.run("install")
+            end
+        end, { changed = target:is_rebuilt(), files = { target:targetfile() } })
     end)

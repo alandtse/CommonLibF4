@@ -285,8 +285,8 @@ namespace RE::msvc
 
 		// 3c
 		unique_ptr(pointer a_ptr, const deleter_type& a_dtor) noexcept  //
-			requires(std::is_lvalue_reference_v<deleter_type> &&
-					 std::is_const_v<deleter_type>)
+			requires((std::is_lvalue_reference_v<deleter_type> &&
+					  std::is_const_v<deleter_type>))
 			:
 			super(a_ptr, a_dtor)
 		{}
