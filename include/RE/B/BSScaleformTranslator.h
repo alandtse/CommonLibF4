@@ -14,7 +14,7 @@ namespace RE
 	public:
 		void AddTranslations(BSStreamParser<wchar_t>* a_parser)
 		{
-			using func_t = void(*)(BSScaleformTranslator*, BSStreamParser<wchar_t>*);
+			using func_t = void (*)(BSScaleformTranslator*, BSStreamParser<wchar_t>*);
 			static REL::Relocation<func_t> func{ ID::BSScaleformTranslator::AddTranslations };
 			func(this, a_parser);
 		}

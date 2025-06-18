@@ -9,14 +9,14 @@ namespace RE
 	BSResourceNiBinaryStream::BSResourceNiBinaryStream(const char* a_file, bool a_writeable, BSResource::Location* a_optionalStart, bool a_fullReadHint) :
 		NiBinaryStream()
 	{
-		using func_t = void(*)(BSResourceNiBinaryStream*, const char*, bool, BSResource::Location*, bool);
+		using func_t = void (*)(BSResourceNiBinaryStream*, const char*, bool, BSResource::Location*, bool);
 		static REL::Relocation<func_t> func{ ID::BSResourceNiBinaryStream::Ctor };
 		func(this, a_file, a_writeable, a_optionalStart, a_fullReadHint);
 	}
 
 	BSResourceNiBinaryStream::~BSResourceNiBinaryStream()
 	{
-		using func_t = void(*)(BSResourceNiBinaryStream*);
+		using func_t = void (*)(BSResourceNiBinaryStream*);
 		static REL::Relocation<func_t> func{ ID::BSResourceNiBinaryStream::Dtor };
 		func(this);
 	}
