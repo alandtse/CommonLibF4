@@ -39,6 +39,12 @@ namespace Scaleform::GFx
 				bag->GetStatesAddRef(a_states, a_stateTypes, a_count);
 			}
 		}
+
+		template <class T>
+		T* GetStateAddRef() const
+		{
+			return static_cast<T*>(GetStateAddRef(T::GFX_STATE_TYPE));
+		}
 	};
 	static_assert(sizeof(StateBag) == 0x8);
 }

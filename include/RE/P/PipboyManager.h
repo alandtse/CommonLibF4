@@ -56,126 +56,126 @@ namespace RE
 		{
 			using func_t = decltype(&PipboyManager::AddMenuToPipboy);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::AddMenuToPipboy };
-			return func(this, a_menu, a_standVP, a_powerVP);
+			func(this, a_menu, a_standVP, a_powerVP);
 		}
 
 		void ClosedownPipboy()
 		{
 			using func_t = decltype(&PipboyManager::ClosedownPipboy);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::ClosedownPipboy };
-			return func(this);
+			func(this);
 		}
 
 		void EnablePipboyShader()
 		{
 			using func_t = decltype(&PipboyManager::EnablePipboyShader);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::EnablePipboyShader };
-			return func(this);
+			func(this);
 		}
 
 		void InitPipboy()
 		{
 			using func_t = decltype(&PipboyManager::InitPipboy);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::InitPipboy };
-			return func(this);
+			func(this);
 		}
 
 		void LowerPipboy(LOWER_REASON a_reason)
 		{
 			using func_t = decltype(&PipboyManager::LowerPipboy);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::LowerPipboy };
-			return func(this, a_reason);
+			func(this, a_reason);
 		}
 
 		void OnPipboyCloseAnim()
 		{
 			using func_t = decltype(&PipboyManager::OnPipboyCloseAnim);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::OnPipboyCloseAnim };
-			return func(this);
+			func(this);
 		}
 
 		void OnPipboyCloseAnimFailed()
 		{
 			using func_t = decltype(&PipboyManager::OnPipboyCloseAnimFailed);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::OnPipboyCloseAnimFailed };
-			return func(this);
+			func(this);
 		}
 
 		void OnPipboyClosed()
 		{
 			using func_t = decltype(&PipboyManager::OnPipboyClosed);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::OnPipboyClosed };
-			return func(this);
+			func(this);
 		}
 
 		void OnPipboyOpenAnim()
 		{
 			using func_t = decltype(&PipboyManager::OnPipboyOpenAnim);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::OnPipboyOpenAnim };
-			return func(this);
+			func(this);
 		}
 
 		void OnPipboyOpenAnimFailed()
 		{
 			using func_t = decltype(&PipboyManager::OnPipboyOpenAnimFailed);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::OnPipboyOpenAnimFailed };
-			return func(this);
+			func(this);
 		}
 
 		void OnPipboyOpened()
 		{
 			using func_t = decltype(&PipboyManager::OnPipboyOpened);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::OnPipboyOpened };
-			return func(this);
+			func(this);
 		}
 
 		void PlayItemAnimOnClose()
 		{
 			using func_t = decltype(&PipboyManager::PlayItemAnimOnClose);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::PlayItemAnimOnClose };
-			return func(this);
+			func(this);
 		}
 
 		void PlayPipboyCloseAnim(bool a_noAnim)
 		{
 			using func_t = decltype(&PipboyManager::PlayPipboyCloseAnim);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::PlayPipboyCloseAnim };
-			return func(this, a_noAnim);
+			func(this, a_noAnim);
 		}
 
 		void PlayPipboyGenericOpenAnim(const BSFixedString& a_menu, const BSFixedString& a_anim, bool a_noAnim)
 		{
 			using func_t = decltype(&PipboyManager::PlayPipboyGenericOpenAnim);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::PlayPipboyGenericOpenAnim };
-			return func(this, a_menu, a_anim, a_noAnim);
+			func(this, a_menu, a_anim, a_noAnim);
 		}
 
 		void PlayPipboyLoadHolotapeAnim(BGSNote* a_holotape, bool a_noAnim)
 		{
 			using func_t = decltype(&PipboyManager::PlayPipboyLoadHolotapeAnim);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::PlayPipboyLoadHolotapeAnim };
-			return func(this, a_holotape, a_noAnim);
+			func(this, a_holotape, a_noAnim);
 		}
 
 		void PlayPipboyOpenAnim(const BSFixedString& a_menuName)
 		{
 			using func_t = decltype(&PipboyManager::PlayPipboyOpenAnim);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::PlayPipboyOpenAnim };
-			return func(this, a_menuName);
+			func(this, a_menuName);
 		}
 
 		void PlayPipboyOpenTerminalAnim(BGSTerminal* a_terminal)
 		{
 			using func_t = decltype(&PipboyManager::PlayPipboyOpenTerminalAnim);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::PlayPipboyOpenTerminalAnim };
-			return func(this, a_terminal);
+			func(this, a_terminal);
 		}
 
 		void ProcessLoweringReason()
 		{
 			using func_t = decltype(&PipboyManager::ProcessLoweringReason);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::ProcessLoweringReason };
-			return func(this);
+			func(this);
 		}
 
 		bool QPipboyActive()
@@ -189,35 +189,35 @@ namespace RE
 		{
 			using func_t = decltype(&PipboyManager::RaisePipboy);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::RaisePipboy };
-			return func(this);
+			func(this);
 		}
 
 		void RefreshPipboyRenderSurface()
 		{
 			using func_t = decltype(&PipboyManager::RefreshPipboyRenderSurface);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::RefreshPipboyRenderSurface };
-			return func(this);
+			func(this);
 		}
 
 		void StartAnimationGraphListening()
 		{
 			using func_t = decltype(&PipboyManager::StartAnimationGraphListening);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::StartAnimationGraphListening };
-			return func(this);
+			func(this);
 		}
 
 		void StopAnimationGraphListening()
 		{
 			using func_t = decltype(&PipboyManager::StopAnimationGraphListening);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::StopAnimationGraphListening };
-			return func(this);
+			func(this);
 		}
 
 		void UpdateCursorConstraint(bool a_enable)
 		{
 			using func_t = decltype(&PipboyManager::UpdateCursorConstraint);
 			static REL::Relocation<func_t> func{ ID::PipboyManager::UpdateCursorConstraint };
-			return func(this, a_enable);
+			func(this, a_enable);
 		}
 
 		// members

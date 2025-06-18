@@ -2,13 +2,6 @@
 
 namespace RE
 {
-	NiBinaryStream::NiBinaryStream() :
-		absoluteCurrentPos(0)
-	{}
-
-	NiBinaryStream::~NiBinaryStream()
-	{}
-
 	void NiBinaryStream::GetBufferInfo(BufferInfo& a_buf)
 	{
 		a_buf.buffer = nullptr;

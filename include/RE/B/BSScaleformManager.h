@@ -1,15 +1,16 @@
 #pragma once
 
+#include "RE/B/BSScaleformTranslator.h"
 #include "RE/B/BSStringT.h"
 #include "RE/B/BSTEvent.h"
 #include "RE/B/BSTSingleton.h"
+#include "Scaleform/G/GFx_Loader.h"
 #include "Scaleform/G/GFx_Movie.h"
 #include "Scaleform/P/Ptr.h"
 
 namespace Scaleform::GFx
 {
 	class DrawTextManager;
-	class Loader;
 }
 
 namespace RE
@@ -33,6 +34,11 @@ namespace RE
 		{
 			static REL::Relocation<BSScaleformManager**> singleton{ ID::BSScaleformManager::Singleton };
 			return *singleton;
+		}
+
+		BSScaleformTranslator* GetTranslator() const
+		{
+			return loader->GetStateAddRef<BSScaleformTranslator>();
 		}
 
 		bool LoadMovie(

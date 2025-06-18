@@ -41,7 +41,7 @@ namespace RE
 		}
 
 		template <class T>
-		[[nodiscard]] BSTSmartPointer<T> GetState() const  //
+		[[nodiscard]] BSTSmartPointer<T> GetState() const
 			requires(std::derived_from<T, TESCameraState>)
 		{
 			return BSTSmartPointer{ static_cast<T*>(cameraStates[T::STATE].get()) };

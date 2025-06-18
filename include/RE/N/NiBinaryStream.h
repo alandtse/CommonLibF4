@@ -20,8 +20,8 @@ namespace RE
 		};
 		static_assert(sizeof(BufferInfo) == 0x30);
 
-		NiBinaryStream();
-		virtual ~NiBinaryStream();  // 00
+		NiBinaryStream() = default;
+		virtual ~NiBinaryStream() = default;  // 00
 
 		// add
 		virtual explicit    operator bool() const = 0;                               // 01
@@ -44,7 +44,7 @@ namespace RE
 		std::size_t binary_write(const void* a_buffer, std::size_t a_totalBytes);
 
 		// members
-		std::size_t absoluteCurrentPos;  // 08
+		std::size_t absoluteCurrentPos{ 0 };  // 08
 	};
 	static_assert(sizeof(NiBinaryStream) == 0x10);
 
