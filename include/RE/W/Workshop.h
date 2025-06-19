@@ -20,6 +20,33 @@ namespace RE
 
 	namespace Workshop
 	{
+		enum class PlacementStatusValue : std::int8_t
+		{
+			kNoEditItem = 0x0,
+			kValidPlacement = 0x1,
+			kFloating = 0x2,
+			kIntersecting = 0x3,
+			kTerrainOnly = 0x4,
+			kWaterRestriction = 0x5,
+			kSplineTooLong = 0x6,
+			kOutsideBuildArea = 0x7,
+			kRedundantSpline = 0x8,
+			kAttachedSplineInvalid = 0x9,
+			kUnsupported = 0xA,
+			kMustSnap = 0xB,
+			kRadiusOverlap = 0xC,
+			kTimer = 0xD,
+			kReasonCount = 0xE
+		};
+
+		class BuildableAreaEvent
+		{
+		public:
+			// members
+			bool exit;  // 00
+		};
+		static_assert(sizeof(BuildableAreaEvent) == 0x1);
+
 		class ContextData
 		{
 		public:
@@ -135,6 +162,14 @@ namespace RE
 			bool                            stacksWhenSnapped;         // BC
 		};
 		static_assert(sizeof(PlacementItemData) == 0xC0);
+
+		class PlacementStatusEvent
+		{
+		public:
+			// members
+			PlacementStatusValue value;  // 00
+		};
+		static_assert(sizeof(PlacementStatusEvent) == 0x1);
 
 		class WorkshopMenuNode
 		{

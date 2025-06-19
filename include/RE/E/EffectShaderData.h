@@ -1,11 +1,11 @@
 #pragma once
 
+#include "RE/D/_D3DBLEND.h"
+#include "RE/D/_D3DBLENDOP.h"
+#include "RE/D/_D3DCMPFUNC.h"
+
 namespace RE
 {
-	enum class _D3DBLEND;
-	enum class _D3DBLENDOP;
-	enum class _D3DCMPFUNC;
-
 	class EffectShaderData
 	{
 	public:

@@ -38,7 +38,7 @@ namespace RE
 			ErrorLogger*                errorLogger;         // 10
 			ILoader*                    loader;              // 18
 			std::uint64_t               unk20;               // 20
-			char*                       unk28;               // 28
+			bool                        forceReload;         // 28
 			BSScrapArray<BSFixedString> loadedParents;       // 30
 			BSScrapArray<BSFixedString> objectsToTypecheck;  // 50
 			BSScrapArray<BSFixedString> processQueue;        // 70

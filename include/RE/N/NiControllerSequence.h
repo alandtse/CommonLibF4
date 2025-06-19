@@ -20,9 +20,29 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::NiControllerSequence };
 		static constexpr auto Ni_RTTI{ Ni_RTTI::NiControllerSequence };
 
-		enum class AnimState;
+		enum class AnimState : std::int32_t
+		{
+			kInactive = 0x0,
+			kAnimating = 0x1,
+			kEaseIn = 0x2,
+			kEaseOut = 0x3,
+			kTransSource = 0x4,
+			kTransDest = 0x5,
+			kMorphSource = 0x6
+		};
 
-		class IDTag;
+		class IDTag
+		{
+		public:
+			// members
+			BSFixedString avObjectName;    // 00
+			BSFixedString propertyType;    // 08
+			BSFixedString ctrlType;        // 10
+			BSFixedString ctrlID;          // 18
+			BSFixedString interpolatorID;  // 20
+		};
+		static_assert(sizeof(IDTag) == 0x28);
+
 		class InterpArrayItem;
 
 		bool Activate(std::uint8_t a_priority, bool a_startOver, float a_weight, float a_easeInTime, NiControllerSequence* a_timeSyncSeq, bool a_transition)

@@ -21,7 +21,14 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::TESObjectTREE };
 		static constexpr auto FORM_ID{ ENUM_FORM_ID::kTREE };
 
-		enum class etTreeType;
+		enum class etTreeType
+		{
+			kShortAndThin = 0x0,
+			kShortAndThick = 0x1,
+			kTallAndThin = 0x2,
+			kTallAndThick = 0x3,
+			kTotal = 0x4
+		};
 
 		// members
 		OBJ_TREE                               data;      // 0D8

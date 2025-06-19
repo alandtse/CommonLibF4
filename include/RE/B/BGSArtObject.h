@@ -16,7 +16,14 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::BGSArtObject };
 		static constexpr auto FORM_ID{ ENUM_FORM_ID::kARTO };
 
-		enum class ArtType;
+		enum class ArtType
+		{
+			kMagicCastingArt = 0x0,
+			kMagicHitEffect = 0x1,
+			kMagicEnchantEffect = 0x2,
+
+			kTotal = 0x3
+		};
 
 		class Data
 		{
