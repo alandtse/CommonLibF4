@@ -14,7 +14,18 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::TESGrass };
 		static constexpr auto FORM_ID{ ENUM_FORM_ID::kGRAS };
 
-		enum class GRASS_WATER_STATE;
+		enum class GRASS_WATER_STATE
+		{
+			kAboveOnlyAtleast = 0x0,
+			kAboveOnlyAtmost = 0x1,
+			kBelowOnlyAtleast = 0x2,
+			kBelowOnlyAtmost = 0x3,
+			kBothAtlest = 0x4,
+			kBothAtmost = 0x5,
+			kBothAtmostAbove = 0x6,
+			kBothAtmostBelow = 0x7,
+			kTotal = 0x8
+		};
 
 		class GRASS_DATA
 		{

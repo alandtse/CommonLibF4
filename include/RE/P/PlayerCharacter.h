@@ -85,7 +85,12 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::PlayerCharacter };
 		static constexpr auto FORM_ID{ ENUM_FORM_ID::kACHR };
 
-		enum class GrabbingType;
+		enum class GrabbingType
+		{
+			kNone = 0x0,
+			kNormal = 0x1,
+			kTelekeiesis = 0x2
+		};
 
 		class PlayerActionObject
 		{

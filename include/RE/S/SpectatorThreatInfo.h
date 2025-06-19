@@ -11,7 +11,14 @@ namespace RE
 	class SpectatorThreatInfo
 	{
 	public:
-		enum class THREAT_LEVEL;
+		enum class THREAT_LEVEL : std::int32_t
+		{
+			kNone = 0x0,
+			kMeleeWeapons = 0x1,
+			kProjectileWeapons = 0x2,
+			kExplosion = 0x3,
+			kInsane = 0x4
+		};
 
 		// members
 		ActorHandle                              source;              // 00

@@ -13,7 +13,11 @@ namespace RE
 		public hkReferencedObject
 	{
 	public:
-		enum class CharacterType;
+		enum class CharacterType
+		{
+			kCharacter_Proxy = 0x0,
+			kCharacter_RigidBody = 0x1
+		};
 
 		CharacterType                              characterType;             // 10
 		const hknpCharacterStateManager*           stateManager;              // 18

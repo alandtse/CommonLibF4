@@ -17,8 +17,25 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::BGSCameraShot };
 		static constexpr auto FORM_ID{ ENUM_FORM_ID::kCAMS };
 
-		enum class CAM_ACTION;
-		enum class CAM_OBJECT;
+		enum class CAM_ACTION
+		{
+			kShoot = 0x0,
+			kFly = 0x1,
+			kHit = 0x2,
+			kZoom = 0x3,
+
+			kTotal = 0x4
+		};
+
+		enum class CAM_OBJECT
+		{
+			kAttacker = 0x0,
+			kProjectile = 0x1,
+			kTarget = 0x2,
+			kLeadActor = 0x3,
+
+			kTotal = 0x4
+		};
 
 		class CAMERA_SHOT_DATA
 		{

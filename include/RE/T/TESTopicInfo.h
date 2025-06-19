@@ -62,10 +62,31 @@ namespace RE
 			return func(this);
 		}
 
+		BGSScene* StartSceneOnEnd(BSPointerHandle<TESObjectREFR, BSUntypedPointerHandle<21, 5>> a_ref)
+		{
+			using func_t = decltype(&TESTopicInfo::StartSceneOnEnd);
+			static REL::Relocation<func_t> func{ ID::TESTopicInfo::StartSceneOnEnd };
+			return func(this, a_ref);
+		}
+
+		BGSScene* GetScene()
+		{
+			using func_t = decltype(&TESTopicInfo::GetScene);
+			static REL::Relocation<func_t> func{ ID::TESTopicInfo::GetScene };
+			return func(this);
+		}
+
+		void StartScene(TESObjectREFR* a_ref)
+		{
+			using func_t = decltype(&TESTopicInfo::StartScene);
+			static REL::Relocation<func_t> func{ ID::TESTopicInfo::StartScene };
+			return func(this, a_ref);
+		}
+
 		[[nodiscard]] bool IsRandom() const noexcept { return data.flags.all(TOPIC_INFO_DATA::TOPIC_INFO_FLAGS::kRandom); }
 		[[nodiscard]] bool IsRandomEnd() const noexcept { return data.flags.all(TOPIC_INFO_DATA::TOPIC_INFO_FLAGS::kRandomEnd); }
 		[[nodiscard]] bool IsSayOnce() const noexcept { return data.flags.all(TOPIC_INFO_DATA::TOPIC_INFO_FLAGS::kSayOnce); }
-		[[nodiscard]] bool StartSceneOnEnd() const noexcept { return data.flags.all(TOPIC_INFO_DATA::TOPIC_INFO_FLAGS::kStartSceneOnEnd); }
+		[[nodiscard]] bool IsStartSceneOnEnd() const noexcept { return data.flags.all(TOPIC_INFO_DATA::TOPIC_INFO_FLAGS::kStartSceneOnEnd); }
 
 		// members
 		TESTopic*           parentTopic;       // 20

@@ -11,7 +11,13 @@ namespace RE
 		static constexpr auto RTTI{ RTTI::NiMemStream };
 		static constexpr auto VTABLE{ VTABLE::NiMemStream };
 
-		enum class OpenMode;
+		enum class OpenMode
+		{
+			kReadOnly = 0x0,
+			kWriteOnly = 0x1,
+			kAppendOnly = 0x2,
+			kReadWrite = 0x3
+		};
 
 		// members
 		void*       buffer;           // 10

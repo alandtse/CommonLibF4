@@ -16,7 +16,21 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::TESTopic };
 		static constexpr auto FORM_ID{ ENUM_FORM_ID::kDIAL };
 
-		class InfoTree;
+		class InfoTree
+		{
+		public:
+			class Node
+			{
+				// members
+				std::uint16_t left;   // 00
+				std::uint16_t right;  // 02
+			};
+			static_assert(sizeof(Node) == 0x4);
+
+			// members
+			Node roots;  // 00
+		};
+		static_assert(sizeof(InfoTree) == 0x4);
 
 		// members
 		DIALOGUE_DATA      data;                     // 30

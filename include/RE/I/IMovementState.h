@@ -18,7 +18,16 @@ namespace RE
 		static constexpr auto RTTI{ RTTI::IMovementState };
 		static constexpr auto VTABLE{ VTABLE::IMovementState };
 
-		enum class CHARACTER_STATE;
+		enum class CHARACTER_STATE
+		{
+			kOnGround = 0x0,
+			kJumping = 0x1,
+			kInAir = 0x2,
+			kClimbing = 0x3,
+			kFlying = 0x4,
+			kSwimming = 0x5,
+			kFloating = 0x6
+		};
 
 		// add
 		virtual std::uint32_t              DoGetNumericID() const = 0;                                                                     // 01
