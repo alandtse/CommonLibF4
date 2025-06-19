@@ -11,6 +11,8 @@ namespace Scaleform::GFx
 		public State  // 00
 	{
 	public:
+		static constexpr auto GFX_STATE_TYPE{ StateType::kUserEventHandler };
+
 		UserEventHandler() :
 			State(StateType::kUserEventHandler)
 		{}

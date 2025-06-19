@@ -67,7 +67,7 @@ namespace RE
 		}
 
 		template <class T>
-		[[nodiscard]] Scaleform::Ptr<T> GetMenu() const  //
+		[[nodiscard]] Scaleform::Ptr<T> GetMenu() const
 			requires(requires { T::MENU_NAME; })
 		{
 			const auto ptr = GetMenu(T::MENU_NAME);
@@ -81,7 +81,7 @@ namespace RE
 		}
 
 		template <class T>
-		[[nodiscard]] bool GetMenuOpen() const  //
+		[[nodiscard]] bool GetMenuOpen() const
 			requires(requires { T::MENU_NAME; })
 		{
 			return GetMenuOpen(T::MENU_NAME);

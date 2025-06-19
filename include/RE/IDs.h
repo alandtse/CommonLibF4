@@ -471,8 +471,8 @@ namespace RE::ID
 
 	namespace BSModelDB
 	{
-		inline constexpr REL::ID Demand1{ 1066398 };
-		inline constexpr REL::ID Demand2{ 1225688 };
+		inline constexpr REL::ID Demand1{ 2275153 };
+		inline constexpr REL::ID Demand2{ 2275154 };
 	}
 
 	namespace BSPointerHandle
@@ -537,13 +537,13 @@ namespace RE::ID
 
 	namespace BSResourceNiBinaryStream
 	{
-		inline constexpr REL::ID Seek{ 358512 };
-		inline constexpr REL::ID DoRead{ 424286 };
-		inline constexpr REL::ID DoWrite{ 1208863 };
-		inline constexpr REL::ID GetBufferInfo{ 265501 };
-		inline constexpr REL::ID ctor{ 1198116 };
-		inline constexpr REL::ID dtor{ 1516202 };
-		inline constexpr REL::ID BinaryStreamWithRescan{ 543595 };
+		inline constexpr REL::ID Seek{ 2269834 };
+		inline constexpr REL::ID DoRead{ 2269839 };
+		inline constexpr REL::ID DoWrite{ 2269840 };
+		inline constexpr REL::ID GetBufferInfo{ 2269836 };
+		inline constexpr REL::ID Ctor{ 2269830 };
+		inline constexpr REL::ID Dtor{ 2269832 };
+		inline constexpr REL::ID BinaryStreamWithRescan{ 0 };
 	}
 
 	namespace BSScaleformManager
@@ -558,6 +558,11 @@ namespace RE::ID
 	namespace BSScaleformRenderer
 	{
 		inline constexpr REL::ID Initialize{ 2284938 };
+	}
+
+	namespace BSScaleformTranslator
+	{
+		inline constexpr REL::ID AddTranslations{ 2295298 };
 	}
 
 	namespace BSScript_Array
@@ -1011,24 +1016,24 @@ namespace RE::ID
 	{
 		inline constexpr REL::ID Create{ 2222519 };
 		inline constexpr REL::ID GetByName{ 2222524 };
-		inline constexpr REL::ID MainScreen_AddPointLight{ 1335675 };
-		inline constexpr REL::ID MainScreen_AddSpotLight{ 1056093 };
-		inline constexpr REL::ID MainScreen_ClearLights{ 683530 };
+		inline constexpr REL::ID MainScreen_AddPointLight{ 2222531 };
+		inline constexpr REL::ID MainScreen_AddSpotLight{ 2222532 };
+		inline constexpr REL::ID MainScreen_ClearLights{ 2222533 };
 		inline constexpr REL::ID MainScreen_SetScreenAttached3D{ 2222528 };
-		inline constexpr REL::ID MainScreen_SetWorldAttached3D{ 724778 };
-		inline constexpr REL::ID Offscreen_AddLight{ 1267198 };
+		inline constexpr REL::ID MainScreen_SetWorldAttached3D{ 2222529 };
+		inline constexpr REL::ID Offscreen_AddLight{ 2222543 };
 		inline constexpr REL::ID Offscreen_Clear3D{ 2222542 };
 		inline constexpr REL::ID Offscreen_ClearLights{ 2222545 };
-		inline constexpr REL::ID Offscreen_GetRenderTargetHeight{ 1280897 };
-		inline constexpr REL::ID Offscreen_GetRenderTargetWidth{ 403273 };
-		inline constexpr REL::ID Offscreen_Set3D{ 43983 };
-		inline constexpr REL::ID Offscreen_SetDebugMode{ 1277879 };
-		inline constexpr REL::ID Offscreen_SetDirectionalLight{ 987144 };
+		inline constexpr REL::ID Offscreen_GetRenderTargetHeight{ 2222538 };
+		inline constexpr REL::ID Offscreen_GetRenderTargetWidth{ 2222537 };
+		inline constexpr REL::ID Offscreen_Set3D{ 2222541 };
+		inline constexpr REL::ID Offscreen_SetDebugMode{ 2222549 };
+		inline constexpr REL::ID Offscreen_SetDirectionalLight{ 2222544 };
 		inline constexpr REL::ID Enable{ 2222522 };
-		inline constexpr REL::ID Disable{ 938370 };
+		inline constexpr REL::ID Disable{ 2222523 };
 		inline constexpr REL::ID DisableAll{ 2222521 };
-		inline constexpr REL::ID Release{ 74749 };
-		inline constexpr REL::ID SetViewport{ 825410 };
+		inline constexpr REL::ID Release{ 2222520 };
+		inline constexpr REL::ID SetViewport{ 2222552 };
 	}
 
 	namespace Inventory3DManager
@@ -1209,7 +1214,7 @@ namespace RE::ID
 
 	namespace NiTexture
 	{
-		inline constexpr REL::ID SetAllowDegrade{ 948181 };
+		inline constexpr REL::ID SetAllowDegrade{ 2270148 };
 	}
 
 	namespace nsStatsMenuUtils
@@ -1272,23 +1277,23 @@ namespace RE::ID
 		inline constexpr REL::ID LowerPipboy{ 2225454 };
 		inline constexpr REL::ID OnPipboyCloseAnim{ 2225457 };
 		inline constexpr REL::ID OnPipboyCloseAnimFailed{ 2225459 };
-		inline constexpr REL::ID OnPipboyClosed{ 592088 };
-		inline constexpr REL::ID OnPipboyOpenAnim{ 1500318 };
-		inline constexpr REL::ID OnPipboyOpenAnimFailed{ 702357 };
-		inline constexpr REL::ID OnPipboyOpened{ 1299608 };
-		inline constexpr REL::ID PlayItemAnimOnClose{ 377837 };
-		inline constexpr REL::ID PlayPipboyCloseAnim{ 273927 };
-		inline constexpr REL::ID PlayPipboyGenericOpenAnim{ 809076 };
-		inline constexpr REL::ID PlayPipboyLoadHolotapeAnim{ 477096 };
-		inline constexpr REL::ID PlayPipboyOpenAnim{ 663900 };
-		inline constexpr REL::ID PlayPipboyOpenTerminalAnim{ 743427 };
-		inline constexpr REL::ID ProcessLoweringReason{ 302903 };
-		inline constexpr REL::ID QPipboyActive{ 470886 };
-		inline constexpr REL::ID RaisePipboy{ 726763 };
-		inline constexpr REL::ID RefreshPipboyRenderSurface{ 81339 };
-		inline constexpr REL::ID StartAnimationGraphListening{ 714713 };
-		inline constexpr REL::ID StopAnimationGraphListening{ 621144 };
-		inline constexpr REL::ID UpdateCursorConstraint{ 900802 };
+		inline constexpr REL::ID OnPipboyClosed{ 2225458 };
+		inline constexpr REL::ID OnPipboyOpenAnim{ 2225448 };
+		inline constexpr REL::ID OnPipboyOpenAnimFailed{ 2225449 };
+		inline constexpr REL::ID OnPipboyOpened{ 2225450 };
+		inline constexpr REL::ID PlayItemAnimOnClose{ 2225461 };
+		inline constexpr REL::ID PlayPipboyCloseAnim{ 2225456 };
+		inline constexpr REL::ID PlayPipboyGenericOpenAnim{ 2225447 };
+		inline constexpr REL::ID PlayPipboyLoadHolotapeAnim{ 2225446 };
+		inline constexpr REL::ID PlayPipboyOpenAnim{ 2225444 };
+		inline constexpr REL::ID PlayPipboyOpenTerminalAnim{ 2225445 };
+		inline constexpr REL::ID ProcessLoweringReason{ 2225486 };
+		inline constexpr REL::ID QPipboyActive{ 2225460 };
+		inline constexpr REL::ID RaisePipboy{ 2225455 };
+		inline constexpr REL::ID RefreshPipboyRenderSurface{ 2225478 };
+		inline constexpr REL::ID StartAnimationGraphListening{ 2225490 };
+		inline constexpr REL::ID StopAnimationGraphListening{ 2225491 };
+		inline constexpr REL::ID UpdateCursorConstraint{ 2225488 };
 	}
 
 	namespace PipboyMapMenu
@@ -1427,9 +1432,9 @@ namespace RE::ID
 
 	namespace PowerArmorGeometry
 	{
-		inline constexpr REL::ID Singleton{ 1365745 };
-		inline constexpr REL::ID HidePipboyPAGeometry{ 976332 };
-		inline constexpr REL::ID ShowPipboyPAGeometry{ 19066 };
+		inline constexpr REL::ID Singleton{ 2694441 };
+		inline constexpr REL::ID HidePipboyPAGeometry{ 2248877 };
+		inline constexpr REL::ID ShowPipboyPAGeometry{ 2248876 };
 	}
 
 	namespace PowerArmorLightData
@@ -1830,12 +1835,12 @@ namespace RE::ID
 
 	namespace UI
 	{
-		inline constexpr REL::ID CustomRendererHasQuads{ 1401451 };
+		inline constexpr REL::ID CustomRendererHasQuads{ 2284757 };
 		inline constexpr REL::ID GetMenuMapRWLock{ 2707105 };
 		inline constexpr REL::ID Singleton{ 2689028 };
-		inline constexpr REL::ID RefreshCursor{ 1436639 };
+		inline constexpr REL::ID RefreshCursor{ 2284772 };
 		inline constexpr REL::ID RegisterMenu{ 2284766 };
-		inline constexpr REL::ID UpdateControllerType{ 175796 };
+		inline constexpr REL::ID UpdateControllerType{ 2284768 };
 	}
 
 	namespace UIAdvanceMenusFunctionCompleteEvent
@@ -1854,7 +1859,7 @@ namespace RE::ID
 		inline constexpr REL::ID GetComparisonItems{ 593818 };
 		inline constexpr REL::ID PlayPipboySound{ 2249706 };
 		inline constexpr REL::ID PlayMenuSound{ 2249707 };
-		inline constexpr REL::ID UpdateGamepadDependentButtonCodes{ 190238 };
+		inline constexpr REL::ID UpdateGamepadDependentButtonCodes{ 2249714 };
 	}
 
 	namespace VATS

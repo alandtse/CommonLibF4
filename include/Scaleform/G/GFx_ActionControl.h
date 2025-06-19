@@ -9,6 +9,8 @@ namespace Scaleform::GFx
 		public State  // 00
 	{
 	public:
+		static constexpr auto GFX_STATE_TYPE{ StateType::kActionControl };
+
 		enum class ActionControlFlags : std::uint32_t
 		{
 			kVerbose = 0x01,

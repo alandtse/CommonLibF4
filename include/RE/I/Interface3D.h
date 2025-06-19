@@ -144,7 +144,7 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::MainScreen_AddPointLight);
 				static REL::Relocation<func_t> func{ ID::Interface3D::MainScreen_AddPointLight };
-				return func(this, a_translation, a_diffuse, a_radius, a_dimmerVal);
+				func(this, a_translation, a_diffuse, a_radius, a_dimmerVal);
 			}
 
 			void MainScreen_AddSpotLight(
@@ -159,14 +159,14 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::MainScreen_AddSpotLight);
 				static REL::Relocation<func_t> func{ ID::Interface3D::MainScreen_AddSpotLight };
-				return func(this, a_translation, a_lookAtPosition, a_lookAtObject, a_fov, a_diffuse, a_radius, a_dimmerVal, a_castShadows);
+				func(this, a_translation, a_lookAtPosition, a_lookAtObject, a_fov, a_diffuse, a_radius, a_dimmerVal, a_castShadows);
 			}
 
 			void MainScreen_ClearLights()
 			{
 				using func_t = decltype(&Renderer::MainScreen_ClearLights);
 				static REL::Relocation<func_t> func{ ID::Interface3D::MainScreen_ClearLights };
-				return func(this);
+				func(this);
 			}
 
 			void MainScreen_EnableAO(bool a_value)
@@ -222,7 +222,7 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::MainScreen_SetScreenAttached3D);
 				static REL::Relocation<func_t> func{ ID::Interface3D::MainScreen_SetScreenAttached3D };
-				return func(this, a_root3D);
+				func(this, a_root3D);
 			}
 
 			void MainScreen_SetUseDeferredRenderer(bool a_value)
@@ -234,7 +234,7 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::MainScreen_SetWorldAttached3D);
 				static REL::Relocation<func_t> func{ ID::Interface3D::MainScreen_SetWorldAttached3D };
-				return func(this, a_root3D);
+				func(this, a_root3D);
 			}
 
 			void MainScreen_SetWorldAttachedMenuIntensity(float a_diffuse, float a_emit)
@@ -256,21 +256,21 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::Offscreen_AddLight);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Offscreen_AddLight };
-				return func(this, a_translation, a_diffuse, a_specular, a_dimmerVal);
+				func(this, a_translation, a_diffuse, a_specular, a_dimmerVal);
 			}
 
 			void Offscreen_Clear3D()
 			{
 				using func_t = decltype(&Renderer::Offscreen_Clear3D);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Offscreen_Clear3D };
-				return func(this);
+				func(this);
 			}
 
 			void Offscreen_ClearLights()
 			{
 				using func_t = decltype(&Renderer::Offscreen_ClearLights);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Offscreen_ClearLights };
-				return func(this);
+				func(this);
 			}
 
 			void Offscreen_Enable3D(bool a_value)
@@ -296,7 +296,7 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::Offscreen_Set3D);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Offscreen_Set3D };
-				return func(this, a_3D);
+				func(this, a_3D);
 			}
 
 			void Offscreen_SetBackgroundColor(const NiColorA& a_color)
@@ -318,7 +318,7 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::Offscreen_SetDebugMode);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Offscreen_SetDebugMode };
-				return func(this, a_on, a_small, a_target);
+				func(this, a_on, a_small, a_target);
 			}
 
 			void Offscreen_SetDirectionalLight(
@@ -329,7 +329,7 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::Offscreen_SetDirectionalLight);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Offscreen_SetDirectionalLight };
-				return func(this, a_xyPlaneAngle, a_zAngle, a_diffuse, a_dimmerVal);
+				func(this, a_xyPlaneAngle, a_zAngle, a_diffuse, a_dimmerVal);
 			}
 
 			void Offscreen_SetDisplayMode(
@@ -361,35 +361,35 @@ namespace RE
 			{
 				using func_t = decltype(&Renderer::Enable);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Enable };
-				return func(this, a_unhideGeometries);
+				func(this, a_unhideGeometries);
 			}
 
 			void Disable()
 			{
 				using func_t = decltype(&Renderer::Disable);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Disable };
-				return func(this);
+				func(this);
 			}
 
 			static void DisableAll(bool a_disableAll)
 			{
 				using func_t = decltype(&Renderer::DisableAll);
 				static REL::Relocation<func_t> func{ ID::Interface3D::DisableAll };
-				return func(a_disableAll);
+				func(a_disableAll);
 			}
 
 			void Release()
 			{
 				using func_t = decltype(&Renderer::Release);
 				static REL::Relocation<func_t> func{ ID::Interface3D::Release };
-				return func(this);
+				func(this);
 			}
 
 			void SetViewport(Scaleform::GFx::Movie& a_ui, const NiRect<float>& a_renderArea)
 			{
 				using func_t = decltype(&Renderer::SetViewport);
 				static REL::Relocation<func_t> func{ ID::Interface3D::SetViewport };
-				return func(this, a_ui, a_renderArea);
+				func(this, a_ui, a_renderArea);
 			}
 
 			// members

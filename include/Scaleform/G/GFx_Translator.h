@@ -9,6 +9,8 @@ namespace Scaleform::GFx
 		public State
 	{
 	public:
+		static constexpr auto GFX_STATE_TYPE{ StateType::kTranslator };
+
 		enum class WordWrappingType : std::uint32_t
 		{
 			kDefault = 0,
