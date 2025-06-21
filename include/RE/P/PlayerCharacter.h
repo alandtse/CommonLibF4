@@ -89,7 +89,7 @@ namespace RE
 		{
 			kNone = 0x0,
 			kNormal = 0x1,
-			kTelekeiesis = 0x2
+			kTelekinesis = 0x2
 		};
 
 		class PlayerActionObject
