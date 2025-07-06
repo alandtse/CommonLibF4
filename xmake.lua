@@ -88,6 +88,17 @@ else
     } })
 end
 
+-- Project-level early check for empty submodule directory
+on_load(function ()
+    local submodule_path = "extern/commonlib-shared"
+    if os.isdir(submodule_path) then
+        local files = os.files(path.join(submodule_path, "**"))
+        if #files == 0 then
+            raise("commonlib-shared submodule directory exists but is empty!\nPlease run: git submodule update --init --recursive\nIf you want to use the fallback, remove the extern/commonlib-shared directory before building.")
+        end
+    end
+end)
+
 -- define targets
 target("commonlibf4", function()
     -- set target kind
