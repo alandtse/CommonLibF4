@@ -89,7 +89,7 @@ Built libraries will be placed in the `build/` directory, organized by runtime c
 CommonLibF4 automatically handles the `commonlib-shared` dependency:
 
 - **Without submodules**: xmake automatically downloads the latest compatible version from the remote package repository
-- **With submodules**: Uses the local `extern/commonlib-shared` directory for development
+- **With submodules**: Uses the local `lib/commonlib-shared` directory for development
 - **Fallback**: If local submodule is missing, automatically falls back to remote package
 
 This means you don't need to manually manage the shared library - it's handled automatically during the build process.
@@ -116,7 +116,7 @@ For detailed information about the shared library's capabilities and configurati
   - `REL/` - Relocation and runtime utilities
   - `Scaleform/` - Scaleform UI headers
 - `src/` - Source files
-- `extern/` - External dependencies
+- `lib/` - External dependencies
   - `commonlib-shared/` - Shared utilities library (GPL-3.0 licensed)
     - `REL/` - Relocation utilities (hooks, trampolines, patterns)
     - `REX/` - Cross-platform utilities (Windows, PS4, general utilities)
