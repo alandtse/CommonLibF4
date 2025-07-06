@@ -80,7 +80,7 @@ if use_local_commonlib then
 else
     print("Using remote commonlib-shared package")
     -- Use remote package
-    add_requires("commonlib-shared aa0b8a6434e170b5230e012f6b22b8a1e2a8bf2f", { configs = {
+    add_requires("commonlib-shared fa78ca099d0dbab65a5d20d0ac042c22b56a9338", { configs = {
         ini = has_config("commonlib_ini"),
         json = has_config("commonlib_json"),
         toml = has_config("commonlib_toml"),
