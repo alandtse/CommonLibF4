@@ -9,43 +9,43 @@ namespace RE::ID
 
 	namespace Actor
 	{
-		inline constexpr REL::RelocationID AddPerk{ 187096, 2230121 }; 
-		inline constexpr REL::RelocationID CanUseIdle{ 1223707, 2229592 }; 
-		inline constexpr REL::RelocationID ClearAttackStates{ 1525555, 2229773 }; 
-		inline constexpr REL::RelocationID EndInterruptPackage{ 575188, 2229892 }; 
+		inline constexpr REL::RelocationID AddPerk{ 187096, 2230121 };
+		inline constexpr REL::RelocationID CanUseIdle{ 1223707, 2229592 };
+		inline constexpr REL::RelocationID ClearAttackStates{ 1525555, 2229773 };
+		inline constexpr REL::RelocationID EndInterruptPackage{ 575188, 2229892 };
 		inline constexpr REL::RelocationID ExitCover{ 813697, 2231166 };
 		inline constexpr REL::RelocationID GetAimVector{ 812909, 2230378 };
 		inline constexpr REL::RelocationID GetClosestBone{ 812582, 2230051 };
 		inline constexpr REL::RelocationID GetCollisionFilter{ 860480, 2277949 };
-		inline constexpr REL::RelocationID GetCombatStyle{ 1270929, 2231053 }; 
+		inline constexpr REL::RelocationID GetCombatStyle{ 1270929, 2231053 };
 		inline constexpr REL::RelocationID SetCurrentAmmoCount{ 812483, 2229952 };
 		inline constexpr REL::RelocationID GetCurrentCollisionGroup{ 410500, 0 };
 		inline constexpr REL::RelocationID GetCurrentFireLocation{ 0, 2231167 };
-		inline constexpr REL::RelocationID GetDesiredSpeed{ 106892, 2230410 }; 
-		inline constexpr REL::RelocationID GetHostileToActor{ 1148686, 2229968 }; 
-		inline constexpr REL::RelocationID GetMountHandle{ 313362, 2231230 }; 
-		inline constexpr REL::RelocationID GetLevel{ 661617, 2229734 }; 
-		inline constexpr REL::RelocationID GetPerkRank{ 1368313, 2230125 }; 
+		inline constexpr REL::RelocationID GetDesiredSpeed{ 106892, 2230410 };
+		inline constexpr REL::RelocationID GetHostileToActor{ 1148686, 2229968 };
+		inline constexpr REL::RelocationID GetMountHandle{ 313362, 2231230 };
+		inline constexpr REL::RelocationID GetLevel{ 661617, 2229734 };
+		inline constexpr REL::RelocationID GetPerkRank{ 1368313, 2230125 };
 		inline constexpr REL::RelocationID GetSex{ 812205, 2229674 };
-		inline constexpr REL::RelocationID HandleDefaultAnimationSwitch{ 1163130, 2229780 }; 
-		inline constexpr REL::RelocationID HandleItemEquip{ 164912, 2229781 }; 
-		inline constexpr REL::RelocationID InitiateDoNothingPackage{ 89993, 2229807 }; 
+		inline constexpr REL::RelocationID HandleDefaultAnimationSwitch{ 1163130, 2229780 };
+		inline constexpr REL::RelocationID HandleItemEquip{ 164912, 2229781 };
+		inline constexpr REL::RelocationID InitiateDoNothingPackage{ 89993, 2229807 };
 		inline constexpr REL::RelocationID IsCrippled{ 1238666, 0 };
-		inline constexpr REL::RelocationID IsFollowing{ 629579, 2230013 }; 
-		inline constexpr REL::RelocationID IsJumping{ 1041558, 2229640 }; 
-		inline constexpr REL::RelocationID IsPathValid{ 1522194, 2230279 }; 
-		inline constexpr REL::RelocationID IsPathing{ 989661, 2234312 }; 
+		inline constexpr REL::RelocationID IsFollowing{ 629579, 2230013 };
+		inline constexpr REL::RelocationID IsJumping{ 1041558, 2229640 };
+		inline constexpr REL::RelocationID IsPathValid{ 1522194, 2230279 };
+		inline constexpr REL::RelocationID IsPathing{ 989661, 2234312 };
 		inline constexpr REL::RelocationID IsPathingComplete{ 812805, 2230274 };
 		inline constexpr REL::RelocationID IsQuadruped{ 812145, 2229614 };
-		inline constexpr REL::RelocationID IsSneaking{ 1173627, 2207655 }; 
+		inline constexpr REL::RelocationID IsSneaking{ 1173627, 2207655 };
 		inline constexpr REL::RelocationID Move{ 812465, 2229934 };
 		inline constexpr REL::RelocationID PerformAction{ 813708, 2231177 };
 		inline constexpr REL::RelocationID RemovePerk{ 812653, 2230122 };
 		inline constexpr REL::RelocationID Reset3D{ 812444, 2229913 };
-		inline constexpr REL::RelocationID RewardExperience{ 262786, 2230428 }; 
-		inline constexpr REL::RelocationID SetGunState{ 977675, 2231175 }; 
-		inline constexpr REL::RelocationID SetHeading{ 353571, 2229625 }; 
-		inline constexpr REL::RelocationID TrespassAlarm{ 1109888, 2229834 }; 
+		inline constexpr REL::RelocationID RewardExperience{ 262786, 2230428 };
+		inline constexpr REL::RelocationID SetGunState{ 977675, 2231175 };
+		inline constexpr REL::RelocationID SetHeading{ 353571, 2229625 };
+		inline constexpr REL::RelocationID TrespassAlarm{ 1109888, 2229834 };
 		inline constexpr REL::RelocationID UpdateVoiceTimer{ 812709, 2230178 };
 		inline constexpr REL::RelocationID GetBodyPartData{ 0, 2229571 };
 		inline constexpr REL::RelocationID GetEquippedItem{ 0, 2231089 };
@@ -56,7 +56,7 @@ namespace RE::ID
 	namespace ActorEquipManager
 	{
 		inline constexpr REL::RelocationID Singleton{ 1174340, 2690994 };
-		inline constexpr REL::RelocationID EquipObject{ 988029, 2231392 }; 
+		inline constexpr REL::RelocationID EquipObject{ 988029, 2231392 };
 		inline constexpr REL::RelocationID UnequipObject{ 1292493, 2231395 };
 		inline constexpr REL::RelocationID UnequipItem{ 0, 2231399 };
 	}
@@ -72,25 +72,25 @@ namespace RE::ID
 
 	namespace ActorValue
 	{
-		inline constexpr REL::RelocationID Singleton{ 405390, 2189587 }; 
+		inline constexpr REL::RelocationID Singleton{ 405390, 2189587 };
 	}
 
 	namespace AIProcess
 	{
-		inline constexpr REL::RelocationID GetCurrentAmmo{ 1154936, 2232300 }; 
-		inline constexpr REL::RelocationID GetCommandType{ 678523, 2231825 }; 
-		inline constexpr REL::RelocationID GetOccupiedFurniture{ 1162965, 2232401 }; 
-		inline constexpr REL::RelocationID IsWeaponSubgraphFinishedLoading{ 320183, 2231757 }; 
+		inline constexpr REL::RelocationID GetCurrentAmmo{ 1154936, 2232300 };
+		inline constexpr REL::RelocationID GetCommandType{ 678523, 2231825 };
+		inline constexpr REL::RelocationID GetOccupiedFurniture{ 1162965, 2232401 };
+		inline constexpr REL::RelocationID IsWeaponSubgraphFinishedLoading{ 320183, 2231757 };
 		inline constexpr REL::RelocationID KnockExplosion{ 0, 2232384 };
-		inline constexpr REL::RelocationID ProcessGreet{ 1174935, 2231808 }; 
+		inline constexpr REL::RelocationID ProcessGreet{ 1174935, 2231808 };
 		inline constexpr REL::RelocationID RequestLoadAnimationsForWeaponChange{ 0, 2231758 };
-		inline constexpr REL::RelocationID SetActorsDetectionEvent{ 1376336, 2231738 }; 
-		inline constexpr REL::RelocationID SetCurrentAmmo{ 795983, 2232302 }; 
+		inline constexpr REL::RelocationID SetActorsDetectionEvent{ 1376336, 2231738 };
+		inline constexpr REL::RelocationID SetCurrentAmmo{ 795983, 2232302 };
 		inline constexpr REL::RelocationID SetCommandType{ 0, 2231826 };
 		inline constexpr REL::RelocationID SetEquippedItem{ 1200276, 0 };
 		inline constexpr REL::RelocationID SetupSpecialIdle{ 0, 2231704 };
-		inline constexpr REL::RelocationID SetWeaponBonesCulled{ 397172, 2232535 }; 
-		inline constexpr REL::RelocationID StopCurrentIdle{ 434460, 2231705 }; 
+		inline constexpr REL::RelocationID SetWeaponBonesCulled{ 397172, 2232535 };
+		inline constexpr REL::RelocationID StopCurrentIdle{ 434460, 2231705 };
 	}
 
 	namespace AnimationSystemUtils
@@ -100,7 +100,7 @@ namespace RE::ID
 
 	namespace ApplyChangesFunctor
 	{
-		inline constexpr REL::RelocationID WriteDataImpl{ 1291190, 2223194 }; 
+		inline constexpr REL::RelocationID WriteDataImpl{ 1291190, 2223194 };
 	}
 
 	namespace ApplyColorUpdateEvent
@@ -129,7 +129,7 @@ namespace RE::ID
 
 	namespace BGSCraftItemEvent
 	{
-		inline constexpr REL::RelocationID EventIndex{ 1382765, 2663409 }; 
+		inline constexpr REL::RelocationID EventIndex{ 1382765, 2663409 };
 	}
 
 	namespace BGSCreatedObjectManager
@@ -141,8 +141,8 @@ namespace RE::ID
 
 	namespace BGSDefaultObject
 	{
-		inline constexpr REL::RelocationID Singleton{ 561749, 2690473 }; 
-		inline constexpr REL::RelocationID ctor{ 1144014, 2197003 }; 
+		inline constexpr REL::RelocationID Singleton{ 561749, 2690473 };
+		inline constexpr REL::RelocationID ctor{ 1144014, 2197003 };
 	}
 
 	namespace BGSDefaultObjectManager
@@ -159,7 +159,7 @@ namespace RE::ID
 
 	namespace BGSEntryPoint
 	{
-		inline constexpr REL::RelocationID HandleEntryPoint{ 714336, 2206243 }; 
+		inline constexpr REL::RelocationID HandleEntryPoint{ 714336, 2206243 };
 	}
 
 	namespace BGSHackTerminal
@@ -169,26 +169,26 @@ namespace RE::ID
 
 	namespace BGSInventoryInterface
 	{
-		inline constexpr REL::RelocationID Singleton{ 501899, 2689299 }; 
-		inline constexpr REL::RelocationID RequestInventoryItem{ 1200959, 2194009 }; 
+		inline constexpr REL::RelocationID Singleton{ 501899, 2689299 };
+		inline constexpr REL::RelocationID RequestInventoryItem{ 1200959, 2194009 };
 		inline constexpr REL::RelocationID ForceMergeStacks{ 0, 2194032 };
 	}
 
 	namespace BGSInventoryItem
 	{
 		inline constexpr REL::RelocationID FindAndWriteStackData{ 0, 2194123 };
-		inline constexpr REL::RelocationID GetDisplayFullName1{ 277641, 2194079 }; 
+		inline constexpr REL::RelocationID GetDisplayFullName1{ 277641, 2194079 };
 		inline constexpr REL::RelocationID GetDisplayFullName2{ 0, 2194080 };
-		inline constexpr REL::RelocationID GetInstanceData{ 491493, 2194072 }; 
-		inline constexpr REL::RelocationID GetInventoryValue{ 430292, 2194099 }; 
+		inline constexpr REL::RelocationID GetInstanceData{ 491493, 2194072 };
+		inline constexpr REL::RelocationID GetInventoryValue{ 430292, 2194099 };
 		inline constexpr REL::RelocationID GetExtraDataAt{ 0, 2194092 };
-		inline constexpr REL::RelocationID MergeStacks{ 0, 2194109 }; 
+		inline constexpr REL::RelocationID MergeStacks{ 0, 2194109 };
 	}
 
 	namespace BGSInventoryList
 	{
 		inline constexpr REL::RelocationID FindAndWriteStackDataForItem{ 0, 2194179 };
-		inline constexpr REL::RelocationID BuildFromContainer{ 551792, 2194158 }; 
+		inline constexpr REL::RelocationID BuildFromContainer{ 551792, 2194158 };
 		inline constexpr REL::RelocationID ctor{ 0, 2194153 };
 	}
 
@@ -199,7 +199,7 @@ namespace RE::ID
 
 	namespace BGSKeywordForm
 	{
-		inline constexpr REL::RelocationID AddKeyword{ 762999, 2192766 }; 
+		inline constexpr REL::RelocationID AddKeyword{ 762999, 2192766 };
 		inline constexpr REL::RelocationID RemoveKeyword{ 921694, 0 };
 	}
 
@@ -217,7 +217,7 @@ namespace RE::ID
 
 	namespace BGSMessage
 	{
-		inline constexpr REL::RelocationID AddButton{ 746523, 0 }; 
+		inline constexpr REL::RelocationID AddButton{ 746523, 0 };
 		inline constexpr REL::RelocationID GetConvertedDescription{ 8331, 0 };
 	}
 
@@ -227,20 +227,20 @@ namespace RE::ID
 		{
 			namespace Mod
 			{
-		inline constexpr REL::RelocationID FindModsForLooseMod{ 410363, 0 };
-		inline constexpr REL::RelocationID GetData{ 33658, 0 };
+				inline constexpr REL::RelocationID FindModsForLooseMod{ 410363, 0 };
+				inline constexpr REL::RelocationID GetData{ 33658, 0 };
 				inline constexpr REL::RelocationID GetLooseMod{ 0, 2197514 };
-		inline constexpr REL::RelocationID SetLooseMod{ 123132, 0 };
+				inline constexpr REL::RelocationID SetLooseMod{ 123132, 0 };
 			}
 
-		inline constexpr REL::RelocationID GetAllLooseMods{ 1108112, 0 };
+			inline constexpr REL::RelocationID GetAllLooseMods{ 1108112, 0 };
 		}
 
 		namespace Template
 		{
 			namespace Items
 			{
-		inline constexpr REL::RelocationID CreateInstanceDataForObjectAndExtra{ 147297, 0 };
+				inline constexpr REL::RelocationID CreateInstanceDataForObjectAndExtra{ 147297, 0 };
 			}
 		}
 	}
@@ -252,11 +252,11 @@ namespace RE::ID
 
 	namespace BGSObjectInstanceExtra
 	{
-		inline constexpr REL::RelocationID AttachModToReference{ 3303, 2189033 }; 
-		inline constexpr REL::RelocationID HasMod{ 963890, 2189026 }; 
-		inline constexpr REL::RelocationID AddMod{ 1191757, 2189025 }; 
-		inline constexpr REL::RelocationID RemoveInvalidMods{ 1548060, 2189028 }; 
-		inline constexpr REL::RelocationID RemoveMod{ 1136607, 2189027 }; 
+		inline constexpr REL::RelocationID AttachModToReference{ 3303, 2189033 };
+		inline constexpr REL::RelocationID HasMod{ 963890, 2189026 };
+		inline constexpr REL::RelocationID AddMod{ 1191757, 2189025 };
+		inline constexpr REL::RelocationID RemoveInvalidMods{ 1548060, 2189028 };
+		inline constexpr REL::RelocationID RemoveMod{ 1136607, 2189027 };
 		inline constexpr REL::RelocationID GetNumMods{ 0, 2189019 };
 		inline constexpr REL::RelocationID ctor{ 0, 2189015 };
 	}
@@ -286,18 +286,18 @@ namespace RE::ID
 
 	namespace BGSProjectile
 	{
-		inline constexpr REL::RelocationID CollidesWithSmallTransparentLayer{ 1115694, 2197620 }; 
+		inline constexpr REL::RelocationID CollidesWithSmallTransparentLayer{ 1115694, 2197620 };
 	}
 
 	namespace BGSQuestInstanceText
 	{
-		inline constexpr REL::RelocationID ParseString{ 141681, 2206630 }; 
+		inline constexpr REL::RelocationID ParseString{ 141681, 2206630 };
 	}
 
 	namespace BGSSaveLoadManager
 	{
-		inline constexpr REL::RelocationID Singleton{ 1247320, 2697802 }; 
-		inline constexpr REL::RelocationID QueueSaveLoadTask{ 1487308, 2228080 }; 
+		inline constexpr REL::RelocationID Singleton{ 1247320, 2697802 };
+		inline constexpr REL::RelocationID QueueSaveLoadTask{ 1487308, 2228080 };
 	}
 
 	namespace BGSScene
@@ -318,21 +318,21 @@ namespace RE::ID
 
 	namespace BGSStoryEventManager
 	{
-		inline constexpr REL::RelocationID Singleton{ 1160067, 2693504 }; 
-		inline constexpr REL::RelocationID AddEvent{ 312533, 2214088 }; 
+		inline constexpr REL::RelocationID Singleton{ 1160067, 2693504 };
+		inline constexpr REL::RelocationID AddEvent{ 312533, 2214088 };
 	}
 
 	namespace BGSSynchronizedAnimationManager
 	{
-		inline constexpr REL::RelocationID Singleton{ 1346879, 2690996 }; 
-		inline constexpr REL::RelocationID IsReferenceInSynchronizedScene{ 915329, 2214437 }; 
+		inline constexpr REL::RelocationID Singleton{ 1346879, 2690996 };
+		inline constexpr REL::RelocationID IsReferenceInSynchronizedScene{ 915329, 2214437 };
 	}
 
 	namespace BGSTerminal
 	{
-		inline constexpr REL::RelocationID GetHackDifficultyLockLevel{ 537273, 2197777 }; 
-		inline constexpr REL::RelocationID IsTerminalRefInUse{ 1093565, 2197779 }; 
-		inline constexpr REL::RelocationID Show{ 1069012, 2197776 }; 
+		inline constexpr REL::RelocationID GetHackDifficultyLockLevel{ 537273, 2197777 };
+		inline constexpr REL::RelocationID IsTerminalRefInUse{ 1093565, 2197779 };
+		inline constexpr REL::RelocationID Show{ 1069012, 2197776 };
 	}
 
 	namespace bhkNPCollisionObject
@@ -376,7 +376,7 @@ namespace RE::ID
 	{
 		inline constexpr REL::RelocationID AddPhysicsSystem{ 0, 2277752 };
 		inline constexpr REL::RelocationID RemovePhysicsSystem{ 0, 2277753 };
-		inline constexpr REL::RelocationID RemoveObjects{ 1514984, 2277721 }; 
+		inline constexpr REL::RelocationID RemoveObjects{ 1514984, 2277721 };
 	}
 
 	namespace BIPOBJECT
@@ -397,31 +397,31 @@ namespace RE::ID
 
 	namespace BSGFxDisplayObject
 	{
-		inline constexpr REL::RelocationID RemoveChild{ 1229383, 2287327 }; 
+		inline constexpr REL::RelocationID RemoveChild{ 1229383, 2287327 };
 	}
 
 	namespace BSGFxObject
 	{
-		inline constexpr REL::RelocationID AcquireFlashObjectByMemberName{ 1172680, 2287014 }; 
+		inline constexpr REL::RelocationID AcquireFlashObjectByMemberName{ 1172680, 2287014 };
 		inline constexpr REL::RelocationID AcquireFlashObjectByPath{ 0, 2287015 };
 	}
 
 	namespace BSGFxShaderFXTarget
 	{
 		inline constexpr REL::RelocationID ProcessEvent{ 848563, 0 };
-		inline constexpr REL::RelocationID AppendShaderFXInfos{ 544646, 2287021 }; 
-		inline constexpr REL::RelocationID CreateAndSetFiltersToColor1{ 1487925, 2287028 }; 
+		inline constexpr REL::RelocationID AppendShaderFXInfos{ 544646, 2287021 };
+		inline constexpr REL::RelocationID CreateAndSetFiltersToColor1{ 1487925, 2287028 };
 		inline constexpr REL::RelocationID CreateAndSetFiltersToColor2{ 783104, 0 };
-		inline constexpr REL::RelocationID CreateAndSetFiltersToHUD{ 876001, 2287027 }; 
-		inline constexpr REL::RelocationID EnableShadedBackground{ 278402, 2287022 }; 
+		inline constexpr REL::RelocationID CreateAndSetFiltersToHUD{ 876001, 2287027 };
+		inline constexpr REL::RelocationID EnableShadedBackground{ 278402, 2287022 };
 	}
 
 	namespace BSGraphics
 	{
 		namespace Renderer
 		{
-		inline constexpr REL::RelocationID IncRef{ 1337764, 0 };
-		inline constexpr REL::RelocationID DecRef{ 194808, 0 };
+			inline constexpr REL::RelocationID IncRef{ 1337764, 0 };
+			inline constexpr REL::RelocationID DecRef{ 194808, 0 };
 			inline constexpr REL::RelocationID Begin{ 0, 2276833 };
 			inline constexpr REL::RelocationID End{ 0, 2276834 };
 			inline constexpr REL::RelocationID Lock{ 0, 2276828 };
@@ -431,7 +431,7 @@ namespace RE::ID
 		namespace RenderTargetManager
 		{
 			inline constexpr REL::RelocationID Singleton{ 0, 2666735 };
-		inline constexpr REL::RelocationID SetEnableDynamicResolution{ 116947, 0 };
+			inline constexpr REL::RelocationID SetEnableDynamicResolution{ 116947, 0 };
 		}
 
 		namespace State
@@ -441,10 +441,10 @@ namespace RE::ID
 
 		namespace Utility
 		{
-			inline constexpr REL::RelocationID ConvertHALFToNiPoint3Stream{ 463129, 2277113 }; 
-			inline constexpr REL::RelocationID ConvertNiPoint3ToHALFStream{ 0, 2277114 }; 
-			inline constexpr REL::RelocationID PackVertexData{ 156126, 2277106 }; 
-			inline constexpr REL::RelocationID UnpackVertexData{ 990748, 2277129 }; 
+			inline constexpr REL::RelocationID ConvertHALFToNiPoint3Stream{ 463129, 2277113 };
+			inline constexpr REL::RelocationID ConvertNiPoint3ToHALFStream{ 0, 2277114 };
+			inline constexpr REL::RelocationID PackVertexData{ 156126, 2277106 };
+			inline constexpr REL::RelocationID UnpackVertexData{ 990748, 2277129 };
 		}
 
 		inline constexpr REL::RelocationID GetRendererData{ 0, 2704429 };
@@ -479,15 +479,15 @@ namespace RE::ID
 	{
 		namespace BSPointerHandleManagerInterface
 		{
-			inline constexpr REL::RelocationID CreateHandle{ 224532, 2188375 }; 
-			inline constexpr REL::RelocationID GetHandle{ 901626, 2188676 }; 
-			inline constexpr REL::RelocationID GetSmartPointer{ 967277, 2188681 }; 
+			inline constexpr REL::RelocationID CreateHandle{ 224532, 2188375 };
+			inline constexpr REL::RelocationID GetHandle{ 901626, 2188676 };
+			inline constexpr REL::RelocationID GetSmartPointer{ 967277, 2188681 };
 		}
 	}
 
 	namespace BSRandom
 	{
-		inline constexpr REL::RelocationID UnsignedInt{ 694400, 2267950 }; 
+		inline constexpr REL::RelocationID UnsignedInt{ 694400, 2267950 };
 		inline constexpr REL::RelocationID Float{ 0, 2267953 };
 		inline constexpr REL::RelocationID Float0To1{ 0, 2267954 };
 	}
@@ -499,7 +499,7 @@ namespace RE::ID
 		inline constexpr REL::RelocationID DoClone{ 803750, 0 };
 		inline constexpr REL::RelocationID DoStartRead{ 1215072, 0 };
 		inline constexpr REL::RelocationID DoStartPacketAlignedBufferedRead{ 603387, 0 };
-		inline constexpr REL::RelocationID DoWait{ 244066, 2269399 }; 
+		inline constexpr REL::RelocationID DoWait{ 244066, 2269399 };
 	}
 
 	namespace BSResource_Archive2_ReaderStream
@@ -543,7 +543,7 @@ namespace RE::ID
 		inline constexpr REL::RelocationID GetBufferInfo{ 0, 2269836 };
 		inline constexpr REL::RelocationID Ctor{ 0, 2269830 };
 		inline constexpr REL::RelocationID Dtor{ 0, 2269832 };
-		inline constexpr REL::RelocationID BinaryStreamWithRescan{ 746523, 0 }; 
+		inline constexpr REL::RelocationID BinaryStreamWithRescan{ 746523, 0 };
 	}
 
 	namespace BSScaleformManager
@@ -577,20 +577,20 @@ namespace RE::ID
 
 	namespace BSScript_Internal_NativeFunctionBase
 	{
-		inline constexpr REL::RelocationID Call{ 571037, 2314780 }; 
+		inline constexpr REL::RelocationID Call{ 571037, 2314780 };
 	}
 
 	namespace BSScript_Internal_Stack
 	{
 		inline constexpr REL::RelocationID GetPageForFrame{ 1429302, 0 };
-		inline constexpr REL::RelocationID GetStackFrameVariable{ 897539, 2314681 }; 
+		inline constexpr REL::RelocationID GetStackFrameVariable{ 897539, 2314681 };
 	}
 
 	namespace BSScript_Object
 	{
 		inline constexpr REL::RelocationID DecRef{ 541793, 0 };
-		inline constexpr REL::RelocationID GetHandle{ 1452752, 2314431 }; 
-		inline constexpr REL::RelocationID IncRef{ 461710, 2314436 }; 
+		inline constexpr REL::RelocationID GetHandle{ 1452752, 2314431 };
+		inline constexpr REL::RelocationID IncRef{ 461710, 2314436 };
 	}
 
 	namespace BSScript_ObjectTypeInfo
@@ -616,7 +616,7 @@ namespace RE::ID
 
 	namespace BSShaderTextureSet
 	{
-		inline constexpr REL::RelocationID CreateObject{ 0, 2316324 }; 
+		inline constexpr REL::RelocationID CreateObject{ 0, 2316324 };
 	}
 
 	namespace BSSoundHandle
@@ -629,30 +629,30 @@ namespace RE::ID
 	{
 		namespace BSReadWriteLock
 		{
-			inline constexpr REL::RelocationID lock_read{ 1573164, 2267897 }; 
-			inline constexpr REL::RelocationID lock_write{ 336186, 2267898 }; 
-			inline constexpr REL::RelocationID try_lock_read{ 1372435, 2267901 }; 
-			inline constexpr REL::RelocationID try_lock_write{ 267930, 2267902 }; 
+			inline constexpr REL::RelocationID lock_read{ 1573164, 2267897 };
+			inline constexpr REL::RelocationID lock_write{ 336186, 2267898 };
+			inline constexpr REL::RelocationID try_lock_read{ 1372435, 2267901 };
+			inline constexpr REL::RelocationID try_lock_write{ 267930, 2267902 };
 		}
 
-		inline constexpr REL::RelocationID lock{ 1425657, 2192245 }; 
-		inline constexpr REL::RelocationID try_lock{ 267930, 2267902 }; 
+		inline constexpr REL::RelocationID lock{ 1425657, 2192245 };
+		inline constexpr REL::RelocationID try_lock{ 267930, 2267902 };
 	}
 
 	namespace BSStringPool
 	{
 		namespace Entry
 		{
-			inline constexpr REL::RelocationID Release{ 1204430, 2268720 }; 
+			inline constexpr REL::RelocationID Release{ 1204430, 2268720 };
 		}
 
-		inline constexpr REL::RelocationID GetEntry_char{ 507142, 2268729 }; 
-		inline constexpr REL::RelocationID GetEntry_wchar{ 345043, 2268730 }; 
+		inline constexpr REL::RelocationID GetEntry_char{ 507142, 2268729 };
+		inline constexpr REL::RelocationID GetEntry_wchar{ 345043, 2268730 };
 	}
 
 	namespace BSStringT
 	{
-		inline constexpr REL::RelocationID Set{ 0, 2189084 }; 
+		inline constexpr REL::RelocationID Set{ 0, 2189084 };
 	}
 
 	namespace BSSystemFileStreamer
@@ -662,14 +662,14 @@ namespace RE::ID
 
 	namespace BSTempEffectDebris
 	{
-		inline constexpr REL::RelocationID ctor{ 1075623, 2212059 }; 
+		inline constexpr REL::RelocationID ctor{ 1075623, 2212059 };
 	}
 
 	namespace BSTEvent
 	{
 		namespace BSTGlobalEvent
 		{
-			inline constexpr REL::RelocationID Singleton{ 1424022, 2688814 }; 
+			inline constexpr REL::RelocationID Singleton{ 1424022, 2688814 };
 		}
 	}
 
@@ -682,8 +682,8 @@ namespace RE::ID
 	{
 		inline constexpr REL::RelocationID Singleton{ 0, 2703179 };
 		inline constexpr REL::RelocationID QGlobalTimeMultiplier{ 0, 2666307 };
-		inline constexpr REL::RelocationID QGlobalTimeMultiplierTarget{ 0, 2666308 }; 
-		inline constexpr REL::RelocationID SetGlobalTimeMultiplier{ 1419977, 2267970 }; 
+		inline constexpr REL::RelocationID QGlobalTimeMultiplierTarget{ 0, 2666308 };
+		inline constexpr REL::RelocationID SetGlobalTimeMultiplier{ 1419977, 2267970 };
 	}
 
 	namespace BSUIMessageData
@@ -696,14 +696,14 @@ namespace RE::ID
 
 	namespace BSUtilities
 	{
-		inline constexpr REL::RelocationID ConvertFloatToHalf{ 10414, 2212098 }; 
-		inline constexpr REL::RelocationID ConvertHalfToFloat{ 1502141, 2195843 }; 
+		inline constexpr REL::RelocationID ConvertFloatToHalf{ 10414, 2212098 };
+		inline constexpr REL::RelocationID ConvertHalfToFloat{ 1502141, 2195843 };
 		inline constexpr REL::RelocationID GetObjectByName{ 0, 2274841 };
 	}
 
 	namespace Calendar
 	{
-		inline constexpr REL::RelocationID Singleton{ 1444952, 2689092 }; 
+		inline constexpr REL::RelocationID Singleton{ 1444952, 2689092 };
 	}
 
 	namespace CanDisplayNextHUDMessage
@@ -745,18 +745,18 @@ namespace RE::ID
 
 	namespace Console
 	{
-		inline constexpr REL::RelocationID ExecuteCommand{ 1061864, 2248537 }; 
+		inline constexpr REL::RelocationID ExecuteCommand{ 1061864, 2248537 };
 		inline constexpr REL::RelocationID GetCurrentPickIndex{ 1407033, 2701382 };
 		inline constexpr REL::RelocationID GetPickRef{ 170742, 2701395 };
 		inline constexpr REL::RelocationID GetPickRefs{ 875116, 2701391 };
-		inline constexpr REL::RelocationID SetCurrentPickREFR{ 79066, 2248551 }; 
+		inline constexpr REL::RelocationID SetCurrentPickREFR{ 79066, 2248551 };
 	}
 
 	namespace ConsoleLog
 	{
-		inline constexpr REL::RelocationID Singleton{ 689441, 2690148 }; 
-		inline constexpr REL::RelocationID AddString{ 764, 2248593 }; 
-		inline constexpr REL::RelocationID Print{ 799546, 2248591 }; 
+		inline constexpr REL::RelocationID Singleton{ 689441, 2690148 };
+		inline constexpr REL::RelocationID AddString{ 764, 2248593 };
+		inline constexpr REL::RelocationID Print{ 799546, 2248591 };
 	}
 
 	namespace ContainerMenu
@@ -768,23 +768,23 @@ namespace RE::ID
 	{
 		namespace ItemSorter
 		{
-		inline constexpr REL::RelocationID IncrementSort{ 1307263, 0 };
+			inline constexpr REL::RelocationID IncrementSort{ 1307263, 0 };
 		}
 	}
 
 	namespace ControlMap
 	{
-		inline constexpr REL::RelocationID Singleton{ 325206, 2692014 }; 
-		inline constexpr REL::RelocationID PopInputContext{ 74587, 2268336 }; 
-		inline constexpr REL::RelocationID PushInputContext{ 1404410, 2268335 }; 
+		inline constexpr REL::RelocationID Singleton{ 325206, 2692014 };
+		inline constexpr REL::RelocationID PopInputContext{ 74587, 2268336 };
+		inline constexpr REL::RelocationID PushInputContext{ 1404410, 2268335 };
 		inline constexpr REL::RelocationID RemapButton{ 0, 2268330 };
-		inline constexpr REL::RelocationID SaveRemappings{ 746523, 0 }; 
+		inline constexpr REL::RelocationID SaveRemappings{ 746523, 0 };
 		inline constexpr REL::RelocationID SetTextEntryMode{ 0, 2268339 };
 	}
 
 	namespace CurrentRadiationSourceCount
 	{
-		inline constexpr REL::RelocationID GetEventSource{ 696410, 2696196 }; 
+		inline constexpr REL::RelocationID GetEventSource{ 696410, 2696196 };
 	}
 
 	namespace DEFAULT_OBJECT_DATA
@@ -811,7 +811,7 @@ namespace RE::ID
 
 	namespace EquippedWeaponData
 	{
-		inline constexpr REL::RelocationID SetupFireSounds{ 1468462, 2232275 }; 
+		inline constexpr REL::RelocationID SetupFireSounds{ 1468462, 2232275 };
 	}
 
 	namespace ExamineMenu
@@ -829,16 +829,16 @@ namespace RE::ID
 
 	namespace ExtraDataList
 	{
-		inline constexpr REL::RelocationID CreateInstanceData{ 1280130, 2190185 }; 
-		inline constexpr REL::RelocationID GetLegendaryMod{ 178075, 2190180 }; 
-		inline constexpr REL::RelocationID SetBendableSplineInfo{ 894306, 2190623 }; 
-		inline constexpr REL::RelocationID SetDisplayNameFromInstanceData{ 457340, 2190179 }; 
-		inline constexpr REL::RelocationID SetOverrideName{ 222303, 2190167 }; 
-		inline constexpr REL::RelocationID SetStartingWorldOrCell{ 603621, 2191213 }; 
-		inline constexpr REL::RelocationID GetHealthPerc{ 196530, 2190226 }; 
-		inline constexpr REL::RelocationID SetHealthPerc{ 1208294, 2190124 }; 
-		inline constexpr REL::RelocationID ClearFavorite{ 254434, 2190191 }; 
-		inline constexpr REL::RelocationID IsFavorite{ 786568, 2190189 }; 
+		inline constexpr REL::RelocationID CreateInstanceData{ 1280130, 2190185 };
+		inline constexpr REL::RelocationID GetLegendaryMod{ 178075, 2190180 };
+		inline constexpr REL::RelocationID SetBendableSplineInfo{ 894306, 2190623 };
+		inline constexpr REL::RelocationID SetDisplayNameFromInstanceData{ 457340, 2190179 };
+		inline constexpr REL::RelocationID SetOverrideName{ 222303, 2190167 };
+		inline constexpr REL::RelocationID SetStartingWorldOrCell{ 603621, 2191213 };
+		inline constexpr REL::RelocationID GetHealthPerc{ 196530, 2190226 };
+		inline constexpr REL::RelocationID SetHealthPerc{ 1208294, 2190124 };
+		inline constexpr REL::RelocationID ClearFavorite{ 254434, 2190191 };
+		inline constexpr REL::RelocationID IsFavorite{ 786568, 2190189 };
 		inline constexpr REL::RelocationID IsDamaged{ 0, 2190224 };
 		inline constexpr REL::RelocationID CompareList{ 0, 2190098 };
 		inline constexpr REL::RelocationID SetFavorite{ 0, 2190188 };
@@ -886,25 +886,25 @@ namespace RE::ID
 	{
 		namespace HandlePolicy
 		{
-			inline constexpr REL::RelocationID DropSaveLoadRemapData{ 647657, 2249995 }; 
-			inline constexpr REL::RelocationID GetInventoryObjFromHandle{ 66597, 2249989 }; 
-			inline constexpr REL::RelocationID UpdatePersistence{ 11020, 2249991 }; 
+			inline constexpr REL::RelocationID DropSaveLoadRemapData{ 647657, 2249995 };
+			inline constexpr REL::RelocationID GetInventoryObjFromHandle{ 66597, 2249989 };
+			inline constexpr REL::RelocationID UpdatePersistence{ 11020, 2249991 };
 		}
 
 		namespace ObjectBindPolicy
 		{
-			inline constexpr REL::RelocationID EndSaveLoad{ 1558837, 2250482 }; 
+			inline constexpr REL::RelocationID EndSaveLoad{ 1558837, 2250482 };
 		}
 
 		namespace GameVM
 		{
-			inline constexpr REL::RelocationID Singleton{ 996227, 2689134 }; 
-			inline constexpr REL::RelocationID QueuePostRenderCall{ 34412, 2251314 }; 
-			inline constexpr REL::RelocationID RegisterForAllGameEvents{ 680454, 2251353 }; 
-		inline constexpr REL::RelocationID SendEventToObjectAndRelated{ 367992, 0 };
+			inline constexpr REL::RelocationID Singleton{ 996227, 2689134 };
+			inline constexpr REL::RelocationID QueuePostRenderCall{ 34412, 2251314 };
+			inline constexpr REL::RelocationID RegisterForAllGameEvents{ 680454, 2251353 };
+			inline constexpr REL::RelocationID SendEventToObjectAndRelated{ 367992, 0 };
 		}
 
-		inline constexpr REL::RelocationID LogFormError{ 1081933, 2251028 }; 
+		inline constexpr REL::RelocationID LogFormError{ 1081933, 2251028 };
 		inline constexpr REL::RelocationID BindCObject{ 81787, 0 };
 	}
 
@@ -947,17 +947,17 @@ namespace RE::ID
 
 	namespace IFormFactory
 	{
-		inline constexpr REL::RelocationID Factories{ 228366, 2689177 }; 
+		inline constexpr REL::RelocationID Factories{ 228366, 2689177 };
 	}
 
 	namespace ImageSpaceEffectFullScreenBlur
 	{
-		inline constexpr REL::RelocationID Disable{ 372489, 2713225 }; 
+		inline constexpr REL::RelocationID Disable{ 372489, 2713225 };
 	}
 
 	namespace ImageSpaceEffectGetHit
 	{
-		inline constexpr REL::RelocationID Disable{ 1523708, 2713237 }; 
+		inline constexpr REL::RelocationID Disable{ 1523708, 2713237 };
 	}
 
 	namespace ImageSpaceEffectHDR
@@ -972,7 +972,7 @@ namespace RE::ID
 
 	namespace ImageSpaceEffectRadialBlur
 	{
-		inline constexpr REL::RelocationID Disable{ 372489, 2713225 }; 
+		inline constexpr REL::RelocationID Disable{ 372489, 2713225 };
 	}
 
 	namespace ImageSpaceEffectTemporalAA
@@ -982,7 +982,7 @@ namespace RE::ID
 
 	namespace ImageSpaceManager
 	{
-		inline constexpr REL::RelocationID Singleton{ 161743, 2712627 }; 
+		inline constexpr REL::RelocationID Singleton{ 161743, 2712627 };
 	}
 
 	namespace ImageSpaceModifierInstance
@@ -1059,9 +1059,9 @@ namespace RE::ID
 
 	namespace ItemCrafted
 	{
-		inline constexpr REL::RelocationID NotifyOfItemCrafted{ 788895, 2232809 }; 
-		inline constexpr REL::RelocationID RegisterSink{ 1320496, 2232807 }; 
-		inline constexpr REL::RelocationID UnregisterSink{ 1054567, 2232808 }; 
+		inline constexpr REL::RelocationID NotifyOfItemCrafted{ 788895, 2232809 };
+		inline constexpr REL::RelocationID RegisterSink{ 1320496, 2232807 };
+		inline constexpr REL::RelocationID UnregisterSink{ 1054567, 2232808 };
 	}
 
 	namespace LevelIncrease
@@ -1086,16 +1086,16 @@ namespace RE::ID
 
 	namespace MagicTarget
 	{
-		inline constexpr REL::RelocationID IsTakingHealthDamageFromActiveEffect{ 999442, 2226397 }; 
-		inline constexpr REL::RelocationID IsTakingRadDamageFromActiveEffect{ 1079111, 2226398 }; 
+		inline constexpr REL::RelocationID IsTakingHealthDamageFromActiveEffect{ 999442, 2226397 };
+		inline constexpr REL::RelocationID IsTakingRadDamageFromActiveEffect{ 1079111, 2226398 };
 	}
 
 	namespace Main
 	{
-		inline constexpr REL::RelocationID Singleton{ 756304, 2698043 }; 
-		inline constexpr REL::RelocationID WorldRootCamera{ 384264, 2228956 }; 
+		inline constexpr REL::RelocationID Singleton{ 756304, 2698043 };
+		inline constexpr REL::RelocationID WorldRootCamera{ 384264, 2228956 };
 		inline constexpr REL::RelocationID QGameSystemsShouldUpdate{ 0, 2698031 };
-		inline constexpr REL::RelocationID QGameDataLoaded{ 0, 2698032 }; 
+		inline constexpr REL::RelocationID QGameDataLoaded{ 0, 2698032 };
 		inline constexpr REL::RelocationID SetCameraFOV{ 0, 2228973 };
 	}
 
@@ -1103,16 +1103,16 @@ namespace RE::ID
 	{
 		namespace AutoScrapBuffer
 		{
-			inline constexpr REL::RelocationID ctor{ 1571567, 2267865 }; 
-			inline constexpr REL::RelocationID dtor{ 68625, 2267867 }; 
+			inline constexpr REL::RelocationID ctor{ 1571567, 2267865 };
+			inline constexpr REL::RelocationID dtor{ 68625, 2267867 };
 		}
 
-		inline constexpr REL::RelocationID Singleton{ 343176, 2193197 }; 
-		inline constexpr REL::RelocationID Allocate{ 652767, 2267872 }; 
-		inline constexpr REL::RelocationID Deallocate{ 1582181, 2267874 }; 
-		inline constexpr REL::RelocationID GetThreadScrapHeap{ 1495205, 2267850 }; 
-		inline constexpr REL::RelocationID Reallocate{ 1502917, 2267873 }; 
-		inline constexpr REL::RelocationID RegisterMemoryManager{ 453212, 2228356 }; 
+		inline constexpr REL::RelocationID Singleton{ 343176, 2193197 };
+		inline constexpr REL::RelocationID Allocate{ 652767, 2267872 };
+		inline constexpr REL::RelocationID Deallocate{ 1582181, 2267874 };
+		inline constexpr REL::RelocationID GetThreadScrapHeap{ 1495205, 2267850 };
+		inline constexpr REL::RelocationID Reallocate{ 1502917, 2267873 };
+		inline constexpr REL::RelocationID RegisterMemoryManager{ 453212, 2228356 };
 	}
 
 	namespace MenuControls
@@ -1203,7 +1203,7 @@ namespace RE::ID
 	{
 		namespace NiPoint3
 		{
-		inline constexpr REL::RelocationID GetZAngleFromVector{ 1450064, 0 };
+			inline constexpr REL::RelocationID GetZAngleFromVector{ 1450064, 0 };
 		}
 	}
 
@@ -1259,7 +1259,7 @@ namespace RE::ID
 
 	namespace PipboyLightEvent
 	{
-		inline constexpr REL::RelocationID GetEventSource{ 1140080, 2696280 }; 
+		inline constexpr REL::RelocationID GetEventSource{ 1140080, 2696280 };
 	}
 
 	namespace PipboyLogMenu
@@ -1371,15 +1371,15 @@ namespace RE::ID
 
 	namespace PlayerCamera
 	{
-		inline constexpr REL::RelocationID Singleton{ 1171980, 2688801 }; 
-		inline constexpr REL::RelocationID PopState{ 120998, 2248424 }; 
+		inline constexpr REL::RelocationID Singleton{ 1171980, 2688801 };
+		inline constexpr REL::RelocationID PopState{ 120998, 2248424 };
 		inline constexpr REL::RelocationID PushState{ 0, 2248422 };
-		inline constexpr REL::RelocationID ToggleFreeCameraMode{ 224913, 2248368 }; 
-		inline constexpr REL::RelocationID SetState{ 858847, 2214742 }; 
+		inline constexpr REL::RelocationID ToggleFreeCameraMode{ 224913, 2248368 };
+		inline constexpr REL::RelocationID SetState{ 858847, 2214742 };
 		inline constexpr REL::RelocationID StartFurnitureMode{ 0, 2248373 };
-		inline constexpr REL::RelocationID StartPipboyMode{ 998069, 2248358 }; 
-		inline constexpr REL::RelocationID StopPipboyMode{ 811954, 2248359 }; 
-		inline constexpr REL::RelocationID QCameraEquals{ 839543, 2248421 }; 
+		inline constexpr REL::RelocationID StartPipboyMode{ 998069, 2248358 };
+		inline constexpr REL::RelocationID StopPipboyMode{ 811954, 2248359 };
+		inline constexpr REL::RelocationID QCameraEquals{ 839543, 2248421 };
 	}
 
 	namespace PlayerCharacter
@@ -1390,23 +1390,23 @@ namespace RE::ID
 			inline constexpr REL::RelocationID dtor{ 0, 2233293 };
 		}
 
-		inline constexpr REL::RelocationID Singleton{ 303410, 2690919 }; 
-		inline constexpr REL::RelocationID GetPlayerHandle{ 522947, 2698072 }; 
-		inline constexpr REL::RelocationID GetDifficultyLevel{ 922962, 2233056 }; 
-		inline constexpr REL::RelocationID IsGodMode{ 1032309, 2232986 }; 
-		inline constexpr REL::RelocationID IsHolotapePlaying{ 530826, 2233206 }; 
-		inline constexpr REL::RelocationID IsImmortal{ 500346, 2232988 }; 
+		inline constexpr REL::RelocationID Singleton{ 303410, 2690919 };
+		inline constexpr REL::RelocationID GetPlayerHandle{ 522947, 2698072 };
+		inline constexpr REL::RelocationID GetDifficultyLevel{ 922962, 2233056 };
+		inline constexpr REL::RelocationID IsGodMode{ 1032309, 2232986 };
+		inline constexpr REL::RelocationID IsHolotapePlaying{ 530826, 2233206 };
+		inline constexpr REL::RelocationID IsImmortal{ 500346, 2232988 };
 		inline constexpr REL::RelocationID IsPipboyLightOn{ 0, 2233202 };
-		inline constexpr REL::RelocationID PauseHolotape{ 1567456, 2233208 }; 
-		inline constexpr REL::RelocationID PlayHolotape{ 1581042, 2233207 }; 
+		inline constexpr REL::RelocationID PauseHolotape{ 1567456, 2233208 };
+		inline constexpr REL::RelocationID PlayHolotape{ 1581042, 2233207 };
 		inline constexpr REL::RelocationID QueueFastTravel{ 0, 2232918 };
 		inline constexpr REL::RelocationID RemoveLastUsedPowerArmor{ 0, 2233024 };
 		inline constexpr REL::RelocationID SelectPerk{ 0, 2232926 };
 		inline constexpr REL::RelocationID SetEscaping{ 0, 2233142 };
 		inline constexpr REL::RelocationID SetVATSCriticalCount{ 0, 2233219 };
 		inline constexpr REL::RelocationID ShowPipboyLight{ 0, 2233203 };
-		inline constexpr REL::RelocationID SetLastDialogueInput{ 696117, 2233190 }; 
-		inline constexpr REL::RelocationID ClearPrison{ 0, 2233196 }; 
+		inline constexpr REL::RelocationID SetLastDialogueInput{ 696117, 2233190 };
+		inline constexpr REL::RelocationID ClearPrison{ 0, 2233196 };
 		inline constexpr REL::RelocationID ReloadWeapon{ 0, 2232907 };
 		inline constexpr REL::RelocationID SetPerkCount{ 0, 2233187 };
 	}
@@ -1421,7 +1421,7 @@ namespace RE::ID
 
 	namespace PowerArmor
 	{
-		inline constexpr REL::RelocationID ActorInPowerArmor{ 1176757, 2219437 }; 
+		inline constexpr REL::RelocationID ActorInPowerArmor{ 1176757, 2219437 };
 		inline constexpr REL::RelocationID GetArmorKeyword{ 961172, 0 };
 		inline constexpr REL::RelocationID GetBatteryKeyword{ 1493537, 0 };
 		inline constexpr REL::RelocationID GetDefaultBatteryObject{ 1279247, 0 };
@@ -1444,10 +1444,10 @@ namespace RE::ID
 
 	namespace ProcessLists
 	{
-		inline constexpr REL::RelocationID Singleton{ 1569706, 2688869 }; 
-		inline constexpr REL::RelocationID AreHostileActorsNear{ 1053584, 2234105 }; 
-		inline constexpr REL::RelocationID IsActorTargetingREFinPackage{ 559542, 2234033 }; 
-		inline constexpr REL::RelocationID RequestHighestDetectionLevelAgainstActor{ 1036693, 2234111 }; 
+		inline constexpr REL::RelocationID Singleton{ 1569706, 2688869 };
+		inline constexpr REL::RelocationID AreHostileActorsNear{ 1053584, 2234105 };
+		inline constexpr REL::RelocationID IsActorTargetingREFinPackage{ 559542, 2234033 };
+		inline constexpr REL::RelocationID RequestHighestDetectionLevelAgainstActor{ 1036693, 2234111 };
 	}
 
 	namespace REFR_LOCK
@@ -1459,23 +1459,23 @@ namespace RE::ID
 
 	namespace ScrapHeap
 	{
-		inline constexpr REL::RelocationID Allocate{ 1085394, 2267983 }; 
-		inline constexpr REL::RelocationID Deallocate{ 923307, 2267984 }; 
+		inline constexpr REL::RelocationID Allocate{ 1085394, 2267983 };
+		inline constexpr REL::RelocationID Deallocate{ 923307, 2267984 };
 	}
 
 	namespace SCRIPT_FUNCTION
 	{
 		inline constexpr REL::RelocationID ConsoleFunctions{ 901511, 0 };
 		inline constexpr REL::RelocationID ScriptFunctions{ 75173, 0 };
-		inline constexpr REL::RelocationID CompileFunction{ 638606, 2204343 }; 
+		inline constexpr REL::RelocationID CompileFunction{ 638606, 2204343 };
 	}
 
 	namespace Script
 	{
-		inline constexpr REL::RelocationID ParseParameters{ 1607, 2204298 }; 
-		inline constexpr REL::RelocationID CompileAndRun{ 526625, 2204287 }; 
-		inline constexpr REL::RelocationID GetProcessScripts{ 44950, 2204310 }; 
-		inline constexpr REL::RelocationID SetProcessScripts{ 1188642, 2204309 }; 
+		inline constexpr REL::RelocationID ParseParameters{ 1607, 2204298 };
+		inline constexpr REL::RelocationID CompileAndRun{ 526625, 2204287 };
+		inline constexpr REL::RelocationID GetProcessScripts{ 44950, 2204310 };
+		inline constexpr REL::RelocationID SetProcessScripts{ 1188642, 2204309 };
 	}
 
 	namespace SendHUDMessage
@@ -1483,25 +1483,25 @@ namespace RE::ID
 		inline constexpr REL::RelocationID PopHUDMode{ 0, 2222444 };
 		inline constexpr REL::RelocationID PushHUDMode{ 0, 2222443 };
 		inline constexpr REL::RelocationID SetPowerArmorMode{ 361745, 0 };
-		inline constexpr REL::RelocationID ShowHUDMessage{ 1163005, 2222440 }; 
+		inline constexpr REL::RelocationID ShowHUDMessage{ 1163005, 2222440 };
 	}
 
 	namespace Setting
 	{
 		namespace INISettingCollection
 		{
-			inline constexpr REL::RelocationID Singleton{ 791183, 2704108 }; 
+			inline constexpr REL::RelocationID Singleton{ 791183, 2704108 };
 		}
 
 		namespace INIPrefSettingCollection
 		{
-			inline constexpr REL::RelocationID Singleton{ 767844, 2703234 }; 
+			inline constexpr REL::RelocationID Singleton{ 767844, 2703234 };
 		}
 
 		namespace GameSettingCollection
 		{
-			inline constexpr REL::RelocationID InitCollection{ 948832, 2188690 }; 
-			inline constexpr REL::RelocationID Singleton{ 8308, 2690301 }; 
+			inline constexpr REL::RelocationID InitCollection{ 948832, 2188690 };
+			inline constexpr REL::RelocationID Singleton{ 8308, 2690301 };
 		}
 	}
 
@@ -1526,8 +1526,8 @@ namespace RE::ID
 
 	namespace SWFToCodeFunctionHandler
 	{
-		inline constexpr REL::RelocationID MapCodeMethodToASFunction{ 1263128, 2287419 }; 
-		inline constexpr REL::RelocationID RegisterCodeObject{ 67637, 2287415 }; 
+		inline constexpr REL::RelocationID MapCodeMethodToASFunction{ 1263128, 2287419 };
+		inline constexpr REL::RelocationID RegisterCodeObject{ 67637, 2287415 };
 	}
 
 	namespace TaskQueueInterface
@@ -1558,17 +1558,17 @@ namespace RE::ID
 
 	namespace TESActorBaseData
 	{
-		inline constexpr REL::RelocationID GetLevel{ 151866, 2192891 }; 
+		inline constexpr REL::RelocationID GetLevel{ 151866, 2192891 };
 	}
 
 	namespace TESAmmo
 	{
-		inline constexpr REL::RelocationID GetReloadsWithAmmoRef{ 1035622, 2197864 }; 
+		inline constexpr REL::RelocationID GetReloadsWithAmmoRef{ 1035622, 2197864 };
 	}
 
 	namespace TESBoundObject
 	{
-		inline constexpr REL::RelocationID ApplyMods{ 113585, 2198325 }; 
+		inline constexpr REL::RelocationID ApplyMods{ 113585, 2198325 };
 	}
 
 	namespace TESCellAttachDetachEvent
@@ -1583,15 +1583,15 @@ namespace RE::ID
 
 	namespace TESCondition
 	{
-		inline constexpr REL::RelocationID IsTrue{ 1275731, 2211989 }; 
+		inline constexpr REL::RelocationID IsTrue{ 1275731, 2211989 };
 		inline constexpr REL::RelocationID IsTrueForAllButFunction{ 1182457, 0 };
 		inline constexpr REL::RelocationID ClearAllConditionItems{ 0, 2211988 };
 	}
 
 	namespace TESConditionItem
 	{
-		inline constexpr REL::RelocationID GetComparisonValue{ 1373349, 2212007 }; 
-		inline constexpr REL::RelocationID IsTrue1{ 1453240, 2212008 }; 
+		inline constexpr REL::RelocationID GetComparisonValue{ 1373349, 2212007 };
+		inline constexpr REL::RelocationID IsTrue1{ 1453240, 2212008 };
 		inline constexpr REL::RelocationID IsTrue2{ 0, 2212009 };
 	}
 
@@ -1602,16 +1602,16 @@ namespace RE::ID
 
 	namespace TESDataHandler
 	{
-		inline constexpr REL::RelocationID Singleton{ 711558, 2688883 }; 
-		inline constexpr REL::RelocationID AddFormToDataHandler{ 350112, 2192271 }; 
-		inline constexpr REL::RelocationID CheckModsLoaded{ 1432894, 2192323 }; 
+		inline constexpr REL::RelocationID Singleton{ 711558, 2688883 };
+		inline constexpr REL::RelocationID AddFormToDataHandler{ 350112, 2192271 };
+		inline constexpr REL::RelocationID CheckModsLoaded{ 1432894, 2192323 };
 		inline constexpr REL::RelocationID CreateReferenceAtLocation{ 0, 2192301 };
-		inline constexpr REL::RelocationID IsFormIDInuse{ 1448838, 2192351 }; 
+		inline constexpr REL::RelocationID IsFormIDInuse{ 1448838, 2192351 };
 	}
 
 	namespace TESDeathEvent
 	{
-		inline constexpr REL::RelocationID GetEventSource{ 1465690, 2201833 }; 
+		inline constexpr REL::RelocationID GetEventSource{ 1465690, 2201833 };
 	}
 
 	namespace TESDescription
@@ -1626,47 +1626,47 @@ namespace RE::ID
 
 	namespace TESFile
 	{
-		inline constexpr REL::RelocationID CloseTES{ 766555, 2192491 }; 
-		inline constexpr REL::RelocationID GetChunkData{ 188910, 2192538 }; 
-		inline constexpr REL::RelocationID GetTESChunk{ 641361, 2192536 }; 
-		inline constexpr REL::RelocationID NextChunk{ 1252764, 2192537 }; 
-		inline constexpr REL::RelocationID NextForm{ 644374, 2192527 }; 
-		inline constexpr REL::RelocationID NextGroup{ 339855, 2192522 }; 
-		inline constexpr REL::RelocationID OpenTES{ 728465, 2192490 }; 
+		inline constexpr REL::RelocationID CloseTES{ 766555, 2192491 };
+		inline constexpr REL::RelocationID GetChunkData{ 188910, 2192538 };
+		inline constexpr REL::RelocationID GetTESChunk{ 641361, 2192536 };
+		inline constexpr REL::RelocationID NextChunk{ 1252764, 2192537 };
+		inline constexpr REL::RelocationID NextForm{ 644374, 2192527 };
+		inline constexpr REL::RelocationID NextGroup{ 339855, 2192522 };
+		inline constexpr REL::RelocationID OpenTES{ 728465, 2192490 };
 	}
 
 	namespace TESForm
 	{
 		inline constexpr REL::RelocationID FormSortFunc{ 705530, 0 };
-		inline constexpr REL::RelocationID AddCompileIndex{ 1315637, 2193152 }; 
-		inline constexpr REL::RelocationID AllForms{ 422985, 2689178 }; 
-		inline constexpr REL::RelocationID AllFormsMapLock{ 691815, 2689189 }; 
-		inline constexpr REL::RelocationID AllFormsByEditorID{ 642758, 2689179 }; 
-		inline constexpr REL::RelocationID AllFormsEditorIDMapLock{ 910917, 2689190 }; 
-		inline constexpr REL::RelocationID GetFile{ 1376557, 2193103 }; 
+		inline constexpr REL::RelocationID AddCompileIndex{ 1315637, 2193152 };
+		inline constexpr REL::RelocationID AllForms{ 422985, 2689178 };
+		inline constexpr REL::RelocationID AllFormsMapLock{ 691815, 2689189 };
+		inline constexpr REL::RelocationID AllFormsByEditorID{ 642758, 2689179 };
+		inline constexpr REL::RelocationID AllFormsEditorIDMapLock{ 910917, 2689190 };
+		inline constexpr REL::RelocationID GetFile{ 1376557, 2193103 };
 		inline constexpr REL::RelocationID GetFormEnumString{ 1309967, 0 };
-		inline constexpr REL::RelocationID GetFormTypeFromString{ 565203, 2193108 }; 
+		inline constexpr REL::RelocationID GetFormTypeFromString{ 565203, 2193108 };
 		inline constexpr REL::RelocationID SetTemporary{ 0, 2193125 };
 	}
 
 	namespace TESFormDeleteEvent
 	{
-		inline constexpr REL::RelocationID GetEventSource{ 1396562, 2201842 }; 
+		inline constexpr REL::RelocationID GetEventSource{ 1396562, 2201842 };
 	}
 
 	namespace TESFullName
 	{
-		inline constexpr REL::RelocationID SparseFullNameMap{ 226372, 2661402 }; 
+		inline constexpr REL::RelocationID SparseFullNameMap{ 226372, 2661402 };
 	}
 
 	namespace TESFurniture
 	{
-		inline constexpr REL::RelocationID GetContainer{ 1049933, 2198043 }; 
+		inline constexpr REL::RelocationID GetContainer{ 1049933, 2198043 };
 	}
 
 	namespace TESFurnitureEvent
 	{
-		inline constexpr REL::RelocationID GetEventSource{ 678665, 2201844 }; 
+		inline constexpr REL::RelocationID GetEventSource{ 678665, 2201844 };
 	}
 
 	namespace TESHarvestEvent
@@ -1693,7 +1693,7 @@ namespace RE::ID
 	{
 		inline constexpr REL::RelocationID AddLeveledObject{ 0, 2193258 };
 		inline constexpr REL::RelocationID CalculateCurrentFormList{ 0, 2193259 };
-		inline constexpr REL::RelocationID CalculateCurrentFormListForRef{ 507405, 2193260 }; 
+		inline constexpr REL::RelocationID CalculateCurrentFormListForRef{ 507405, 2193260 };
 		inline constexpr REL::RelocationID GetUseAll{ 0, 2193253 };
 	}
 
@@ -1704,27 +1704,27 @@ namespace RE::ID
 
 	namespace TESMagicEffectApplyEvent
 	{
-		inline constexpr REL::RelocationID GetEventSource{ 1481228, 1327824 }; 
+		inline constexpr REL::RelocationID GetEventSource{ 1481228, 1327824 };
 	}
 
 	namespace TESNPC
 	{
 		inline constexpr REL::RelocationID AlternateHeadPartListMap{ 0, 2662368 };
-		inline constexpr REL::RelocationID GetSex{ 1257181, 2207107 }; 
-		inline constexpr REL::RelocationID GetFacialBoneMorphIntensity{ 272217, 2207416 }; 
+		inline constexpr REL::RelocationID GetSex{ 1257181, 2207107 };
+		inline constexpr REL::RelocationID GetFacialBoneMorphIntensity{ 272217, 2207416 };
 		inline constexpr REL::RelocationID SetHairColor{ 0, 2207426 };
 	}
 
 	namespace TESObjectCELL
 	{
 		inline constexpr REL::RelocationID GetbhkWorld{ 0, 2200260 };
-		inline constexpr REL::RelocationID GetCantWaitHere{ 376940, 2200287 }; 
-		inline constexpr REL::RelocationID GetDataX{ 445210, 2200213 }; 
-		inline constexpr REL::RelocationID GetDataY{ 1322816, 2200214 }; 
-		inline constexpr REL::RelocationID GetEncounterZone{ 1414637, 2200242 }; 
-		inline constexpr REL::RelocationID GetLocation{ 868663, 2200179 }; 
+		inline constexpr REL::RelocationID GetCantWaitHere{ 376940, 2200287 };
+		inline constexpr REL::RelocationID GetDataX{ 445210, 2200213 };
+		inline constexpr REL::RelocationID GetDataY{ 1322816, 2200214 };
+		inline constexpr REL::RelocationID GetEncounterZone{ 1414637, 2200242 };
+		inline constexpr REL::RelocationID GetLocation{ 868663, 2200179 };
 		inline constexpr REL::RelocationID GetOwner{ 0, 2200236 };
-		inline constexpr REL::RelocationID GetRegionList{ 1565031, 2200265 }; 
+		inline constexpr REL::RelocationID GetRegionList{ 1565031, 2200265 };
 		inline constexpr REL::RelocationID Pick{ 0, 2200263 };
 		inline constexpr REL::RelocationID SetCullCellMarkers{ 0, 2192259 };
 		inline constexpr REL::RelocationID UpdateAllRefsLoaded{ 0, 2200415 };
@@ -1736,24 +1736,24 @@ namespace RE::ID
 
 	namespace TESObjectLoadedEvent
 	{
-		inline constexpr REL::RelocationID GetEventSource{ 416662, 2201853 }; 
+		inline constexpr REL::RelocationID GetEventSource{ 416662, 2201853 };
 	}
 
 	namespace TESObjectREFR
 	{
 		inline constexpr REL::RelocationID ActivateRef{ 0, 2201147 };
 		inline constexpr REL::RelocationID AddInventoryItem{ 0, 2200949 };
-		inline constexpr REL::RelocationID AddKeyword{ 640674, 2200860 }; 
+		inline constexpr REL::RelocationID AddKeyword{ 640674, 2200860 };
 		inline constexpr REL::RelocationID AddLockChange{ 1578706, 0 };
 		inline constexpr REL::RelocationID ApplyArtObject{ 0, 2205200 };
 		inline constexpr REL::RelocationID ApplyEffectShader{ 0, 2205201 };
 		inline constexpr REL::RelocationID Enable{ 1396707, 0 };
-		inline constexpr REL::RelocationID GetCurrentLocation{ 1135470, 2201163 }; 
-		inline constexpr REL::RelocationID GetDisplayFullName{ 1212056, 2201126 }; 
+		inline constexpr REL::RelocationID GetCurrentLocation{ 1135470, 2201163 };
+		inline constexpr REL::RelocationID GetDisplayFullName{ 1212056, 2201126 };
 		inline constexpr REL::RelocationID GetEditorDead{ 0, 2200781 };
 		inline constexpr REL::RelocationID GetOwner{ 1323437, 0 };
 		inline constexpr REL::RelocationID GetGoldAmount{ 0, 2200923 };
-		inline constexpr REL::RelocationID GetHandle{ 1573130, 2201196 }; 
+		inline constexpr REL::RelocationID GetHandle{ 1573130, 2201196 };
 		inline constexpr REL::RelocationID GetHasOwner{ 1016277, 0 };
 		inline constexpr REL::RelocationID GetInventoryObjectCount{ 0, 2200939 };
 		inline constexpr REL::RelocationID GetLinkedRef{ 897287, 0 };
@@ -1763,7 +1763,7 @@ namespace RE::ID
 		inline constexpr REL::RelocationID IsAnOwner{ 933798, 0 };
 		inline constexpr REL::RelocationID IsCrimeToActivate{ 0, 2201180 };
 		inline constexpr REL::RelocationID IsInWater{ 315318, 0 };
-		inline constexpr REL::RelocationID IsLeveledCreature{ 1341859, 2202655 }; 
+		inline constexpr REL::RelocationID IsLeveledCreature{ 1341859, 2202655 };
 		inline constexpr REL::RelocationID MarkAsDeleted{ 192661, 0 };
 		inline constexpr REL::RelocationID MoveRefToNewSpace{ 629658, 0 };
 		inline constexpr REL::RelocationID RemoveKeyword{ 0, 2200861 };
@@ -1777,7 +1777,7 @@ namespace RE::ID
 		inline constexpr REL::RelocationID GetObjectCenter{ 777738, 0 };
 		inline constexpr REL::RelocationID SetScale{ 0, 2200893 };
 		inline constexpr REL::RelocationID IsMarker{ 0, 2201157 };
-		inline constexpr REL::RelocationID IsDecalRef{ 0, 2200794 }; 
+		inline constexpr REL::RelocationID IsDecalRef{ 0, 2200794 };
 	}
 
 	namespace TESObjectWEAP
@@ -1788,8 +1788,8 @@ namespace RE::ID
 
 	namespace TESQuest
 	{
-		inline constexpr REL::RelocationID SetStage{ 952799, 2207743 }; 
-		inline constexpr REL::RelocationID GetAliasedRef{ 847223, 2207810 }; 
+		inline constexpr REL::RelocationID SetStage{ 952799, 2207743 };
+		inline constexpr REL::RelocationID GetAliasedRef{ 847223, 2207810 };
 	}
 
 	namespace TESResponse
@@ -1810,9 +1810,9 @@ namespace RE::ID
 
 	namespace TESTopicInfo
 	{
-		inline constexpr REL::RelocationID GetParentInfoGroup{ 163538, 2208435 }; 
-		inline constexpr REL::RelocationID GetChallengeLevel{ 0, 2208441 }; 
-		inline constexpr REL::RelocationID GetSuccessLevel{ 1023955, 2208444 }; 
+		inline constexpr REL::RelocationID GetParentInfoGroup{ 163538, 2208435 };
+		inline constexpr REL::RelocationID GetChallengeLevel{ 0, 2208441 };
+		inline constexpr REL::RelocationID GetSuccessLevel{ 1023955, 2208444 };
 		inline constexpr REL::RelocationID StartSceneOnEnd{ 0, 2208466 };
 		inline constexpr REL::RelocationID GetScene{ 0, 2208453 };
 		inline constexpr REL::RelocationID StartScene{ 0, 2208469 };
@@ -1836,8 +1836,8 @@ namespace RE::ID
 	namespace UI
 	{
 		inline constexpr REL::RelocationID CustomRendererHasQuads{ 0, 2284757 };
-		inline constexpr REL::RelocationID GetMenuMapRWLock{ 578487, 2707105 }; 
-		inline constexpr REL::RelocationID Singleton{ 548587, 2689028 }; 
+		inline constexpr REL::RelocationID GetMenuMapRWLock{ 578487, 2707105 };
+		inline constexpr REL::RelocationID Singleton{ 548587, 2689028 };
 		inline constexpr REL::RelocationID RefreshCursor{ 0, 2284772 };
 		inline constexpr REL::RelocationID RegisterMenu{ 0, 2284766 };
 		inline constexpr REL::RelocationID UpdateControllerType{ 0, 2284768 };
@@ -1850,8 +1850,8 @@ namespace RE::ID
 
 	namespace UIMessageQueue
 	{
-		inline constexpr REL::RelocationID Singleton{ 82123, 2689091 }; 
-		inline constexpr REL::RelocationID AddMessage{ 1182019, 2284929 }; 
+		inline constexpr REL::RelocationID Singleton{ 82123, 2689091 };
+		inline constexpr REL::RelocationID AddMessage{ 1182019, 2284929 };
 	}
 
 	namespace UIUtils
@@ -1876,17 +1876,17 @@ namespace RE::ID
 	{
 		namespace PlacementItemData
 		{
-		inline constexpr REL::RelocationID Set{ 1460935, 0 };
+			inline constexpr REL::RelocationID Set{ 1460935, 0 };
 		}
 
 		namespace WorkshopMenuNode
 		{
-		inline constexpr REL::RelocationID FindAndSetSelectedNode{ 1309368, 0 };
+			inline constexpr REL::RelocationID FindAndSetSelectedNode{ 1309368, 0 };
 		}
 
-		inline constexpr REL::RelocationID FindNearestValidWorkshop{ 905705, 2194970 }; 
-		inline constexpr REL::RelocationID FreeBuild{ 1583365, 2194924 }; 
-		inline constexpr REL::RelocationID GetSelectedWorkshopMenuNode{ 763948, 2195024 }; 
+		inline constexpr REL::RelocationID FindNearestValidWorkshop{ 905705, 2194970 };
+		inline constexpr REL::RelocationID FreeBuild{ 1583365, 2194924 };
+		inline constexpr REL::RelocationID GetSelectedWorkshopMenuNode{ 763948, 2195024 };
 		inline constexpr REL::RelocationID InitializePlacementReference{ 1577199, 0 };
 		inline constexpr REL::RelocationID IsLocationWithinBuildableArea{ 990965, 0 };
 		inline constexpr REL::RelocationID PlaceCurrentReference{ 1058211, 0 };
@@ -1916,9 +1916,9 @@ namespace RE::ID
 		inline constexpr REL::RelocationID UpdateButtonText{ 1089189, 0 };
 	}
 
-		inline constexpr REL::RelocationID NiFree{ 242362, 0 };
-		inline constexpr REL::RelocationID NiMalloc{ 974443, 0 };
-	inline constexpr REL::RelocationID RTDynamicCast{ 84112, 2725673 }; 
+	inline constexpr REL::RelocationID NiFree{ 242362, 0 };
+	inline constexpr REL::RelocationID NiMalloc{ 974443, 0 };
+	inline constexpr REL::RelocationID RTDynamicCast{ 84112, 2725673 };
 }
 
 namespace Scaleform::ID
@@ -1935,30 +1935,30 @@ namespace Scaleform::ID
 
 	namespace GFx::Movie
 	{
-		inline constexpr REL::RelocationID Release{ 404814, 2287230 }; 
+		inline constexpr REL::RelocationID Release{ 404814, 2287230 };
 	}
 
 	namespace GFx::Value
 	{
-		inline constexpr REL::RelocationID ObjectAddRef{ 244786, 2286228 }; 
-		inline constexpr REL::RelocationID ObjectRelease{ 856221, 2286229 }; 
+		inline constexpr REL::RelocationID ObjectAddRef{ 244786, 2286228 };
+		inline constexpr REL::RelocationID ObjectRelease{ 856221, 2286229 };
 		inline constexpr REL::RelocationID HasMember{ 0, 2286078 };
-		inline constexpr REL::RelocationID GetArraySize{ 254218, 2285791 }; 
-		inline constexpr REL::RelocationID GetMember{ 1517430, 2285936 }; 
+		inline constexpr REL::RelocationID GetArraySize{ 254218, 2285791 };
+		inline constexpr REL::RelocationID GetMember{ 1517430, 2285936 };
 		inline constexpr REL::RelocationID GetElement{ 0, 2285881 };
 		inline constexpr REL::RelocationID SetElement{ 0, 2286575 };
-		inline constexpr REL::RelocationID SetMember{ 1360149, 2286589 }; 
-		inline constexpr REL::RelocationID Invoke{ 655847, 2286101 }; 
-		inline constexpr REL::RelocationID PushBack{ 1330475, 2286424 }; 
-		inline constexpr REL::RelocationID RemoveElements{ 1286586, 2286475 }; 
-		inline constexpr REL::RelocationID VisitMembers{ 0, 2286786 }; 
-		inline constexpr REL::RelocationID GetDisplayInfo{ 498814, 2285873 }; 
+		inline constexpr REL::RelocationID SetMember{ 1360149, 2286589 };
+		inline constexpr REL::RelocationID Invoke{ 655847, 2286101 };
+		inline constexpr REL::RelocationID PushBack{ 1330475, 2286424 };
+		inline constexpr REL::RelocationID RemoveElements{ 1286586, 2286475 };
+		inline constexpr REL::RelocationID VisitMembers{ 0, 2286786 };
+		inline constexpr REL::RelocationID GetDisplayInfo{ 498814, 2285873 };
 	}
 
 	namespace Memory
 	{
-		inline constexpr REL::RelocationID SetGlobalHeap{ 939898, 2707353 }; 
-		inline constexpr REL::RelocationID GetGlobalHeap{ 939898, 2707353 }; 
+		inline constexpr REL::RelocationID SetGlobalHeap{ 939898, 2707353 };
+		inline constexpr REL::RelocationID GetGlobalHeap{ 939898, 2707353 };
 	}
 
 	namespace SysAlloc

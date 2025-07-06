@@ -1,5 +1,8 @@
 #pragma once
 
+// Include F4-specific configuration before commonlib-shared library use to set values
+#include "REL/Config.h"
+
 #include <REL/REL.h>
 #include <REX/REX.h>
 
