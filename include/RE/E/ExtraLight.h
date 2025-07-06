@@ -11,7 +11,7 @@ namespace RE
 	public:
 		static constexpr auto RTTI{ RTTI::ExtraLight };
 		static constexpr auto VTABLE{ VTABLE::ExtraLight };
-		static constexpr atuo TYPE{ EXTRA_DATA_TYPE::kLight };
+		static constexpr auto TYPE{ EXTRA_DATA_TYPE::kLight };
 
 		// members
 		REFR_LIGHT lightdata;  // 18
