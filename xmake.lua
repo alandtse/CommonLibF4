@@ -7,43 +7,12 @@ set_languages("c++23")
 set_warnings("allextra")
 set_encodings("utf-8")
 
--- add repositories
-add_repositories("libxse-xrepo https://github.com/libxse/libxse-xrepo")
-
 -- add rules
 add_rules("mode.debug", "mode.releasedbg")
 
--- make custom rules available
+-- add includes
+includes("lib/commonlib-shared")
 includes("xmake-rules.lua")
-
--- define options
-option("commonlib_ini", function()
-    set_default(false)
-    set_description("enable REX::INI settings support")
-end)
-
-option("commonlib_json", function()
-    set_default(false)
-    set_description("enable REX::JSON settings support")
-end)
-
-option("commonlib_toml", function()
-    set_default(false)
-    set_description("enable REX::TOML settings support")
-end)
-
-option("commonlib_xbyak", function()
-    set_default(false)
-    set_description("enable xbyak support for trampoline")
-end)
-
--- require packages
-add_requires("commonlib-shared 7c29a1e16b4ee5d5ee06f706590b28099b7a5a59", { configs = {
-    ini = has_config("commonlib_ini"),
-    json = has_config("commonlib_json"),
-    toml = has_config("commonlib_toml"),
-    xbyak = has_config("commonlib_xbyak")
-} })
 
 -- define targets
 target("commonlibf4", function()
@@ -53,8 +22,8 @@ target("commonlibf4", function()
     -- set build by default
     set_default(os.scriptdir() == os.projectdir())
 
-    -- add packages
-    add_packages("commonlib-shared", { public = true })
+    -- add dependencies
+    add_deps("commonlib-shared", { public = true })
 
     -- add source files
     add_files("src/**.cpp")
