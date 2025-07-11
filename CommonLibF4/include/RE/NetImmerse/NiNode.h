@@ -43,11 +43,11 @@ namespace RE
 
 		struct RUNTIME_DATA
 		{
-#define RUNTIME_DATA_CONTENT                                                            \
-		NiTObjectArray<NiPointer<NiAVObject>> children;                   /*120*/       \
-		BSTAtomicValue<std::uint32_t>         dirtyState;                 /*138*/       \
-		float                                 meshLODFadeAmount{ 0.0F };  /*13C*/
-			RUNTIME_DATA_CONTENT
+#define RUNTIME_DATA_CONTENT                                                 \
+	NiTObjectArray<NiPointer<NiAVObject>> children;                  /*120*/ \
+	BSTAtomicValue<std::uint32_t>         dirtyState;                /*138*/ \
+	float                                 meshLODFadeAmount{ 0.0F }; /*13C*/
+            RUNTIME_DATA_CONTENT
 		};
 		static_assert(sizeof(RUNTIME_DATA) == 0x20);
 
@@ -65,7 +65,7 @@ namespace RE
 #if !defined(ENABLE_FALLOUT_VR)
 		RUNTIME_DATA_CONTENT
 #elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
-		std::uint32_t                         pad120[0x10];               // 120
+		std::uint32_t pad120[0x10];  // 120
 		RUNTIME_DATA_CONTENT
 #endif
 	};
