@@ -41,10 +41,38 @@ namespace RE
 
 		F4_HEAP_REDEFINE_ALIGNED_NEW(NiNode);
 
+		struct RUNTIME_DATA
+		{
+#define RUNTIME_DATA_CONTENT                                                            \
+		NiTObjectArray<NiPointer<NiAVObject>> children;                   /*120*/       \
+		BSTAtomicValue<std::uint32_t>         dirtyState;                 /*138*/       \
+		float                                 meshLODFadeAmount{ 0.0F };  /*13C*/
+			RUNTIME_DATA_CONTENT
+		};
+		static_assert(sizeof(RUNTIME_DATA) == 0x20);
+
+		[[nodiscard]] inline RUNTIME_DATA& GetRuntimeData() noexcept
+		{
+			return REL::RelocateMember<RUNTIME_DATA>(this, 0x120, 0x160);
+		}
+
+		[[nodiscard]] inline const RUNTIME_DATA GetRuntimeData() const noexcept
+		{
+			return REL::RelocateMember<RUNTIME_DATA>(this, 0x120, 0x160);
+		}
+
 		// members
-		NiTObjectArray<NiPointer<NiAVObject>> children;                   // 120
-		BSTAtomicValue<std::uint32_t>         dirtyState;                 // 138
-		float                                 meshLODFadeAmount{ 0.0F };  // 13C
+#if !defined(ENABLE_FALLOUT_VR)
+		RUNTIME_DATA_CONTENT
+#elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
+		std::uint32_t                         pad120[0x10];               // 120
+		RUNTIME_DATA_CONTENT
+#endif
 	};
+#if !defined(ENABLE_FALLOUT_VR)
 	static_assert(sizeof(NiNode) == 0x140);
+#elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
+	static_assert(sizeof(NiNode) == 0x180);
+#endif
 }
+#undef RUNTIME_DATA_CONTENT
