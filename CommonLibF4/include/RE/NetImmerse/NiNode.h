@@ -20,12 +20,12 @@ namespace RE
 			NiNode(0)
 		{}
 
-		explicit NiNode(std::uint32_t a_numChildren) :
-			children(a_numChildren)
+		explicit NiNode(std::uint32_t a_numChildren)
 		{
 			stl::emplace_vtable(this);
+			GetRuntimeData().children = NiTObjectArray<NiPointer<NiAVObject>>(a_numChildren);
 			static REL::Relocation<std::uintptr_t> childrenVTable{ REL::ID(390064) };
-			reinterpret_cast<std::uintptr_t&>(children) = childrenVTable.address();
+			reinterpret_cast<std::uintptr_t&>(GetRuntimeData().children) = childrenVTable.address();
 		}
 
 		// add
