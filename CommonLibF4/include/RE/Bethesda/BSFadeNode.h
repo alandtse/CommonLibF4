@@ -58,12 +58,12 @@ namespace RE
 		};
 		static_assert(sizeof(RUNTIME_DATA) == 0x80);
 
-		[[nodiscard]] inline RUNTIME_DATA& GetRuntimeData() noexcept
+		[[nodiscard]] inline RUNTIME_DATA& GetFadeNodeRuntimeData() noexcept
 		{
 			return REL::RelocateMember<RUNTIME_DATA>(this, 0x140, 0x180);
 		}
 
-		[[nodiscard]] inline const RUNTIME_DATA GetRuntimeData() const noexcept
+		[[nodiscard]] inline const RUNTIME_DATA& GetFadeNodeRuntimeData() const noexcept
 		{
 			return REL::RelocateMember<RUNTIME_DATA>(this, 0x140, 0x180);
 		}
