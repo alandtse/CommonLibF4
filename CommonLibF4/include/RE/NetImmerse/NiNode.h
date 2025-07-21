@@ -67,12 +67,18 @@ namespace RE
 #elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
 		std::uint32_t pad120[0x10];  // 120
 		RUNTIME_DATA_CONTENT
+#else
+		// All flags enabled ("all" configuration): ensure space for RUNTIME_DATA at 0x120
+		RUNTIME_DATA_CONTENT
 #endif
 	};
 #if !defined(ENABLE_FALLOUT_VR)
 	static_assert(sizeof(NiNode) == 0x140);
 #elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
 	static_assert(sizeof(NiNode) == 0x180);
+#else
+	// All flags enabled ("all" configuration): same layout as non-VR at compile time
+	static_assert(sizeof(NiNode) == 0x140);
 #endif
 }
 #undef RUNTIME_DATA_CONTENT
