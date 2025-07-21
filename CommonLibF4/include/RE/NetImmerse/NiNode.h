@@ -64,14 +64,14 @@ namespace RE
 		// members
 #if !defined(ENABLE_FALLOUT_VR)
 		RUNTIME_DATA_CONTENT
-#elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
+#else
 		std::uint32_t pad120[0x10];  // 120
 		RUNTIME_DATA_CONTENT
 #endif
 	};
 #if !defined(ENABLE_FALLOUT_VR)
 	static_assert(sizeof(NiNode) == 0x140);
-#elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
+#else
 	static_assert(sizeof(NiNode) == 0x180);
 #endif
 }
