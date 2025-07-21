@@ -306,7 +306,7 @@ namespace RE
 			return REL::RelocateMember<RUNTIME_DATA>(this, 0x0FF0, 0x0FF0);
 		}
 
-		[[nodiscard]] inline const RUNTIME_DATA GetRuntimeData() const noexcept
+		[[nodiscard]] inline const RUNTIME_DATA& GetRuntimeData() const noexcept
 		{
 			return REL::RelocateMember<RUNTIME_DATA>(this, 0x0FF0, 0x0FF0);
 		}
