@@ -41,7 +41,7 @@ namespace RE
 
 		void UpdateWorldBound()  // 33
 		{
-			if (REL::Module::IsVR)
+			if (REL::Module::IsVR())
 				REL::RelocateVirtual<decltype(&NiAVObject::UpdateWorldBound)>(0x33, 0x33, this);
 		}
 
@@ -57,7 +57,7 @@ namespace RE
 
 		void UpdateTransforms(NiUpdateData& a_data)  // 36
 		{
-			if (REL::Module::IsVR)
+			if (REL::Module::IsVR())
 				REL::RelocateVirtual<decltype(&NiAVObject::UpdateTransforms)>(0x36, 0x39, this, a_data);
 			else
 				UpdateWorldData(std::addressof(a_data));
