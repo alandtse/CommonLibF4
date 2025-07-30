@@ -999,7 +999,7 @@ namespace RE
 		virtual bool                 DrinkPotion(AlchemyItem* a_potion, std::uint32_t a_stackID);                                                                                                                        // 119
 		virtual bool                 CheckCast(MagicItem* a_spell, bool a_dualCast, MagicSystem::CannotCastReason* a_reason);                                                                                            // 11A
 		virtual void                 CheckTempModifiers() { return; }                                                                                                                                                    // 11B
-		virtual void                 SetLastRiddenMount(ActorHandle a_mount) { return; }                                                                                                                                 // 11C
+		virtual void                 SetLastRiddenMount(ActorHandle) { return; }                                                                                                                                         // 11C
 		virtual ActorHandle          QLastRiddenMount() const;                                                                                                                                                           // 11D
 		virtual bool                 CalculateCachedOwnerIsUndead() const;                                                                                                                                               // 11E
 		virtual bool                 CalculateCachedOwnerIsNPC() const;                                                                                                                                                  // 11F
