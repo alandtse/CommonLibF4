@@ -16,12 +16,12 @@
 
 // Validate that REL_DEFAULT_RUNTIME_COUNT is properly defined by build system
 #ifndef REL_DEFAULT_RUNTIME_COUNT
-#error "REL_DEFAULT_RUNTIME_COUNT must be defined by the build system (XMake)"
+#	error "REL_DEFAULT_RUNTIME_COUNT must be defined by the build system (XMake)"
 #endif
 
 // Validate that at least one runtime is enabled
 #if !defined(ENABLE_FALLOUT_F4) && !defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_VR) && !defined(ENABLE_FALLOUT_AE)
-#error "At least one Fallout runtime must be enabled (ENABLE_FALLOUT_F4, ENABLE_FALLOUT_NG, ENABLE_FALLOUT_VR, or ENABLE_FALLOUT_AE)"
+#	error "At least one Fallout runtime must be enabled (ENABLE_FALLOUT_F4, ENABLE_FALLOUT_NG, ENABLE_FALLOUT_VR, or ENABLE_FALLOUT_AE)"
 #endif
 
 // Runtime count macro for C++ code (safe to use in expressions, not preprocessor conditionals)

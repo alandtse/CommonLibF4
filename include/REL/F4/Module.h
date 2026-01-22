@@ -3,8 +3,8 @@
 // F4-specific Module singleton implementation
 // This header provides a F4-specific Module singleton that delegates to the shared library Module
 
-#include <REL/Module.h>  // Include shared Module
 #include "REX/REX/Singleton.h"
+#include <REL/Module.h>  // Include shared Module
 
 namespace REL
 {
@@ -16,19 +16,19 @@ namespace REL
 		public:
 			Module() = default;
 
-			[[nodiscard]] constexpr std::uintptr_t base() const noexcept 
-			{ 
-				return REL::Module::GetSingleton()->base(); 
+			[[nodiscard]] constexpr std::uintptr_t base() const noexcept
+			{
+				return REL::Module::GetSingleton()->base();
 			}
-			
-			[[nodiscard]] std::wstring_view filename() const noexcept 
-			{ 
-				return REL::Module::GetSingleton()->filename(); 
+
+			[[nodiscard]] std::wstring_view filename() const noexcept
+			{
+				return REL::Module::GetSingleton()->filename();
 			}
-			
-			[[nodiscard]] constexpr Segment segment(Segment::Name a_segment) const noexcept 
-			{ 
-				return REL::Module::GetSingleton()->segment(a_segment); 
+
+			[[nodiscard]] constexpr Segment segment(Segment::Name a_segment) const noexcept
+			{
+				return REL::Module::GetSingleton()->segment(a_segment);
 			}
 
 			[[nodiscard]] constexpr Version version() const noexcept
@@ -41,9 +41,9 @@ namespace REL
 				REL::Module::GetSingleton()->version(a_version);
 			}
 
-			[[nodiscard]] void* pointer() const noexcept 
-			{ 
-				return REL::Module::GetSingleton()->pointer(); 
+			[[nodiscard]] void* pointer() const noexcept
+			{
+				return REL::Module::GetSingleton()->pointer();
 			}
 
 			template <class T>
