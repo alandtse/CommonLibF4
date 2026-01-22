@@ -1,6 +1,5 @@
 #include "REL/IDDB.h"
-#include "REL/Common.h"
-#include "REL/Module.h"
+#include "REL/F4/Runtime.h"
 
 #include <filesystem>
 #include <format>
@@ -45,7 +44,7 @@ namespace REL::F4
 
 	std::string get_database_path()
 	{
-		const auto module = REL::Module::GetSingleton();
+		const auto module = F4::Module::GetSingleton();
 		if (!module) {
 			throw std::runtime_error("Module not initialized");
 		}

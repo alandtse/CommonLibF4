@@ -1,7 +1,7 @@
 #pragma once
 
-#include "REL/Common.h"
 #include <REL/IDDB.h>
+#include <REL/Version.h>
 #include <string>
 
 // F4-specific IDDB extensions
@@ -13,8 +13,7 @@ namespace REL::F4
 	// Wrapper around shared IDDB::offset for F4-specific usage
 	[[nodiscard]] inline std::size_t id2offset(std::uint64_t a_id) noexcept
 	{
-		const auto iddb = REL::IDDB::GetSingleton();
-		return iddb ? static_cast<std::size_t>(iddb->offset(a_id)) : 0;
+		return static_cast<std::size_t>(REL::detail::get_id_offset(a_id));
 	}
 
 #ifdef ENABLE_FALLOUT_VR

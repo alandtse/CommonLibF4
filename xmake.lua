@@ -7,6 +7,74 @@ set_languages("c++23")
 set_warnings("allextra")
 set_encodings("utf-8")
 
+-- add repositories
+add_repositories("libxse-xrepo https://github.com/libxse/libxse-xrepo")
+-- Define version constants
+local COMMONLIB_SHARED_URL = "https://github.com/alandtse/commonlib-shared.git"
+local COMMONLIB_SHARED_COMMIT = "6fffc9df20d81443f155549a8958723853af101e"
+
+-- Define commonlib-shared package inline
+package("commonlib-shared")
+    set_homepage("https://github.com/alandtse/commonlib-shared")
+    set_description("Shared headers for commonlib projects")
+    set_license("GPLv3")
+
+    add_urls(COMMONLIB_SHARED_URL)
+    add_versions("latest", COMMONLIB_SHARED_COMMIT)
+
+    add_configs("ini", { description = "enable REX::INI settings support", default = false, type = "boolean" })
+    add_configs("json", { description = "enable REX::JSON settings support", default = false, type = "boolean" })
+    add_configs("toml", { description = "enable REX::TOML settings support", default = false, type = "boolean" })
+    add_configs("xbyak", { description = "enable xbyak support for Trampoline", default = false, type = "boolean" })
+
+    add_deps("spdlog", { configs = { header_only = false, wchar = true, std_format = true } })
+
+    add_syslinks("advapi32", "bcrypt", "d3d11", "d3dcompiler", "dbghelp", "dxgi", "ole32", "shell32", "user32", "version", "ws2_32")
+
+    on_load("windows|x64", function(package)
+        if package:config("ini") then
+            package:add("defines", "COMMONLIB_OPTION_INI=1")
+            package:add("deps", "simpleini")
+        end
+        if package:config("json") then
+            package:add("defines", "COMMONLIB_OPTION_JSON=1")
+            package:add("deps", "nlohmann_json")
+        end
+        if package:config("toml") then
+            package:add("defines", "COMMONLIB_OPTION_TOML=1")
+            package:add("deps", "toml11")
+        end
+        if package:config("xbyak") then
+            package:add("defines", "COMMONLIB_OPTION_XBYAK=1")
+            package:add("deps", "xbyak")
+        end
+    end)
+
+    on_install("windows|x64", function(package)
+        print("Installing commonlib-shared package...")
+        print("Install directory: " .. package:installdir())
+        
+        -- Copy headers directly to the correct location
+        os.cp("include/*", package:installdir("include"))
+        print("Headers copied to: " .. package:installdir("include"))
+        
+        -- Register the include directory with the package system
+        package:add("sysincludedirs", package:installdir("include"))
+        print("Include directory registered: " .. package:installdir("include"))
+        
+        -- Try to build the library using xmake install for dependencies
+        print("Building library...")
+        import("package.tools.xmake").install(package, {
+            commonlib_ini = package:config("ini"),
+            commonlib_json = package:config("json"),
+            commonlib_toml = package:config("toml"),
+            commonlib_xbyak = package:config("xbyak")
+        })
+        
+        print("Installation complete")
+    end)
+package_end()
+
 -- add rules
 add_rules("mode.debug", "mode.releasedbg")
 
@@ -40,7 +108,7 @@ end)
 option("runtime_preset")
     set_default("all")
     set_description("Runtime configuration preset")
-    set_values("all", "flat", "ng", "f4", "vr")
+    set_values("all", "flat", "ng", "f4", "vr", "ae")
 option_end()
 
 
@@ -63,11 +131,17 @@ option("fallout_f4vr")
     -- Defines handled manually in target to support presets
 option_end()
 
+option("fallout_f4ae")
+    set_default(true)
+    set_description("Enable runtime support for Fallout 4 AE (Anniversary Edition)")
+    -- Defines handled manually in target to support presets
+option_end()
+
 -- Runtime preset logic will be handled in the target configuration
 
 -- check for local commonlib-shared (for development)
-local use_local_commonlib = os.isdir("extern/commonlib-shared")
-local commonlib_path = "extern/commonlib-shared"
+local use_local_commonlib = os.isdir("lib/commonlib-shared")
+local commonlib_path = "lib/commonlib-shared"
 
 if use_local_commonlib then
     -- Add commonlib-shared dependencies manually for local version
@@ -90,11 +164,11 @@ end
 
 -- Project-level early check for empty submodule directory
 on_load(function ()
-    local submodule_path = "extern/commonlib-shared"
+    local submodule_path = "lib/commonlib-shared"
     if os.isdir(submodule_path) then
         local files = os.files(path.join(submodule_path, "**"))
         if #files == 0 then
-            raise("commonlib-shared submodule directory exists but is empty!\nPlease run: git submodule update --init --recursive\nIf you want to use the fallback, remove the extern/commonlib-shared directory before building.")
+            raise("commonlib-shared submodule directory exists but is empty!\nPlease run: git submodule update --init --recursive\nIf you want to use the fallback, remove the lib/commonlib-shared directory before building.")
         end
     end
 end)
@@ -180,21 +254,24 @@ target("commonlibf4", function()
         local preset = get_config("runtime_preset") or "all"
         
         -- Determine effective runtime configuration based on preset
-        local f4_enabled, ng_enabled, vr_enabled
+        local f4_enabled, ng_enabled, vr_enabled, ae_enabled
         
         if preset == "flat" then
-            f4_enabled, ng_enabled, vr_enabled = true, true, false
+            f4_enabled, ng_enabled, vr_enabled, ae_enabled = true, true, false, false
         elseif preset == "ng" then
-            f4_enabled, ng_enabled, vr_enabled = false, true, false
+            f4_enabled, ng_enabled, vr_enabled, ae_enabled = false, true, false, false
         elseif preset == "f4" then
-            f4_enabled, ng_enabled, vr_enabled = true, false, false
+            f4_enabled, ng_enabled, vr_enabled, ae_enabled = true, false, false, false
         elseif preset == "vr" then
-            f4_enabled, ng_enabled, vr_enabled = false, false, true
+            f4_enabled, ng_enabled, vr_enabled, ae_enabled = false, false, true, false
+        elseif preset == "ae" then
+            f4_enabled, ng_enabled, vr_enabled, ae_enabled = false, false, false, true
         else
             -- "all" preset or individual options take precedence
             f4_enabled = has_config("fallout_f4")
             ng_enabled = has_config("fallout_f4ng") 
             vr_enabled = has_config("fallout_f4vr")
+            ae_enabled = has_config("fallout_f4ae")
         end
         
         -- Apply effective configuration by adding/removing defines
@@ -207,6 +284,13 @@ target("commonlibf4", function()
         if vr_enabled then
             target:add("defines", "ENABLE_FALLOUT_VR=1", {public = true})
         end
+        if ae_enabled then
+            target:add("defines", "ENABLE_FALLOUT_AE=1", {public = true})
+        end
+
+        -- Calculate and define REL_DEFAULT_RUNTIME_COUNT for the build
+        local runtime_count = (f4_enabled and 1 or 0) + (ng_enabled and 1 or 0) + (vr_enabled and 1 or 0) + (ae_enabled and 1 or 0)
+        target:add("defines", "REL_DEFAULT_RUNTIME_COUNT=" .. runtime_count, {public = true})
 
         print("=== CommonLibF4 Configuration ===")
         
@@ -223,8 +307,9 @@ target("commonlibf4", function()
         print("  - Fallout 4 1.10.163 (Pre-NG): " .. (f4_enabled and "YES" or "NO"))
         print("  - Fallout 4 1.10.984 NG: " .. (ng_enabled and "YES" or "NO"))
         print("  - Fallout 4 1.2.72 VR: " .. (vr_enabled and "YES" or "NO"))
+        print("  - Fallout 4 1.11.137 AE: " .. (ae_enabled and "YES" or "NO"))
 
-        local runtime_count = (f4_enabled and 1 or 0) + (ng_enabled and 1 or 0) + (vr_enabled and 1 or 0)
+        local runtime_count = (f4_enabled and 1 or 0) + (ng_enabled and 1 or 0) + (vr_enabled and 1 or 0) + (ae_enabled and 1 or 0)
         print("Total runtimes: " .. runtime_count)
 
         if runtime_count == 0 then

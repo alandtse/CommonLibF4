@@ -1,10 +1,15 @@
 #pragma once
 
 // Include F4-specific configuration before commonlib-shared library use to set values
-#include "REL/Config.h"
+#include "REL/F4/Config.h"
 
 #include <REL/REL.h>
 #include <REX/REX.h>
+
+// Include F4-specific extensions after shared library
+#include "REL/IDDB.h"
+#include "REL/F4/Module.h"
+#include "REL/F4/Runtime.h"
 
 namespace F4SE
 {

@@ -1,6 +1,6 @@
-#include "REL/Common.h"
-#include "REL/Config.h"
-#include "REL/Module.h"
+#include "REL/F4/Config.h"
+#include "REL/F4/Module.h"
+#include <REL/Module.h>
 
 #include <array>
 #include <filesystem>
@@ -33,12 +33,16 @@ namespace REL
 
 				// Check for standard F4
 				if (std::filesystem::exists("Fallout4.exe")) {
-					// Get module version to distinguish F4 vs NG
+					// Get module version to distinguish F4 vs NG vs AE
 					const auto module = Module::GetSingleton();
 					if (module) {
 						const auto version = module->version();
-						// NG is version 1.10.980 and above
-						if (version[0] == 1 && version[1] == 10 && version[2] >= 980) {
+						// AE is version 1.11.137 and above
+						if (version.major() == 1 && version.minor() == 11 && version.patch() >= 137) {
+							g_runtime = Runtime::AE;
+						}
+						// NG is version 1.10.980 and above (but below AE)
+						else if (version.major() == 1 && version.minor() == 10 && version.patch() >= 980) {
 							g_runtime = Runtime::NG;
 						} else {
 							g_runtime = Runtime::F4;
@@ -48,7 +52,9 @@ namespace REL
 				}
 
 // Fallback based on enabled features
-#if defined(ENABLE_FALLOUT_VR)
+#if defined(ENABLE_FALLOUT_AE)
+				g_runtime = Runtime::AE;
+#elif defined(ENABLE_FALLOUT_VR)
 				g_runtime = Runtime::VR;
 #elif defined(ENABLE_FALLOUT_NG)
 				g_runtime = Runtime::NG;
@@ -60,7 +66,9 @@ namespace REL
 
 			} catch (...) {
 // Exception during detection - use build defaults
-#if defined(ENABLE_FALLOUT_VR)
+#if defined(ENABLE_FALLOUT_AE)
+				g_runtime = Runtime::AE;
+#elif defined(ENABLE_FALLOUT_VR)
 				g_runtime = Runtime::VR;
 #elif defined(ENABLE_FALLOUT_NG)
 				g_runtime = Runtime::NG;
@@ -91,6 +99,11 @@ namespace REL
 		{
 			return detect_runtime() == Runtime::VR;
 		}
+
+		bool IsAE() noexcept
+		{
+			return detect_runtime() == Runtime::AE;
+		}
 	}
 
 	std::size_t get_runtime_index() noexcept
@@ -103,7 +116,21 @@ namespace REL
 		static std::size_t cached_index = []() -> std::size_t {
 			const auto runtime = F4::GetRuntime();
 
-#	if defined(ENABLE_FALLOUT_F4) && defined(ENABLE_FALLOUT_NG) && defined(ENABLE_FALLOUT_VR)
+#	if defined(ENABLE_FALLOUT_F4) && defined(ENABLE_FALLOUT_NG) && defined(ENABLE_FALLOUT_VR) && defined(ENABLE_FALLOUT_AE)
+			// Four runtime build (full support)
+			switch (runtime) {
+				case F4::Runtime::F4:
+					return F4::RuntimeIndex4::PRE_NG_4;
+				case F4::Runtime::NG:
+					return F4::RuntimeIndex4::NG_4;
+				case F4::Runtime::VR:
+					return F4::RuntimeIndex4::VR_4;
+				case F4::Runtime::AE:
+					return F4::RuntimeIndex4::AE_4;
+				default:
+					return F4::RuntimeIndex4::PRE_NG_4;
+			}
+#	elif defined(ENABLE_FALLOUT_F4) && defined(ENABLE_FALLOUT_NG) && defined(ENABLE_FALLOUT_VR)
 			// Three runtime build
 			switch (runtime) {
 				case F4::Runtime::F4:
@@ -135,6 +162,30 @@ namespace REL
 			// NG + VR build
 			switch (runtime) {
 				case F4::Runtime::VR:
+					return 1;
+				default:
+					return 0;
+			}
+#	elif defined(ENABLE_FALLOUT_F4) && defined(ENABLE_FALLOUT_AE)
+			// F4 + AE build
+			switch (runtime) {
+				case F4::Runtime::AE:
+					return 1;
+				default:
+					return 0;
+			}
+#	elif defined(ENABLE_FALLOUT_NG) && defined(ENABLE_FALLOUT_AE)
+			// NG + AE build
+			switch (runtime) {
+				case F4::Runtime::AE:
+					return 1;
+				default:
+					return 0;
+			}
+#	elif defined(ENABLE_FALLOUT_VR) && defined(ENABLE_FALLOUT_AE)
+			// VR + AE build
+			switch (runtime) {
+				case F4::Runtime::AE:
 					return 1;
 				default:
 					return 0;
