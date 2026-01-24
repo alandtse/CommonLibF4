@@ -27,7 +27,7 @@ namespace Papyrus
 		using BSTThreadScrapFunctionOG = RE::msvc::function<F>;  // Used by OG for same
 
 		// Get function address from VirtualMachine Vtable
-		size_t GetVtableFunctionAddr(int entry)
+		inline size_t GetVtableFunctionAddr(int entry)
 		{
 			auto    VMvtbl = RE::BSScript::Internal::VirtualMachine::VTABLE;
 			REL::ID VMvtblID = VMvtbl[0];
@@ -39,7 +39,7 @@ namespace Papyrus
 		// NG can use the current IVirtualMachine::DispatchMethodCall as is.
 		// OG/VR, we need to call the function with different args.
 
-		bool DispatchMethodCallOG(
+		inline bool DispatchMethodCallOG(
 			RE::BSScript::IVirtualMachine*                                                   vm,
 			std::uint64_t                                                                    a_objHandle,
 			const RE::BSFixedString&                                                         a_objName,
@@ -56,7 +56,7 @@ namespace Papyrus
 
 		// OG/VR version of DispatchStatic call
 
-		bool DispatchStaticCallOG(
+		inline bool DispatchStaticCallOG(
 			RE::BSScript::IVirtualMachine*                                                   vm,
 			const RE::BSFixedString&                                                         a_objName,
 			const RE::BSFixedString&                                                         a_funcName,
