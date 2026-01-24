@@ -104,8 +104,8 @@ namespace Papyrus
 			const RE::BSFixedString&                                        a_objName,    // Papyrus Script name
 			const RE::BSFixedString&                                        a_funcName,   // Papyrus function name
 			const RE::BSTSmartPointer<RE::BSScript::IStackCallbackFunctor>& a_callback,
-			Args... a_args)
-		{  // Args, must match Papyrus declaration
+			Args... a_args)																  // Args, must match Papyrus declaration
+		{  
 
 			if (REL::Module::IsNG()) {
 				return vm->DispatchMethodCall(
