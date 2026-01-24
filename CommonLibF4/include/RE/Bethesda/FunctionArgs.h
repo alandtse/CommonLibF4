@@ -69,6 +69,7 @@ namespace Papyrus
 	class FunctionArgs : public detail::FunctionArgsBase
 	{
 		RE::BSScrapArray<RE::BSScript::Variable> scrap;
+
 	public:
 		FunctionArgs() = delete;
 		FunctionArgs(const FunctionArgs&) = delete;
