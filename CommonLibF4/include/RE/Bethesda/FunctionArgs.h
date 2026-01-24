@@ -23,6 +23,7 @@ SOFTWARE.
 */
 
 #pragma once
+#include <RE/msvc/functional.h>
 
 namespace Papyrus
 {
@@ -67,6 +68,7 @@ namespace Papyrus
 	template <class... Args>
 	class FunctionArgs : public detail::FunctionArgsBase
 	{
+		RE::BSScrapArray<RE::BSScript::Variable> scrap;
 	public:
 		FunctionArgs() = delete;
 		FunctionArgs(const FunctionArgs&) = delete;
@@ -77,7 +79,7 @@ namespace Papyrus
 		FunctionArgs(RE::BSScript::IVirtualMachine* a_vm, Args... a_args) :
 			FunctionArgsBase(a_vm)
 		{
-			auto scrap = RE::BSScript::detail::PackVariables(a_args...);
+			scrap = RE::BSScript::detail::PackVariables(a_args...);
 			args = new RE::BSScript::ArrayWrapper<RE::BSScript::Variable>(scrap, *vm);
 		}
 
@@ -93,5 +95,5 @@ namespace Papyrus
 		}
 	};
 
-	static_assert(sizeof(FunctionArgs<std::monostate>) == 0x10);
+	static_assert(sizeof(FunctionArgs<std::monostate>) == 0x30);
 }
