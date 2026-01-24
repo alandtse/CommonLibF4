@@ -1,10 +1,9 @@
 #pragma once
+#include <F4SE/API.h>
+#include <F4SE/interfaces.h>
 #include <RE/Bethesda/BSScriptUtil.h>
 #include <RE/Bethesda/FunctionArgs.h>
 #include <RE/msvc/functional.h>
-#include <F4SE/API.h>
-#include <F4SE/interfaces.h>
-
 
 /*
 Functions for calling Papyrus functions from C++
