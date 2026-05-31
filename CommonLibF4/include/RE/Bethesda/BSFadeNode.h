@@ -38,20 +38,45 @@ namespace RE
 		};
 		static_assert(sizeof(FlattenedGeometryData) == 0x20);
 
+		struct RUNTIME_DATA
+		{
+#define RUNTIME_DATA_CONTENT                                                                         \
+	BSShaderPropertyLightData                                        lightData;              /*140*/ \
+	BSTArray<FlattenedGeometryData>                                  geomArray;              /*168*/ \
+	BSTArray<NiBound, BSTAlignedHeapArrayAllocator<0x10>::Allocator> mergedGeomBounds;       /*180*/ \
+	float                                                            nearDistSqr;            /*198*/ \
+	float                                                            farDistSqr;             /*19C*/ \
+	float                                                            currentFade;            /*1A0*/ \
+	float                                                            currentDecalFade;       /*1A4*/ \
+	float                                                            boundRadius;            /*1A8*/ \
+	float                                                            timeSinceUpdate;        /*1AC*/ \
+	std::int32_t                                                     frameCounter;           /*1B0*/ \
+	float                                                            previousMaxA;           /*1B4*/ \
+	float                                                            currentShaderLODLevel;  /*1B8*/ \
+	float                                                            previousShaderLODLevel; /*1BC*/
+            RUNTIME_DATA_CONTENT
+		};
+		static_assert(sizeof(RUNTIME_DATA) == 0x80);
+
+		[[nodiscard]] inline RUNTIME_DATA& GetFadeNodeRuntimeData() noexcept
+		{
+			return REL::RelocateMember<RUNTIME_DATA>(this, 0x140, 0x180);
+		}
+
+		[[nodiscard]] inline const RUNTIME_DATA& GetFadeNodeRuntimeData() const noexcept
+		{
+			return REL::RelocateMember<RUNTIME_DATA>(this, 0x140, 0x180);
+		}
+
 		// members
-		BSShaderPropertyLightData                                        lightData;               // 140
-		BSTArray<FlattenedGeometryData>                                  geomArray;               // 168
-		BSTArray<NiBound, BSTAlignedHeapArrayAllocator<0x10>::Allocator> mergedGeomBounds;        // 180
-		float                                                            nearDistSqr;             // 198
-		float                                                            farDistSqr;              // 19C
-		float                                                            currentFade;             // 1A0
-		float                                                            currentDecalFade;        // 1A4
-		float                                                            boundRadius;             // 1A8
-		float                                                            timeSinceUpdate;         // 1AC
-		std::int32_t                                                     frameCounter;            // 1B0
-		float                                                            previousMaxA;            // 1B4
-		float                                                            currentShaderLODLevel;   // 1B8
-		float                                                            previousShaderLODLevel;  // 1BC
+#if !defined(ENABLE_FALLOUT_VR) || ((!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4)))
+		RUNTIME_DATA_CONTENT
+#endif
 	};
+#if !defined(ENABLE_FALLOUT_VR)
 	static_assert(sizeof(BSFadeNode) == 0x1C0);
+#elif (!defined(ENABLE_FALLOUT_NG) && !defined(ENABLE_FALLOUT_F4))
+	static_assert(sizeof(BSFadeNode) == 0x200);
+#endif
 }
+#undef RUNTIME_DATA_CONTENT

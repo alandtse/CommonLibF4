@@ -38,13 +38,42 @@ namespace RE
 		virtual void        UpdateDownwardPass(NiUpdateData& a_data, std::uint32_t a_flags);                                    // 30
 		virtual void        UpdateSelectedDownwardPass(NiUpdateData& a_data, std::uint32_t a_flags);                            // 31
 		virtual void        UpdateRigidDownwardPass(NiUpdateData& a_data, std::uint32_t a_flags);                               // 32
-		virtual void        UpdateWorldBound() { return; }                                                                      // 33
-		virtual void        UpdateWorldData(NiUpdateData* a_data);                                                              // 34
-		virtual void        UpdateTransformAndBounds(NiUpdateData& a_data);                                                     // 35
-		virtual void        UpdateTransforms(NiUpdateData& a_data) { UpdateWorldData(std::addressof(a_data)); }                 // 36
-		virtual void        PreAttachUpdate(NiNode* a_eventualParent, NiUpdateData& a_data);                                    // 37
-		virtual void        PostAttachUpdate();                                                                                 // 38
-		virtual void        OnVisible([[maybe_unused]] NiCullingProcess& a_culler) { return; }                                  // 39
+
+		void UpdateWorldBound()  // 33
+		{
+			if (REL::Module::IsVR())
+				REL::RelocateVirtual<decltype(&NiAVObject::UpdateWorldBound)>(0x33, 0x33, this);
+		}
+
+		void UpdateWorldData(NiUpdateData* a_data)  // 34
+		{
+			REL::RelocateVirtual<decltype(&NiAVObject::UpdateWorldData)>(0x34, 0x37, this, a_data);
+		}
+
+		void UpdateTransformAndBounds(NiUpdateData& a_data)  // 35
+		{
+			REL::RelocateVirtual<decltype(&NiAVObject::UpdateTransformAndBounds)>(0x35, 0x38, this, a_data);
+		}
+
+		void UpdateTransforms(NiUpdateData& a_data)  // 36
+		{
+			if (REL::Module::IsVR())
+				REL::RelocateVirtual<decltype(&NiAVObject::UpdateTransforms)>(0x36, 0x39, this, a_data);
+			else
+				UpdateWorldData(std::addressof(a_data));
+		}
+
+		void PreAttachUpdate(NiNode* a_eventualParent, NiUpdateData& a_data)  // 37
+		{
+			REL::RelocateVirtual<decltype(&NiAVObject::PreAttachUpdate)>(0x3, 0x0, this, a_eventualParent, a_data);
+		}
+
+		void PostAttachUpdate()  // 38
+		{
+			REL::RelocateVirtual<decltype(&NiAVObject::PostAttachUpdate)>(0x3, 0x0, this);
+		}
+
+		void OnVisible([[maybe_unused]] NiCullingProcess& a_culler) { return; }  // 39
 
 		F4_HEAP_REDEFINE_ALIGNED_NEW(NiAVObject);
 

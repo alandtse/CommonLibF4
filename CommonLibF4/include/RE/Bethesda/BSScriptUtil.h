@@ -5,6 +5,10 @@
 #include "RE/Bethesda/BSTHashMap.h"
 #include "RE/Bethesda/GameScript.h"
 #include "RE/Bethesda/TESForms.h"
+// for exception handling
+#include "RE/Bethesda/BSScript/TypeInfo.h"
+#include "RE/Bethesda/BSScript/Variable.h"
+#include <exception>
 
 #include "F4SE/Logger.h"
 
@@ -41,6 +45,35 @@ namespace RE::BSScript
 			buf[a_lhs.length()] = '#';
 			std::copy_n(a_rhs.data(), a_rhs.length(), buf + a_lhs.length() + 1);
 			return { static_cast<const char(&)[N1 + 1 + N2 + 1]>(buf) };
+		}
+	}
+
+	// A small helper function with the structured exception handler.
+	[[nodiscard]] __forceinline __declspec(noinline) bool IsValidArray_Impl(const void* a_ptr) noexcept
+	{
+		__try {
+			const auto in = static_cast<const Array*>(a_ptr);
+			// A null pointer is also an invalid case.
+			if (in == nullptr) {
+				return false;
+			}
+			// If get<Array> succeeds and the pointer is not null, it's valid.
+			return true;
+		} __except (1) {
+			return false;
+		}
+	}
+	// New generic helper function to safely check any Array pointer.
+	template <class T>
+	[[nodiscard]] bool IsValidArray(const Variable& a_var) noexcept
+	{
+		// Check if it is an array first.
+		if (a_var.is<Array>()) {
+			const auto raw_ptr = get<Array>(a_var);
+			// Then call the structured exception handler in a separate function.
+			return IsValidArray_Impl(raw_ptr.get());
+		} else {
+			return false;
 		}
 	}
 
@@ -908,6 +941,11 @@ namespace RE::BSScript
 	template <detail::array T>
 	[[nodiscard]] T UnpackVariable(const Variable& a_var)
 	{
+		// Use our helper function to check with __try __except if the array is valid
+		if (!IsValidArray<Array>(a_var)) {
+			return T{};
+		}
+
 		if (!a_var.is<Array>()) {
 			assert(false);
 			return T();

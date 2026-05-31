@@ -24,8 +24,6 @@ namespace RE
 		virtual bool          RegisterStreamables(NiStream& a_stream) override;     // 1D
 		virtual void          SaveBinary(NiStream& a_stream) override;              // 1E
 		virtual bool          IsEqual(NiObject* a_object) override;                 // 1F
-		virtual void          UpdateWorldBound() override;                          // 33
-		virtual void          UpdateWorldData(NiUpdateData* a_data) override;       // 34
 
 		// members
 		float         worldToCam[4][4];  // 120

@@ -21,7 +21,7 @@ namespace RE
 			auto result = BSVisitControl::kContinue;
 			auto node = a_object->IsNode();
 			if (node) {
-				for (auto& child : node->children) {
+				for (auto& child : node->GetRuntimeData().children) {
 					result = TraverseScenegraphGeometries(child.get(), a_func);
 					if (result == BSVisitControl::kStop) {
 						break;
@@ -46,7 +46,7 @@ namespace RE
 			result = BSVisitControl::kContinue;
 			auto node = a_object->IsNode();
 			if (node) {
-				for (auto& child : node->children) {
+				for (auto& child : node->GetRuntimeData().children) {
 					result = TraverseScenegraphObjects(child.get(), a_func);
 					if (result == BSVisitControl::kStop) {
 						break;

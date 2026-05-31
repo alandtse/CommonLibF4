@@ -176,6 +176,7 @@ set(SOURCES
 	include/RE/Bethesda/FormComponents.h
 	include/RE/Bethesda/FormFactory.h
 	include/RE/Bethesda/FormUtil.h
+	include/RE/Bethesda/FunctionArgs.h
 	include/RE/Bethesda/GamePlayFormulas.h
 	include/RE/Bethesda/GameScript.h
 	include/RE/Bethesda/HUDModes.h
@@ -217,6 +218,7 @@ set(SOURCES
 	include/RE/Bethesda/SWFToCodeFunctionHandler.h
 	include/RE/Bethesda/Script.h
 	include/RE/Bethesda/SendHUDMessage.h
+	include/RE/Bethesda/SendPapyrusEvent.h
 	include/RE/Bethesda/Settings.h
 	include/RE/Bethesda/Sky.h
 	include/RE/Bethesda/SplineUtils.h
@@ -358,6 +360,7 @@ set(SOURCES
 	include/RE/Scaleform/Render/Render_Types2D.h
 	include/RE/Scaleform/Render/Render_Viewport.h
 	include/RE/VTABLE_IDs.h
+	include/RE/msvc/functional.h
 	include/RE/msvc/memory.h
 	include/RE/msvc/typeinfo.h
 	include/REL/Common.h

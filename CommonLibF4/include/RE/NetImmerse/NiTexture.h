@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RE/Bethesda/BSFixedString.h"
+#include "RE/Bethesda/BSResourceNiBinaryStream.h"
 #include "RE/Bethesda/BSTSmartPointer.h"
 #include "RE/NetImmerse/NiObject.h"
 
@@ -29,6 +30,27 @@ namespace RE
 		static constexpr auto RTTI{ RTTI::NiTexture };
 		static constexpr auto VTABLE{ VTABLE::NiTexture };
 		static constexpr auto Ni_RTTI{ Ni_RTTI::NiTexture };
+
+		static NiTexture* Create(RE::BSFixedString& texturePath, bool isSRGB, bool allowDegrade)
+		{
+			using func_t = NiTexture* (*)(RE::BSFixedString& texturePath, bool isSRGB, bool allowDegrade);
+			static REL::Relocation<func_t> func{ REL::ID(1071950) };
+			return func(texturePath, isSRGB, allowDegrade);
+		}
+
+		static NiTexture* Create(RE::BSResourceNiBinaryStream* stream, const char* texturePath, bool isDDX, bool isSRGB, bool allowDegrade)
+		{
+			using func_t = NiTexture* (*)(RE::BSResourceNiBinaryStream* stream, const char* texturePath, bool isDDX, bool isSRGB, bool allowDegrade);
+			static REL::Relocation<func_t> func{ REL::ID(964969) };
+			return func(stream, texturePath, isDDX, isSRGB, allowDegrade);
+		}
+
+		static NiTexture* Create(BSTSmartPointer<RE::BSResource::Stream>& stream, const char* texturePath, bool isDDX, bool isSRGB, bool allowDegrade)
+		{
+			using func_t = NiTexture* (*)(BSTSmartPointer<RE::BSResource::Stream>& stream, const char* texturePath, bool isDDX, bool isSRGB, bool allowDegrade);
+			static REL::Relocation<func_t> func{ REL::ID(685580) };
+			return func(stream, texturePath, isDDX, isSRGB, allowDegrade);
+		}
 
 		// add
 		virtual BSTextureArray::Texture* IsBSTextureArray() { return nullptr; }  // 28

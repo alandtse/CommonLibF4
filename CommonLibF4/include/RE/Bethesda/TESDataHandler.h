@@ -103,6 +103,24 @@ namespace RE
 						TESDataHandler::VRcompiledFileCollection = const_cast<RE::TESFileCollection*>(GetCompiledFileCollection());
 					}
 				}
+				// Construct compiledFileCollection for non-falloutvresl envirnment
+				else if (*singleton) {
+					static RE::TESFileCollection vrCompiledFileCollection;
+					vrCompiledFileCollection.files.clear();
+					vrCompiledFileCollection.smallFiles.clear();
+					for (auto& file : (*singleton)->files) {
+						if (!file)
+							continue;
+						if (0xFF == file->compileIndex)  // is inactive file
+							continue;
+
+						if (file->IsLight())
+							vrCompiledFileCollection.smallFiles.push_back(file);
+						else
+							vrCompiledFileCollection.files.push_back(file);
+					}
+					VRcompiledFileCollection = &vrCompiledFileCollection;
+				}
 			}
 			return *singleton;
 		}
@@ -306,7 +324,7 @@ namespace RE
 			return REL::RelocateMember<RUNTIME_DATA>(this, 0x0FF0, 0x0FF0);
 		}
 
-		[[nodiscard]] inline const RUNTIME_DATA GetRuntimeData() const noexcept
+		[[nodiscard]] inline const RUNTIME_DATA& GetRuntimeData() const noexcept
 		{
 			return REL::RelocateMember<RUNTIME_DATA>(this, 0x0FF0, 0x0FF0);
 		}
