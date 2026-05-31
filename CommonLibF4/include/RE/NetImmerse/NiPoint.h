@@ -200,7 +200,10 @@ template <>
 struct fmt::formatter<RE::NiPoint2>
 {
 	template <class ParseContext>
-	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+	constexpr auto parse(ParseContext& a_ctx)
+	{
+		return a_ctx.begin();
+	}
 
 	template <class FormatContext>
 	constexpr auto format(const RE::NiPoint2& a_point, FormatContext& a_ctx) const
@@ -213,7 +216,10 @@ template <>
 struct fmt::formatter<RE::NiPoint3>
 {
 	template <class ParseContext>
-	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+	constexpr auto parse(ParseContext& a_ctx)
+	{
+		return a_ctx.begin();
+	}
 
 	template <class FormatContext>
 	constexpr auto format(const RE::NiPoint3& a_point, FormatContext& a_ctx) const
@@ -226,7 +232,10 @@ template <>
 struct fmt::formatter<RE::NiPoint4>
 {
 	template <class ParseContext>
-	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+	constexpr auto parse(ParseContext& a_ctx)
+	{
+		return a_ctx.begin();
+	}
 
 	template <class FormatContext>
 	constexpr auto format(const RE::NiPoint4& a_point, FormatContext& a_ctx) const

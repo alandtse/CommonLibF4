@@ -678,7 +678,10 @@ template <>
 struct fmt::formatter<RE::SEX>
 {
 	template <class ParseContext>
-	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+	constexpr auto parse(ParseContext& a_ctx)
+	{
+		return a_ctx.begin();
+	}
 
 	template <class FormatContext>
 	constexpr auto format(const RE::SEX& a_sex, FormatContext& a_ctx) const

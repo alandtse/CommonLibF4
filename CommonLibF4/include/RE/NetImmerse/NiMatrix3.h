@@ -72,7 +72,10 @@ template <>
 struct fmt::formatter<RE::NiMatrix3>
 {
 	template <class ParseContext>
-	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+	constexpr auto parse(ParseContext& a_ctx)
+	{
+		return a_ctx.begin();
+	}
 
 	template <class FormatContext>
 	constexpr auto format(const RE::NiMatrix3& a_matrix, FormatContext& a_ctx) const
