@@ -89,7 +89,7 @@ target("commonlibf4-ng", function()
         "cl::/guard:cf-",
         "cl::/Zc:preprocessor",
         "cl::/Zc:templateScope"
-    ) 
+    )
 
     -- add flags (cl: disable warnings)
     add_cxxflags(
@@ -284,7 +284,7 @@ rule("commonlibf4-ng.plugin")
 
         depend.on_changed(function()
             local srcfiles, dstfiles = target:installfiles()
-            if srcfiles and #srcfiles > 0 and dstfiles and #dstfiles > 0 then 
+            if srcfiles and #srcfiles > 0 and dstfiles and #dstfiles > 0 then
                 task.run("install")
             end
         end, { changed = target:is_rebuilt(), files = { target:targetfile() } })
