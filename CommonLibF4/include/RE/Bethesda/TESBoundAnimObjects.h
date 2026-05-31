@@ -672,3 +672,27 @@ struct std::formatter<RE::SEX>
 		return format_to(a_ctx.out(), "Unknown");
 	}
 };
+
+#ifdef FMT_VERSION
+template <>
+struct fmt::formatter<RE::SEX>
+{
+	template <class ParseContext>
+	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+
+	template <class FormatContext>
+	constexpr auto format(const RE::SEX& a_sex, FormatContext& a_ctx) const
+	{
+		switch (a_sex) {
+		case RE::SEX::kNone:
+			return fmt::format_to(a_ctx.out(), "None");
+		case RE::SEX::kMale:
+			return fmt::format_to(a_ctx.out(), "Male");
+		case RE::SEX::kFemale:
+			return fmt::format_to(a_ctx.out(), "Female");
+		}
+
+		return fmt::format_to(a_ctx.out(), "Unknown");
+	}
+};
+#endif

@@ -66,3 +66,18 @@ struct std::formatter<RE::NiMatrix3>
 		return format_to(a_ctx.out(), "[{}, {}, {}]", a_matrix[0], a_matrix[1], a_matrix[2]);
 	}
 };
+
+#ifdef FMT_VERSION
+template <>
+struct fmt::formatter<RE::NiMatrix3>
+{
+	template <class ParseContext>
+	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+
+	template <class FormatContext>
+	constexpr auto format(const RE::NiMatrix3& a_matrix, FormatContext& a_ctx) const
+	{
+		return fmt::format_to(a_ctx.out(), "[{}, {}, {}]", a_matrix[0], a_matrix[1], a_matrix[2]);
+	}
+};
+#endif

@@ -194,3 +194,44 @@ struct std::formatter<RE::NiPoint4>
 		return format_to(a_ctx.out(), "({}, {}, {}, {})", a_point.x, a_point.y, a_point.z, a_point.w);
 	}
 };
+
+#ifdef FMT_VERSION
+template <>
+struct fmt::formatter<RE::NiPoint2>
+{
+	template <class ParseContext>
+	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+
+	template <class FormatContext>
+	constexpr auto format(const RE::NiPoint2& a_point, FormatContext& a_ctx) const
+	{
+		return fmt::format_to(a_ctx.out(), "({}, {})", a_point.x, a_point.y);
+	}
+};
+
+template <>
+struct fmt::formatter<RE::NiPoint3>
+{
+	template <class ParseContext>
+	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+
+	template <class FormatContext>
+	constexpr auto format(const RE::NiPoint3& a_point, FormatContext& a_ctx) const
+	{
+		return fmt::format_to(a_ctx.out(), "({}, {}, {})", a_point.x, a_point.y, a_point.z);
+	}
+};
+
+template <>
+struct fmt::formatter<RE::NiPoint4>
+{
+	template <class ParseContext>
+	constexpr auto parse(ParseContext& a_ctx) { return a_ctx.begin(); }
+
+	template <class FormatContext>
+	constexpr auto format(const RE::NiPoint4& a_point, FormatContext& a_ctx) const
+	{
+		return fmt::format_to(a_ctx.out(), "({}, {}, {}, {})", a_point.x, a_point.y, a_point.z, a_point.w);
+	}
+};
+#endif
