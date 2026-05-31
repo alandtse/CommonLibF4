@@ -1272,6 +1272,20 @@ namespace RE
 	class BSScaleformExternalTexture
 	{
 	public:
+		void SetTexture(NiTexture* niTexture)
+		{
+			using func_t = decltype(&BSScaleformExternalTexture::SetTexture);
+			static REL::Relocation<func_t> func{ REL::ID(119731) };
+			return func(this, niTexture);
+		}
+
+		void ReleaseTexture()
+		{
+			using func_t = decltype(&BSScaleformExternalTexture::ReleaseTexture);
+			static REL::Relocation<func_t> func{ REL::ID(651971) };
+			return func(this);
+		}
+
 		// members
 		NiPointer<NiTexture> gamebryoTexture;  // 00
 		std::uint32_t        renderTarget;     // 08
