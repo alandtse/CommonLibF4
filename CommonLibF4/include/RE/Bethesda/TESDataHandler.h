@@ -142,7 +142,7 @@ namespace RE
 		[[nodiscard]] ObjectRefHandle CreateReferenceAtLocation(NEW_REFR_DATA& a_data)
 		{
 			using func_t = decltype(&TESDataHandler::CreateReferenceAtLocation);
-			static REL::Relocation<func_t> func{ REL::RelocationID(500304, 500304) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(500304, 2192301) };
 			return func(this, a_data);
 		}
 

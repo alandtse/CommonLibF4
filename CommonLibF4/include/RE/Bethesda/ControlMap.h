@@ -101,21 +101,21 @@ namespace RE
 		bool RemapButton(BSFixedString const& a_id, INPUT_DEVICE a_device, std::int32_t a_buttonID)
 		{
 			using func_t = decltype(&ControlMap::RemapButton);
-			static REL::Relocation<func_t> func{ REL::RelocationID(11351, 0) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(11351, 2268330) };
 			return func(this, a_id, a_device, a_buttonID);
 		}
 
 		void SaveRemappings()
 		{
 			using func_t = decltype(&ControlMap::SaveRemappings);
-			static REL::Relocation<func_t> func{ REL::RelocationID(1141541, 0) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(1141541, 2268331) };
 			return func(this);
 		}
 
 		void SetTextEntryMode(bool a_enable)
 		{
 			using func_t = decltype(&ControlMap::SetTextEntryMode);
-			static REL::Relocation<func_t> func{ REL::RelocationID(1270079, 0) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(1270079, 2268339) };
 			return func(this, a_enable);
 		}
 
