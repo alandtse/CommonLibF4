@@ -278,7 +278,7 @@ namespace RE
 		void ClearPrison()
 		{
 			using func_t = decltype(&PlayerCharacter::ClearPrison);
-			static REL::Relocation<func_t> func{ REL::RelocationID(0, 2233196) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(920390, 2233196) };
 			return func(this);
 		}
 

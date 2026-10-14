@@ -598,7 +598,7 @@ namespace RE
 		[[nodiscard]] static BSTEventSource<TESEnterSneakingEvent>* GetEventSource()
 		{
 			using func_t = decltype(&TESEnterSneakingEvent::GetEventSource);
-			static REL::Relocation<func_t> func{ REL::RelocationID(0, 2201837) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(28138, 2201837) };
 			return func();
 		}
 
@@ -797,7 +797,7 @@ namespace RE
 		[[nodiscard]] static BSTEventSource<TESSwitchRaceCompleteEvent>* GetEventSource()
 		{
 			using func_t = decltype(&TESSwitchRaceCompleteEvent::GetEventSource);
-			static REL::Relocation<func_t> func{ REL::RelocationID(0, 2201874) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(976262, 2201874) };
 			return func();
 		}
 

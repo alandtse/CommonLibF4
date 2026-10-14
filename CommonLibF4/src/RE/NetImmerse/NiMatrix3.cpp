@@ -122,21 +122,21 @@ namespace RE
 	bool NiMatrix3::ToEulerAnglesXZY(float& a_x, float& a_z, float& a_y) const
 	{
 		using func_t = bool (*)(const NiMatrix3*, float&, float&, float&);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0, 2269807) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(1164218, 2269807) };
 		return func(this, a_x, a_z, a_y);
 	}
 
 	bool NiMatrix3::ToEulerAnglesYXZ(float& a_y, float& a_x, float& a_z) const
 	{
 		using func_t = bool (*)(const NiMatrix3*, float&, float&, float&);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0, 2269808) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(272989, 2269808) };
 		return func(this, a_y, a_x, a_z);
 	}
 
 	bool NiMatrix3::ToEulerAnglesYZX(float& a_y, float& a_z, float& a_x) const
 	{
 		using func_t = bool (*)(const NiMatrix3*, float&, float&, float&);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0, 2269809) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(963829, 2269809) };
 		return func(this, a_y, a_z, a_x);
 	}
 
@@ -169,21 +169,21 @@ namespace RE
 	void NiMatrix3::FromEulerAnglesXZY(float a_x, float a_z, float a_y)
 	{
 		using func_t = void (*)(NiMatrix3*, float, float, float);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0, 2269814) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(1319962, 2269814) };
 		return func(this, a_x, a_z, a_y);
 	}
 
 	void NiMatrix3::FromEulerAnglesYXZ(float a_y, float a_x, float a_z)
 	{
 		using func_t = void (*)(NiMatrix3*, float, float, float);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0, 2269815) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(55761, 2269815) };
 		return func(this, a_y, a_x, a_z);
 	}
 
 	void NiMatrix3::FromEulerAnglesYZX(float a_y, float a_z, float a_x)
 	{
 		using func_t = void (*)(NiMatrix3*, float, float, float);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0, 2269816) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(373803, 2269816) };
 		return func(this, a_y, a_z, a_x);
 	}
 
