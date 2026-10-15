@@ -313,11 +313,11 @@ namespace RE
 				clearRenderTarget = a_clear;
 			}
 
-			void Offscreen_SetDebugMode(bool a_on, bool a_small, std::uint32_t a_target)
+			static void Offscreen_SetDebugMode(bool a_on, bool a_small, std::uint32_t a_target)
 			{
 				using func_t = decltype(&Renderer::Offscreen_SetDebugMode);
 				static REL::Relocation<func_t> func{ REL::ID(1277879) };
-				return func(this, a_on, a_small, a_target);
+				return func(a_on, a_small, a_target);
 			}
 
 			void Offscreen_SetDirectionalLight(
