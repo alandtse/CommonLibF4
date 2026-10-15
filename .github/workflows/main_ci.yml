@@ -3,15 +3,25 @@ name: build
 on:
   push:
     branches: [master]
+    paths:
+      - '.github/workflows/main_ci.yml'
+      - 'cmake/**'
+      - 'CommonLibF4/**'
+      - 'AddressLibDecoder/**'
+      - 'AddressLibGen/**'
+      - 'RTTIDump/**'
+      - 'CMakeLists.txt'
+      - 'CMakePresets.json'
+      - 'vcpkg.json'
   pull_request:
     branches: [master]
   workflow_dispatch:
 
-env:
-  # Persist vcpkg-built dependency binaries in the GitHub Actions cache so the matrix
-  # configs (and future runs) restore prebuilt .libs instead of recompiling them. The
-  # previous workspace-local cache dir was wiped each run, so it never helped.
-  VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+# Cancel a PR's in-flight run when it's superseded by a new push -- the 6-job matrix
+# otherwise keeps occupying runner slots for a commit nobody cares about anymore.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   windows:
@@ -28,35 +38,96 @@ jobs:
           - all
           - flat
           - vr
-
+    # vcpkg `files` binary cache (x-gha was removed upstream). Do not drop
+    # FORCE_SYSTEM_BINARIES: the ABI hash this cache keys off depends on it staying stable.
+    env:
+      VCPKG_BINARY_SOURCES: "clear;files,${{ github.workspace }}/vcpkg_binary_cache,readwrite"
+      VCPKG_FORCE_SYSTEM_BINARIES: "1"
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           path: main
 
-      - name: Setup cmake
-        uses: lukka/get-cmake@latest
+      - name: Extract vcpkg baseline from vcpkg.json
+        id: get_vcpkg_baseline
+        shell: pwsh
+        run: |
+          $vcpkgJson = Get-Content main/vcpkg.json | ConvertFrom-Json
+          echo "baseline=$($vcpkgJson.'builtin-baseline')" >> $env:GITHUB_OUTPUT
 
-      - name: Setup msvc
-        uses: ilammy/msvc-dev-cmd@v1.10.0
+      - name: Setup MSVC Environment
+        uses: TheMrMilchmann/setup-msvc-dev@v4.0.0
+        with:
+          arch: x64
+
+      # Pin vcpkg's download cache to a stable, cacheable path so a transient
+      # GitHub releases error on a cache-cold tool fetch can't fail the build.
+      - name: Pin vcpkg downloads directory
+        shell: bash
+        run: echo "VCPKG_DOWNLOADS=${{ github.workspace }}/vcpkg_downloads" >> "$GITHUB_ENV"
 
       - name: Setup vcpkg
-        uses: friendlyanon/setup-vcpkg@v1
+        uses: lukka/run-vcpkg@v11
         with:
-          committish: 943c5ef1c8f6b5e6ced092b242c8299caae2ff01
+          vcpkgGitCommitId: ${{ steps.get_vcpkg_baseline.outputs.baseline }}
+          # Bootstrap only: the manifest install runs inside the retry-wrapped
+          # configure below, after the download cache is restored.
+          runVcpkgInstall: false
 
-      # x-gha reads the Actions cache endpoint from these two variables, which GitHub
-      # only exposes to the github-script runtime — re-export them so vcpkg sees them.
-      - name: Enable vcpkg GitHub Actions binary cache
-        uses: actions/github-script@v7
+      # Trusted runs restore and save; a fork PR only restores, so it cannot
+      # poison a cache that later trusted runs would read.
+      - name: Cache vcpkg downloads (trusted, restore + save)
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/cache@v4
         with:
-          script: |
-            core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
-            core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+          path: ${{ github.workspace }}/vcpkg_downloads
+          key: ${{ runner.os }}-vcpkg-downloads-${{ hashFiles('main/vcpkg.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-downloads-
+
+      - name: Restore vcpkg downloads (fork PR, restore-only)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ github.workspace }}/vcpkg_downloads
+          key: ${{ runner.os }}-vcpkg-downloads-${{ hashFiles('main/vcpkg.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-downloads-
+
+      - name: Cache vcpkg binary packages (trusted, restore + save)
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/vcpkg_binary_cache
+          key: ${{ runner.os }}-vcpkg-binpkgs-${{ matrix.compiler }}-${{ hashFiles('main/vcpkg.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-binpkgs-${{ matrix.compiler }}-
+
+      - name: Restore vcpkg binary packages (fork PR, restore-only)
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ github.workspace }}/vcpkg_binary_cache
+          key: ${{ runner.os }}-vcpkg-binpkgs-${{ matrix.compiler }}-${{ hashFiles('main/vcpkg.json') }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-binpkgs-${{ matrix.compiler }}-
+
+      # The only step that hits the network for vcpkg ports, so a transient
+      # failure is retried here. -B points at a throwaway directory; the build
+      # step below configures the preset's real build directory fresh.
+      - name: Pre-install vcpkg dependencies (retry)
+        uses: nick-fields/retry@v3
+        with:
+          timeout_minutes: 30
+          max_attempts: 3
+          retry_wait_seconds: 30
+          shell: pwsh
+          command: |
+            cmake -S "${{ github.workspace }}/main" -B "$env:RUNNER_TEMP/vcpkg-warmup" --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.version }}
 
       - name: Build
-        uses: lukka/run-cmake@v10.0
+        uses: lukka/run-cmake@v10
         with:
           cmakeListsTxtPath: ${{ github.workspace }}/main/CMakeLists.txt
           configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.version }}
