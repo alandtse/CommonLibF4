@@ -113,10 +113,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vcpkg-binpkgs-${{ matrix.compiler }}-
 
-      # The only step that hits the network for vcpkg ports, so a transient
-      # failure is retried here. -B points at a throwaway directory; the build
-      # step below configures the preset's real build directory fresh.
-      - name: Pre-install vcpkg dependencies (retry)
+      # Configure runs the vcpkg manifest install, the only step that hits the
+      # network for ports, so a transient failure is retried here.
+      - name: Configure (retry)
         uses: nick-fields/retry@v3
         with:
           timeout_minutes: 30
@@ -124,11 +123,11 @@ jobs:
           retry_wait_seconds: 30
           shell: pwsh
           command: |
-            cmake -S "${{ github.workspace }}/main" -B "$env:RUNNER_TEMP/vcpkg-warmup" --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.version }}
+            cmake -S "${{ github.workspace }}/main" --preset build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.version }}
 
+      # Plain cmake, not lukka/run-cmake: that action resolved the older VS 2019
+      # toolset (MSVC 19.29) while the shell step above used 19.44.
       - name: Build
-        uses: lukka/run-cmake@v10
-        with:
-          cmakeListsTxtPath: ${{ github.workspace }}/main/CMakeLists.txt
-          configurePreset: build-${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.version }}
-          buildPreset: ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.version }}
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/main
+        run: cmake --build --preset ${{ matrix.build-type }}-${{ matrix.compiler }}-vcpkg-${{ matrix.version }}
