@@ -150,7 +150,7 @@ namespace RE
 	bool NiMatrix3::ToEulerAnglesZXY(float& a_z, float& a_x, float& a_y) const
 	{
 		using func_t = bool (*)(const NiMatrix3*, float&, float&, float&);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0x141b926f0, 2269824) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(606387, 2269824) };
 		return func(this, a_z, a_x, a_y);
 	}
 
