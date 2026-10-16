@@ -1215,7 +1215,7 @@ namespace RE
 		bool IsPathing()
 		{
 			using func_t = decltype(&Actor::IsPathing);
-			static REL::Relocation<func_t> func{ REL::RelocationID(989661, 2234312) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(989661, 2230276) };
 			return func(this);
 		}
 

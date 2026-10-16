@@ -201,7 +201,7 @@ namespace RE
 		virtual bool IsActive() override;                                                           // 08
 		virtual bool UpdateParams(ImageSpaceEffectParam* a_param) override;                         // 09
 
-		inline static REL::Relocation<bool*> bDisable{ REL::RelocationID(1500590, 2713225) };
+		inline static REL::Relocation<bool*> bDisable{ REL::RelocationID(1500590, 2713240) };
 	};
 	static_assert(sizeof(ImageSpaceEffectRadialBlur) == 0xB0);
 
