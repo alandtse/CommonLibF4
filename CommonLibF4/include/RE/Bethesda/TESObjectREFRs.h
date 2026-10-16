@@ -818,7 +818,7 @@ namespace RE
 		[[nodiscard]] float GetWeightInContainer()
 		{
 			using func_t = decltype(&TESObjectREFR::GetWeightInContainer);
-			static REL::Relocation<func_t> func{ REL::ID(1377567) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(1377567, 2201001) };
 			return func(this);
 		}
 

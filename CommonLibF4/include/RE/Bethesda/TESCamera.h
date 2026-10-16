@@ -218,7 +218,7 @@ namespace RE
 		TESCameraState* PushState(CameraState a_state)
 		{
 			using func_t = decltype(&PlayerCamera::PushState);
-			static REL::Relocation<func_t> func{ REL::RelocationID(746523, 0) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(746523, 2248422) };
 			return func(this, a_state);
 		}
 
@@ -239,7 +239,7 @@ namespace RE
 		void StartFurnitureMode(TESObjectREFR* a_furniture)
 		{
 			using func_t = decltype(&PlayerCamera::StartFurnitureMode);
-			static REL::Relocation<func_t> func{ REL::RelocationID(10202, 0) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(10202, 2248373) };
 			return func(this, a_furniture);
 		}
 

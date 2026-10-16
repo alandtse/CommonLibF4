@@ -176,7 +176,7 @@ namespace RE
 		bool IsQuestObject(std::int32_t a_stackIterations)
 		{
 			using func_t = decltype(&BGSInventoryItem::IsQuestObject);
-			static REL::Relocation<func_t> func{ REL::ID(823447) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(823447, 2194076) };
 			return func(this, a_stackIterations);
 		}
 
