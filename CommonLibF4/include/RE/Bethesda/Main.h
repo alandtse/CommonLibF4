@@ -47,13 +47,13 @@ namespace RE
 
 		[[nodiscard]] static bool QGameSystemsShouldUpdate()
 		{
-			static REL::Relocation<bool*> singleton{ REL::RelocationID(0, 2698031) };
+			static REL::Relocation<bool*> singleton{ REL::RelocationID(779552, 2698031) };
 			return *singleton;
 		}
 
 		[[nodiscard]] static bool QGameDataLoaded()
 		{
-			static REL::Relocation<bool*> singleton{ REL::RelocationID(0, 2698032) };
+			static REL::Relocation<bool*> singleton{ REL::RelocationID(1004331, 2698032) };
 			return *singleton;
 		}
 

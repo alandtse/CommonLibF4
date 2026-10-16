@@ -7,19 +7,19 @@ namespace RE
 	public:
 		[[nodiscard]] static BSTimer* GetSingleton()
 		{
-			static REL::Relocation<BSTimer*> singleton{ REL::RelocationID(0, 2703179) };
+			static REL::Relocation<BSTimer*> singleton{ REL::RelocationID(1256126, 2703179) };
 			return singleton.get();
 		}
 
 		[[nodiscard]] static float QGlobalTimeMultiplier()
 		{
-			static REL::Relocation<float*> value{ REL::RelocationID(0, 2666307) };
+			static REL::Relocation<float*> value{ REL::RelocationID(365546, 2666307) };
 			return *value;
 		}
 
 		[[nodiscard]] static float QGlobalTimeMultiplierTarget()
 		{
-			static REL::Relocation<float*> value{ REL::RelocationID(0, 2666308) };
+			static REL::Relocation<float*> value{ REL::RelocationID(1266509, 2666308) };
 			return *value;
 		}
 
