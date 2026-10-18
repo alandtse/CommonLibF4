@@ -811,7 +811,7 @@ namespace RE
 		[[nodiscard]] REFR_LOCK* GetLock()
 		{
 			using func_t = decltype(&TESObjectREFR::GetLock);
-			static REL::Relocation<func_t> func{ REL::ID(930785) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(930785, 2202648) };
 			return func(this);
 		}
 
@@ -832,7 +832,7 @@ namespace RE
 		[[nodiscard]] bool IsCrimeToActivate()
 		{
 			using func_t = decltype(&TESObjectREFR::IsCrimeToActivate);
-			static REL::Relocation<func_t> func{ REL::ID(836011) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(836011, 2201180) };
 			return func(this);
 		}
 
