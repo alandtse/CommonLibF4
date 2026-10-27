@@ -33,14 +33,45 @@ namespace RE
 		virtual ~BSGeometry();  // NOLINT(modernize-use-override) 00
 
 		// add
-		virtual void                      UpdatePropertyControllers(NiUpdateData& a_data);  // 3A
-		virtual BSGeometrySegmentData*    GetSegmentData();                                 // 3B
-		virtual void                      SetSegmentData(BSGeometrySegmentData* a_data);    // 3C
-		virtual BSGraphics::IndexBuffer*  GetCustomIndexBuffer();                           // 3D
-		virtual BSCombinedTriShape*       IsBSCombinedTriShape();                           // 3E
-		virtual BSMergeInstancedTriShape* IsBSMergeInstancedTriShape();                     // 3F
-		virtual BSMultiIndexTriShape*     IsMultiIndexTriShape();                           // 40
-		virtual std::uint32_t             GetRenderableTris(std::uint32_t a_LODMode);       // 40
+		void UpdatePropertyControllers(NiUpdateData& a_data)  // 3A
+		{
+			REL::RelocateVirtual<decltype(&BSGeometry::UpdatePropertyControllers)>(0x3A, 0x3D, this, a_data);
+		}
+
+		BSGeometrySegmentData* GetSegmentData()  // 3B
+		{
+			return REL::RelocateVirtual<decltype(&BSGeometry::GetSegmentData)>(0x3B, 0x3E, this);
+		}
+
+		void SetSegmentData(BSGeometrySegmentData* a_data)  // 3C
+		{
+			REL::RelocateVirtual<decltype(&BSGeometry::SetSegmentData)>(0x3C, 0x3F, this, a_data);
+		}
+
+		BSGraphics::IndexBuffer* GetCustomIndexBuffer()  // 3D
+		{
+			return REL::RelocateVirtual<decltype(&BSGeometry::GetCustomIndexBuffer)>(0x3D, 0x40, this);
+		}
+
+		BSCombinedTriShape* IsBSCombinedTriShape()  // 3E
+		{
+			return REL::RelocateVirtual<decltype(&BSGeometry::IsBSCombinedTriShape)>(0x3E, 0x41, this);
+		}
+
+		BSMergeInstancedTriShape* IsBSMergeInstancedTriShape()  // 3F
+		{
+			return REL::RelocateVirtual<decltype(&BSGeometry::IsBSMergeInstancedTriShape)>(0x3F, 0x42, this);
+		}
+
+		BSMultiIndexTriShape* IsMultiIndexTriShape()  // 40
+		{
+			return REL::RelocateVirtual<decltype(&BSGeometry::IsMultiIndexTriShape)>(0x40, 0x43, this);
+		}
+
+		std::uint32_t GetRenderableTris(std::uint32_t a_LODMode)  // 41
+		{
+			return REL::RelocateVirtual<decltype(&BSGeometry::GetRenderableTris)>(0x41, 0x44, this, a_LODMode);
+		}
 
 		// members
 		NiBound                     modelBound;     // 120
