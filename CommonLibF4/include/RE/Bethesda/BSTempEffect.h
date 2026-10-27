@@ -82,24 +82,95 @@ namespace RE
 		static constexpr auto TYPE{ TEMP_EFFECT_TYPE::kDefault };
 
 		// add
-		virtual void                           Initialize();                                     // 25 - { initialized = true; }
-		virtual void                           Attach();                                         // 26 - { return; }
-		virtual void                           Detach();                                         // 27 - { return; }
-		virtual bool                           Update(float a_arg1);                             // 28
-		[[nodiscard]] virtual NiAVObject*      Get3D() const;                                    // 29 - { return 0; }
-		[[nodiscard]] virtual bool             GetManagerHandlesSaveLoad() const;                // 2A - { return true; }
-		[[nodiscard]] virtual bool             GetClearWhenCellIsUnloaded() const;               // 2B - { return true; }
-		[[nodiscard]] virtual TEMP_EFFECT_TYPE GetType() const;                                  // 2C - { return 7; }
-		virtual void                           SaveGame(BGSSaveGameBuffer* a_buf);               // 2D
-		virtual void                           LoadGame(BGSLoadGameBuffer* a_buf);               // 2E
-		virtual void                           FinishLoadGame(BGSLoadGameBuffer* a_buf);         // 2F - { return; }
-		[[nodiscard]] virtual bool             IsInterfaceEffect() const;                        // 30 - { return false; }
-		virtual void                           SetInterfaceEffect(bool a_set);                   // 31 - { return; }
-		[[nodiscard]] virtual bool             GetStackable() const;                             // 32 - { return false; }
-		virtual bool                           GetStackableMatch(BSTempEffect* a_effect) const;  // 33 - { return false; }
-		virtual void                           Push();                                           // 34 - { return; }
-		virtual void                           Pop();                                            // 35 - { return; }
-		virtual void                           HandleDeferredDeleteImpl();                       // 36
+		void Initialize()  // 28
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::Initialize)>(0x28, 0x2A, this);
+		}
+
+		void Attach()  // 29
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::Attach)>(0x29, 0x2B, this);
+		}
+
+		void Detach()  // 2A
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::Detach)>(0x2A, 0x2C, this);
+		}
+
+		bool Update(float a_arg1)  // 2B
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::Update)>(0x2B, 0x2D, this, a_arg1);
+		}
+
+		[[nodiscard]] NiAVObject* Get3D() const  // 2C
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::Get3D)>(0x2C, 0x2E, this);
+		}
+
+		[[nodiscard]] bool GetManagerHandlesSaveLoad() const  // 2D
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::GetManagerHandlesSaveLoad)>(0x2D, 0x2F, this);
+		}
+
+		[[nodiscard]] bool GetClearWhenCellIsUnloaded() const  // 2E
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::GetClearWhenCellIsUnloaded)>(0x2E, 0x30, this);
+		}
+
+		[[nodiscard]] TEMP_EFFECT_TYPE GetType() const  // 2F
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::GetType)>(0x2F, 0x31, this);
+		}
+
+		void SaveGame(BGSSaveGameBuffer* a_buf)  // 30
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::SaveGame)>(0x30, 0x32, this, a_buf);
+		}
+
+		void LoadGame(BGSLoadGameBuffer* a_buf)  // 31
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::LoadGame)>(0x31, 0x33, this, a_buf);
+		}
+
+		void FinishLoadGame(BGSLoadGameBuffer* a_buf)  // 32
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::FinishLoadGame)>(0x32, 0x34, this, a_buf);
+		}
+
+		[[nodiscard]] bool IsInterfaceEffect() const  // 33
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::IsInterfaceEffect)>(0x33, 0x35, this);
+		}
+
+		void SetInterfaceEffect(bool a_set)  // 34
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::SetInterfaceEffect)>(0x34, 0x36, this, a_set);
+		}
+
+		[[nodiscard]] bool GetStackable() const  // 35
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::GetStackable)>(0x35, 0x37, this);
+		}
+
+		bool GetStackableMatch(BSTempEffect* a_effect) const  // 36
+		{
+			return REL::RelocateVirtual<decltype(&BSTempEffect::GetStackableMatch)>(0x36, 0x38, this, a_effect);
+		}
+
+		void Push()  // 37
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::Push)>(0x37, 0x39, this);
+		}
+
+		void Pop()  // 38
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::Pop)>(0x38, 0x3A, this);
+		}
+
+		void HandleDeferredDeleteImpl()  // 39
+		{
+			REL::RelocateVirtual<decltype(&BSTempEffect::HandleDeferredDeleteImpl)>(0x39, 0x3B, this);
+		}
 
 		template <
 			class T,
@@ -356,16 +427,55 @@ namespace RE
 		~ReferenceEffect() override;
 
 		// add
-		virtual bool        Init();                                // 37
-		virtual void        Suspend();                             // 38
-		virtual void        Resume();                              // 39
-		virtual void        Update3D();                            // 3A
-		virtual void        ClearTarget();                         // 3B
-		virtual void        UpdateParentCell(NiAVObject* a_root);  // 3C
-		virtual void        UpdatePosition();                      // 3D
-		virtual NiAVObject* GetAttachRoot();                       // 3E
-		virtual bool        GetAttached();                         // 3F
-		virtual void        DetachImpl();                          // 40
+		bool Init()  // 3A
+		{
+			return REL::RelocateVirtual<decltype(&ReferenceEffect::Init)>(0x3A, 0x3C, this);
+		}
+
+		void Suspend()  // 3B
+		{
+			REL::RelocateVirtual<decltype(&ReferenceEffect::Suspend)>(0x3B, 0x3D, this);
+		}
+
+		void Resume()  // 3C
+		{
+			REL::RelocateVirtual<decltype(&ReferenceEffect::Resume)>(0x3C, 0x3E, this);
+		}
+
+		void Update3D()  // 3D
+		{
+			REL::RelocateVirtual<decltype(&ReferenceEffect::Update3D)>(0x3D, 0x3F, this);
+		}
+
+		void ClearTarget()  // 3E
+		{
+			REL::RelocateVirtual<decltype(&ReferenceEffect::ClearTarget)>(0x3E, 0x40, this);
+		}
+
+		void UpdateParentCell(NiAVObject* a_root)  // 3F
+		{
+			REL::RelocateVirtual<decltype(&ReferenceEffect::UpdateParentCell)>(0x3F, 0x41, this, a_root);
+		}
+
+		void UpdatePosition()  // 40
+		{
+			REL::RelocateVirtual<decltype(&ReferenceEffect::UpdatePosition)>(0x40, 0x42, this);
+		}
+
+		NiAVObject* GetAttachRoot()  // 41
+		{
+			return REL::RelocateVirtual<decltype(&ReferenceEffect::GetAttachRoot)>(0x41, 0x43, this);
+		}
+
+		bool GetAttached()  // 42
+		{
+			return REL::RelocateVirtual<decltype(&ReferenceEffect::GetAttached)>(0x42, 0x44, this);
+		}
+
+		void DetachImpl()  // 43
+		{
+			REL::RelocateVirtual<decltype(&ReferenceEffect::DetachImpl)>(0x43, 0x45, this);
+		}
 
 		// members
 		ReferenceEffectController* controller;     // 30
