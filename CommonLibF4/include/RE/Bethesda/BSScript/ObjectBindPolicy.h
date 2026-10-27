@@ -66,7 +66,7 @@ namespace RE
 			void UnbindObject(const BSTSmartPointer<Object>& a_obj)
 			{
 				using func_t = decltype(&ObjectBindPolicy::UnbindObject);
-				static REL::Relocation<func_t> func{ REL::ID(522763) };
+				static REL::Relocation<func_t> func{ REL::RelocationID(522763, 2314372) };
 				return func(this, a_obj);
 			}
 
