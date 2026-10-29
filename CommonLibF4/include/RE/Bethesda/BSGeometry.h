@@ -102,13 +102,7 @@ namespace RE
 			return rtti.get();
 		}
 
-		BSTriShape* IsTriShape() override { return this; }                // 0A
-		NiObject*   CreateClone(NiCloningProcess& a_cloneData) override;  // 1A
-		void        LoadBinary(NiStream& a_stream) override;              // 1B
-		void        LinkObject(NiStream& a_stream) override;              // 1C - { BSGeometry::LinkObject(a_stream); }
-		bool        RegisterStreamables(NiStream& a_stream) override;     // 1D - { return BSGeometry::RegisterStreamables(a_stream); }
-		void        SaveBinary(NiStream& a_stream) override;              // 1E
-		bool        IsEqual(NiObject* a_object) override;                 // 1F - { return false; }
+		BSTriShape* IsTriShape() override { return this; }  // 0A
 
 		// members
 		std::uint32_t numTriangles;  // 160

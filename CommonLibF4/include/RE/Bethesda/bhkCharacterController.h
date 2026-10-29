@@ -94,7 +94,10 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::bhkNPCollisionObjectBase };
 
 		// add
-		virtual void LockMotionImpl() = 0;  // 2C
+		void LockMotionImpl()  // 2C
+		{
+			REL::RelocateVirtual<decltype(&bhkNPCollisionObjectBase::LockMotionImpl)>(0x2C, 0x2E, this);
+		}
 
 		// members
 		NiTFlags<std::uint16_t, bhkNPCollisionObjectBase> flags;  // 18
@@ -109,10 +112,25 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::bhkNPCollisionObject };
 
 		// add
-		virtual void CreateInstance(bhkWorld& a_world);             // 2D
-		virtual void AddToWorld(bhkWorld& a_world);                 // 2E
-		virtual void RemoveFromWorld();                             // 2F
-		virtual bool SetCollisionFilterInfo(CFilter a_filterInfo);  // 30
+		void CreateInstance(bhkWorld& a_world)  // 2D
+		{
+			REL::RelocateVirtual<decltype(&bhkNPCollisionObject::CreateInstance)>(0x2D, 0x2F, this, a_world);
+		}
+
+		void AddToWorld(bhkWorld& a_world)  // 2E
+		{
+			REL::RelocateVirtual<decltype(&bhkNPCollisionObject::AddToWorld)>(0x2E, 0x30, this, a_world);
+		}
+
+		void RemoveFromWorld()  // 2F
+		{
+			REL::RelocateVirtual<decltype(&bhkNPCollisionObject::RemoveFromWorld)>(0x2F, 0x31, this);
+		}
+
+		bool SetCollisionFilterInfo(CFilter a_filterInfo)  // 30
+		{
+			return REL::RelocateVirtual<decltype(&bhkNPCollisionObject::SetCollisionFilterInfo)>(0x30, 0x32, this, a_filterInfo);
+		}
 
 		void CopyMembers(bhkNPCollisionObject* from, NiCloningProcess& cp)
 		{
@@ -184,34 +202,146 @@ namespace RE
 		enum class CHARACTER_SIZE;
 
 		// add
-		virtual float           GetKeepDistanceImpl() const = 0;                                                                              // 31
-		virtual void            InitPhysicsSystemImpl(const bhkCharacterControllerCinfo& a_info) = 0;                                         // 32
-		virtual void            GetPositionImpl(hkVector4f& a_pos, bool a_applyCenterOffset) const = 0;                                       // 33
-		virtual void            SetPositionImpl(const hkVector4f& a_pos, bool a_applyCenterOffset, bool a_forceWarp) = 0;                     // 34
-		virtual void            GetPredictedPositionImpl(hkVector4f& a_pos, bool a_applyCenterOffset) const = 0;                              // 35
-		virtual void            ClearPreviousStepCachedDataImpl() = 0;                                                                        // 36
-		virtual void            GetTransformImpl(hkTransformf& a_transform) const = 0;                                                        // 37
-		virtual void            SetTransformImpl(const hkTransformf& a_transform) = 0;                                                        // 38
-		virtual void            GetLinearVelocityImpl(hkVector4f& a_linVel) const = 0;                                                        // 39
-		virtual void            SetLinearVelocityImpl(const hkVector4f& a_linVel) = 0;                                                        // 3A
-		virtual bool            CheckPenetrationImpl() = 0;                                                                                   // 3B
-		virtual bool            IntegrateStepImpl(BSTArray<NiPointer<bhkNPCollisionObject>>* a_deferredReleaseColObjs) = 0;                   // 3C
-		virtual void            FinishMoveImpl(const MoveData& a_moveData) = 0;                                                               // 3D
-		virtual void            CheckSupportImpl() = 0;                                                                                       // 3E
-		virtual void            SetWorldImpl(bhkWorld* a_newWorld) = 0;                                                                       // 3F
-		virtual bhkWorld*       GetWorldImpl() const = 0;                                                                                     // 40
-		virtual hknpBodyId      GetBodyIdImpl() const = 0;                                                                                    // 41
-		virtual const hknpBody* GetBodyImpl() const = 0;                                                                                      // 42
-		virtual bool            SetShapeImpl(hknpShape* a_shape, const hkVector4f&) = 0;                                                      // 43
-		virtual float           GetVDBAlpha() const = 0;                                                                                      // 44
-		virtual bool            GetCurrentCollisionsImpl(BSScrapArray<const hknpBody*>& a_cols) = 0;                                          // 45
-		virtual bool            HasPhysicsStepSubscriptionsImpl() const = 0;                                                                  // 46
-		virtual bool            AddPhysicsStepSubscriptionsImpl() = 0;                                                                        // 47
-		virtual bool            RemovePhysicsStepSubscriptionsImpl() = 0;                                                                     // 48
-		virtual void            RotateImpl(const hkTransformf& a_transf, bool a_forceWarp) = 0;                                               // 49
-		virtual void            SendEventOnNonSupportContactsImpl(BSTEventSink<bhkNonSupportContactEvent>& a_sink, bool a_receiveEvent) = 0;  // 4A
-		virtual void            ApplyMoveImmediately() = 0;                                                                                   // 4B
-		virtual void            ClearCollectorDataImpl() = 0;                                                                                 // 4C
+		float GetKeepDistanceImpl() const  // 31
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::GetKeepDistanceImpl)>(0x31, 0x33, this);
+		}
+
+		void InitPhysicsSystemImpl(const bhkCharacterControllerCinfo& a_info)  // 32
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::InitPhysicsSystemImpl)>(0x32, 0x34, this, a_info);
+		}
+
+		void GetPositionImpl(hkVector4f& a_pos, bool a_applyCenterOffset) const  // 33
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::GetPositionImpl)>(0x33, 0x35, this, a_pos, a_applyCenterOffset);
+		}
+
+		void SetPositionImpl(const hkVector4f& a_pos, bool a_applyCenterOffset, bool a_forceWarp)  // 34
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::SetPositionImpl)>(0x34, 0x36, this, a_pos, a_applyCenterOffset, a_forceWarp);
+		}
+
+		void GetPredictedPositionImpl(hkVector4f& a_pos, bool a_applyCenterOffset) const  // 35
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::GetPredictedPositionImpl)>(0x35, 0x37, this, a_pos, a_applyCenterOffset);
+		}
+
+		void ClearPreviousStepCachedDataImpl()  // 36
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::ClearPreviousStepCachedDataImpl)>(0x36, 0x38, this);
+		}
+
+		void GetTransformImpl(hkTransformf& a_transform) const  // 37
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::GetTransformImpl)>(0x37, 0x39, this, a_transform);
+		}
+
+		void SetTransformImpl(const hkTransformf& a_transform)  // 38
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::SetTransformImpl)>(0x38, 0x3A, this, a_transform);
+		}
+
+		void GetLinearVelocityImpl(hkVector4f& a_linVel) const  // 39
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::GetLinearVelocityImpl)>(0x39, 0x3B, this, a_linVel);
+		}
+
+		void SetLinearVelocityImpl(const hkVector4f& a_linVel)  // 3A
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::SetLinearVelocityImpl)>(0x3A, 0x3C, this, a_linVel);
+		}
+
+		bool CheckPenetrationImpl()  // 3B
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::CheckPenetrationImpl)>(0x3B, 0x3D, this);
+		}
+
+		bool IntegrateStepImpl(BSTArray<NiPointer<bhkNPCollisionObject>>* a_deferredReleaseColObjs)  // 3C
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::IntegrateStepImpl)>(0x3C, 0x3E, this, a_deferredReleaseColObjs);
+		}
+
+		void FinishMoveImpl(const MoveData& a_moveData)  // 3D
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::FinishMoveImpl)>(0x3D, 0x3F, this, a_moveData);
+		}
+
+		void CheckSupportImpl()  // 3E
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::CheckSupportImpl)>(0x3E, 0x40, this);
+		}
+
+		void SetWorldImpl(bhkWorld* a_newWorld)  // 3F
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::SetWorldImpl)>(0x3F, 0x41, this, a_newWorld);
+		}
+
+		bhkWorld* GetWorldImpl() const  // 40
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::GetWorldImpl)>(0x40, 0x42, this);
+		}
+
+		hknpBodyId GetBodyIdImpl() const  // 41
+		{
+			hknpBodyId result{};
+			return *REL::RelocateVirtual<hknpBodyId*(const bhkCharacterController*, hknpBodyId*)>(0x41, 0x43, this, &result);
+		}
+
+		const hknpBody* GetBodyImpl() const  // 42
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::GetBodyImpl)>(0x42, 0x44, this);
+		}
+
+		bool SetShapeImpl(hknpShape* a_shape, const hkVector4f& a_arg2)  // 43
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::SetShapeImpl)>(0x43, 0x45, this, a_shape, a_arg2);
+		}
+
+		float GetVDBAlpha() const  // 44
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::GetVDBAlpha)>(0x44, 0x46, this);
+		}
+
+		bool GetCurrentCollisionsImpl(BSScrapArray<const hknpBody*>& a_cols)  // 45
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::GetCurrentCollisionsImpl)>(0x45, 0x47, this, a_cols);
+		}
+
+		bool HasPhysicsStepSubscriptionsImpl() const  // 46
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::HasPhysicsStepSubscriptionsImpl)>(0x46, 0x48, this);
+		}
+
+		bool AddPhysicsStepSubscriptionsImpl()  // 47
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::AddPhysicsStepSubscriptionsImpl)>(0x47, 0x49, this);
+		}
+
+		bool RemovePhysicsStepSubscriptionsImpl()  // 48
+		{
+			return REL::RelocateVirtual<decltype(&bhkCharacterController::RemovePhysicsStepSubscriptionsImpl)>(0x48, 0x4A, this);
+		}
+
+		void RotateImpl(const hkTransformf& a_transf, bool a_forceWarp)  // 49
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::RotateImpl)>(0x49, 0x4B, this, a_transf, a_forceWarp);
+		}
+
+		void SendEventOnNonSupportContactsImpl(BSTEventSink<bhkNonSupportContactEvent>& a_sink, bool a_receiveEvent)  // 4A
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::SendEventOnNonSupportContactsImpl)>(0x4A, 0x4C, this, a_sink, a_receiveEvent);
+		}
+
+		void ApplyMoveImmediately()  // 4B
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::ApplyMoveImmediately)>(0x4B, 0x4D, this);
+		}
+
+		void ClearCollectorDataImpl()  // 4C
+		{
+			REL::RelocateVirtual<decltype(&bhkCharacterController::ClearCollectorDataImpl)>(0x4C, 0x4E, this);
+		}
 
 		// members
 		hkVector4f                                                             forwardVec;                 // 140

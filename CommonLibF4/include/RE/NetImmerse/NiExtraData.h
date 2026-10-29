@@ -14,10 +14,25 @@ namespace RE
 		static constexpr auto Ni_RTTI{ Ni_RTTI::NiExtraData };
 
 		// add
-		virtual bool KeepForExport() const { return false; }        // 28
-		virtual bool KeepForExporterOnly() const { return false; }  // 29
-		virtual bool IsStreamable() const { return true; }          // 2A
-		virtual bool IsCloneable() const { return true; }           // 2B
+		bool KeepForExport() const  // 28
+		{
+			return REL::RelocateVirtual<decltype(&NiExtraData::KeepForExport)>(0x28, 0x2A, this);
+		}
+
+		bool KeepForExporterOnly() const  // 29
+		{
+			return REL::RelocateVirtual<decltype(&NiExtraData::KeepForExporterOnly)>(0x29, 0x2B, this);
+		}
+
+		bool IsStreamable() const  // 2A
+		{
+			return REL::RelocateVirtual<decltype(&NiExtraData::IsStreamable)>(0x2A, 0x2C, this);
+		}
+
+		bool IsCloneable() const  // 2B
+		{
+			return REL::RelocateVirtual<decltype(&NiExtraData::IsCloneable)>(0x2B, 0x2D, this);
+		}
 
 		// members
 		BSFixedString name;  // 10
