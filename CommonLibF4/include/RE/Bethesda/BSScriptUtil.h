@@ -587,8 +587,9 @@ namespace RE::BSScript
 			if (!object) {
 				return false;
 			}
-
-			a_var = std::move(object);
+			F4SE::log::info("pack handle= {:016X} requested={} got={}", (uint64_t) handle, typeInfo->name.c_str(), object->type->name.c_str());
+			//a_var = std::move(object);
+			a_var.SetObject(std::move(object), typeInfo.get());
 			return true;
 		}();
 
@@ -634,7 +635,6 @@ namespace RE::BSScript
 			if (!object) {
 				return false;
 			}
-
 			a_var = std::move(object);
 			return true;
 		}();
