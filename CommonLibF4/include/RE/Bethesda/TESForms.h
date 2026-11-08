@@ -1719,7 +1719,7 @@ namespace RE
 		const char* GetResponseText()
 		{
 			using func_t = decltype(&TESResponse::GetResponseText);
-			static REL::Relocation<func_t> func{ REL::RelocationID(0, 2208288) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(992447, 2208288) };
 			return func(this);
 		}
 
@@ -1784,7 +1784,7 @@ namespace RE
 		CHARISMA_CHALLENGE_DIFFICULTY GetSpeechChallengeLevel()
 		{
 			using func_t = decltype(&TESTopicInfo::GetSpeechChallengeLevel);
-			static REL::Relocation<func_t> func{ REL::RelocationID(0, 2208441) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(613016, 2208441) };
 			return func(this);
 		}
 

@@ -19,7 +19,7 @@ namespace RE::BSGraphics::Utility
 	inline void ConvertNiPoint3ToHALFStream(const NiPoint3* a_src, std::uint16_t* a_dst, std::uint32_t a_count)
 	{
 		using func_t = decltype(&ConvertNiPoint3ToHALFStream);
-		static REL::Relocation<func_t> func{ REL::RelocationID(0, 2277114) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(1247946, 2277114) };
 		func(a_src, a_dst, a_count);
 	}
 

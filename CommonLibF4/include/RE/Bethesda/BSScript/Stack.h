@@ -78,7 +78,7 @@ namespace RE
 			[[nodiscard]] std::uint32_t GetPageForFrame(const StackFrame* a_frame) const
 			{
 				using func_t = decltype(&Stack::GetPageForFrame);
-				static REL::Relocation<func_t> func{ REL::ID(1429302) };
+				static REL::Relocation<func_t> func{ REL::RelocationID(1429302, 2314680) };
 				return func(this, a_frame);
 			}
 

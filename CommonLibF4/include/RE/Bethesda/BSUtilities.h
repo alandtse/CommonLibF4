@@ -12,7 +12,7 @@ namespace RE::BSUtilities
 	inline std::uint16_t ConvertFloatToHalf(float a_value)
 	{
 		using func_t = decltype(&ConvertFloatToHalf);
-		static REL::Relocation<func_t> func{ REL::RelocationID(10414, 2212098) };
+		static REL::Relocation<func_t> func{ REL::RelocationID(1085643, 2212098) };
 		return func(a_value);
 	}
 

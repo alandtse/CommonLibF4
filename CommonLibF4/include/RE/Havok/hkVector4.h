@@ -133,7 +133,7 @@ namespace RE
 			this->z /= l;
 			return *this;
 		}
-		hkVector4f& GetNormalized()
+		hkVector4f GetNormalized()
 		{
 			hkVector4f norm = *this;
 			norm.Normalize();

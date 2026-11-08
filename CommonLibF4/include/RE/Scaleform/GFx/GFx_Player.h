@@ -607,7 +607,7 @@ namespace RE::Scaleform::GFx
 			void VisitMembers(void* a_data, ObjVisitor* a_visitor, bool a_isDObj) const
 			{
 				using func_t = decltype(&ObjectInterface::VisitMembers);
-				static REL::Relocation<func_t> func{ REL::RelocationID(0, 2286786) };
+				static REL::Relocation<func_t> func{ REL::RelocationID(1276961, 2286786) };
 				return func(this, a_data, a_visitor, a_isDObj);
 			}
 

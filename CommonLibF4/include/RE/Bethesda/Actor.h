@@ -999,7 +999,7 @@ namespace RE
 		virtual bool                 DrinkPotion(AlchemyItem* a_potion, std::uint32_t a_stackID);                                                                                                                        // 119
 		virtual bool                 CheckCast(MagicItem* a_spell, bool a_dualCast, MagicSystem::CannotCastReason* a_reason);                                                                                            // 11A
 		virtual void                 CheckTempModifiers() { return; }                                                                                                                                                    // 11B
-		virtual void                 SetLastRiddenMount(ActorHandle) { return; }                                                                                                                                         // 11C
+		virtual void                 SetLastRiddenMount([[maybe_unused]] ActorHandle a_mount) { return; }                                                                                                                // 11C
 		virtual ActorHandle          QLastRiddenMount() const;                                                                                                                                                           // 11D
 		virtual bool                 CalculateCachedOwnerIsUndead() const;                                                                                                                                               // 11E
 		virtual bool                 CalculateCachedOwnerIsNPC() const;                                                                                                                                                  // 11F
@@ -1215,7 +1215,7 @@ namespace RE
 		bool IsPathing()
 		{
 			using func_t = decltype(&Actor::IsPathing);
-			static REL::Relocation<func_t> func{ REL::RelocationID(989661, 2234312) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(989661, 2230276) };
 			return func(this);
 		}
 

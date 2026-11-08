@@ -333,3 +333,15 @@ struct std::formatter<RE::detail::BSFixedString<CharT, CS>, CharT> : formatter<s
 		return formatter<std::string, CharT>::format(a_version.c_str(), a_ctx);
 	}
 };
+
+#ifdef FMT_VERSION
+template <class CharT, bool CS>
+struct fmt::formatter<RE::detail::BSFixedString<CharT, CS>, CharT> : formatter<std::string, CharT>
+{
+	template <class FormatContext>
+	auto format(const RE::detail::BSFixedString<CharT, CS>& a_string, FormatContext& a_ctx) const
+	{
+		return formatter<std::string, CharT>::format(a_string.c_str(), a_ctx);
+	}
+};
+#endif

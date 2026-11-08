@@ -36,7 +36,7 @@ namespace RE
 			[[nodiscard]] std::uint32_t DecRef() const
 			{
 				using func_t = decltype(&Object::DecRef);
-				static REL::Relocation<func_t> func{ REL::ID(541793) };
+				static REL::Relocation<func_t> func{ REL::RelocationID(541793, 2314437) };
 				return func(this);
 			}
 

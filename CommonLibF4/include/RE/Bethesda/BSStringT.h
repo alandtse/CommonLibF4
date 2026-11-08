@@ -97,7 +97,7 @@ namespace RE
 		bool Set(const char* apString, std::uint64_t auiMaxLen)
 		{
 			using func_t = decltype(&BSStringT::Set);
-			static REL::Relocation<func_t> func{ REL::RelocationID(0, 2189084) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(407804, 2189084) };
 			return func(this, apString, auiMaxLen);
 		}
 

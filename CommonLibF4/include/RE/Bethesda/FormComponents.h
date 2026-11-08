@@ -1757,7 +1757,7 @@ namespace RE
 			const char*                  a_overrideName = nullptr)
 		{
 			using func_t = decltype(&TESLeveledList::CalculateCurrentFormList);
-			static REL::Relocation<func_t> func{ REL::RelocationID(507405, 2193259) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(603811, 2193259) };
 			return func(this, a_level, a_count, a_outCont, a_allBelowForce, a_clampToPlayer, a_instanceFilter, a_overrideName);
 		}
 

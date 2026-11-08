@@ -103,6 +103,24 @@ namespace RE
 						TESDataHandler::VRcompiledFileCollection = const_cast<RE::TESFileCollection*>(GetCompiledFileCollection());
 					}
 				}
+				// Construct compiledFileCollection for non-falloutvresl envirnment
+				else if (*singleton) {
+					static RE::TESFileCollection vrCompiledFileCollection;
+					vrCompiledFileCollection.files.clear();
+					vrCompiledFileCollection.smallFiles.clear();
+					for (auto& file : (*singleton)->files) {
+						if (!file)
+							continue;
+						if (0xFF == file->compileIndex)  // is inactive file
+							continue;
+
+						if (file->IsLight())
+							vrCompiledFileCollection.smallFiles.push_back(file);
+						else
+							vrCompiledFileCollection.files.push_back(file);
+					}
+					VRcompiledFileCollection = &vrCompiledFileCollection;
+				}
 			}
 			return *singleton;
 		}
@@ -124,7 +142,7 @@ namespace RE
 		[[nodiscard]] ObjectRefHandle CreateReferenceAtLocation(NEW_REFR_DATA& a_data)
 		{
 			using func_t = decltype(&TESDataHandler::CreateReferenceAtLocation);
-			static REL::Relocation<func_t> func{ REL::RelocationID(500304, 500304) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(500304, 2192301) };
 			return func(this, a_data);
 		}
 

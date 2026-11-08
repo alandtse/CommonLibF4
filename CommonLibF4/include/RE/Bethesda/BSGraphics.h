@@ -41,7 +41,51 @@ namespace RE
 		enum class Format;
 		enum class TextureAddressMode;
 
-		class Texture;
+		struct TextureHeader
+		{
+		public:
+			// members
+			std::uint16_t height = 0;    // 00
+			std::uint16_t width = 0;     // 02
+			std::uint8_t  mipCount = 0;  // 04
+			std::uint8_t  format = 0;    // 05
+			std::uint8_t  flags = 0;     // 06
+			std::uint8_t  tilemode = 0;  // 07
+		};
+		static_assert(sizeof(TextureHeader) == 0x8);
+
+		class Texture
+		{
+		public:
+			REX::W32::ID3D11ShaderResourceView* srv;              // 00
+			REX::W32::ID3D11Texture2D*          texture;          // 08
+			void*                               unk10;            // 10
+			void*                               unk18;            // 18
+			void*                               unk20;            // 20
+			TextureHeader                       header;           // 28
+			std::uint32_t                       unk30;            // 30
+			std::uint32_t                       refCount;         // 34
+			std::uint8_t                        unk38[4];         // 38
+			std::uint8_t                        currentMipLevel;  // 3C
+			std::uint8_t                        targetMipLevel;   // 3D
+			std::uint8_t                        flags2;           // 3E
+			std::uint8_t                        flags3;           // 3F
+		};
+		static_assert(sizeof(Texture) == 0x40);
+
+		inline Texture* CreateTexture(TextureHeader& header, bool sRGB)
+		{
+			using func_t = Texture* (*)(TextureHeader& header, bool sRGB);
+			static REL::Relocation<func_t> func{ REL::ID(270276) };
+			return func(header, sRGB);
+		}
+
+		inline void LoadTextureData(Texture* texture, char* data, std::uint32_t dataSize, std::uint32_t mipLevel)
+		{
+			using func_t = decltype(&BSGraphics::LoadTextureData);
+			static REL::Relocation<func_t> func{ REL::ID(415185) };
+			return func(texture, data, dataSize, mipLevel);
+		}
 
 		enum class MultiSampleLevel
 		{
@@ -96,19 +140,6 @@ namespace RE
 		struct IndexBuffer : public Buffer
 		{};
 		static_assert(sizeof(IndexBuffer) == 0x50);
-
-		struct TextureHeader
-		{
-		public:
-			// members
-			std::uint16_t height = 0;    // 0
-			std::uint16_t width = 0;     // 2
-			std::uint8_t  mipCount = 0;  // 3
-			std::uint8_t  format = 0;    // 5
-			std::uint8_t  flags = 0;     // 6
-			std::uint8_t  tilemode = 0;  // 7
-		};
-		static_assert(sizeof(TextureHeader) == 0x8);
 
 		class ConstantGroup
 		{

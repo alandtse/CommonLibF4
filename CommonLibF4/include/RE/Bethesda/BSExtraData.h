@@ -1007,7 +1007,7 @@ namespace RE
 		void SetStartingWorldOrCell(TESForm* a_form)
 		{
 			using func_t = decltype(&ExtraDataList::SetStartingWorldOrCell);
-			static REL::Relocation<func_t> func{ REL::RelocationID(603621, 2191213) };
+			static REL::Relocation<func_t> func{ REL::RelocationID(603621, 2190506) };
 			return func(this, a_form);
 		}
 

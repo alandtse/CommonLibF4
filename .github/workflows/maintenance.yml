@@ -1,31 +1,45 @@
-name: maintenance
+name: Scripted maintenance
 
-on: [push, pull_request_target, workflow_dispatch]
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   maintenance:
     runs-on: ubuntu-latest
-    permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
-      contents: write
+    # Skip on fork PRs: the head branch does not exist on this repo (so the ref
+    # checkout below fails), and the auto-commit step cannot push to a fork anyway.
+    if: |
+      github.event_name == 'push' ||
+      github.event.pull_request.head.repo.full_name == github.repository
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
         with:
-          ref: ${{ github.head_ref }}
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.head_ref || github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v6
         with:
-          python-version: "3.9"
-
-      - name: Run clang-format
-        run: find -type f \( -name *.h -o -name *.cpp \) | xargs clang-format-16 -style=file -i
+          python-version: '3.10'
 
       - name: Glob files
         run: python ${{ github.workspace }}/CommonLibF4/scripts/glob_files.py
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Check for changes
+        id: verify_diff
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.verify_diff.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "chore: maintenance"
+          commit_options: '--no-verify'

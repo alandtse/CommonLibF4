@@ -39,7 +39,8 @@ namespace RE::msvc
 
 		[[nodiscard]] bool good() const noexcept { return _fn != nullptr; }
 
-		std::aligned_storage_t<3 * sizeof(void*), alignof(long double)> _storage;  // 00
-		proxy_t*                                                        _fn;       // 18
+		// std::aligned_storage[_t] is deprecated in C++23; use the recommended alignas byte buffer instead.
+		alignas(long double) std::byte _storage[3 * sizeof(void*)];  // 00
+		proxy_t* _fn;                                                // 18
 	};
 }

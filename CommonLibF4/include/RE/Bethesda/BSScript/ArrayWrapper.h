@@ -49,7 +49,7 @@ namespace RE
 			void ReplaceArray(BSScrapArray<Variable>& a_copy, IVirtualMachine& a_vm)
 			{
 				using func_t = decltype(&ArrayWrapper::ReplaceArray);
-				static REL::Relocation<func_t> func{ REL::ID(445184) };
+				static REL::Relocation<func_t> func{ REL::RelocationID(445184, 2250435) };
 				return func(this, a_copy, a_vm);
 			}
 
