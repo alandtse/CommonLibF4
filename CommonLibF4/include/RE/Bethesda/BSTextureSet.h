@@ -18,11 +18,32 @@ namespace RE
 		static constexpr auto Ni_RTTI{ Ni_RTTI::BSTextureSet };
 
 		// add
-		virtual const BSFixedString* GetTextureFilenameFS(BSShaderProperty::TextureTypeEnum a_type) = 0;                                                                  // 28
-		virtual const char*          GetTextureFilename(BSShaderProperty::TextureTypeEnum a_type) = 0;                                                                    // 29
-		virtual void                 GetTexture(const void* a_prefetchedHandle, BSShaderProperty::TextureTypeEnum a_type, NiPointer<NiTexture>* a_texture, bool a_srgb);  // 2A
-		virtual void                 GetTexture(BSShaderProperty::TextureTypeEnum a_type, NiPointer<NiTexture>* a_texture, bool a_srgb) = 0;                              // 2B
-		virtual void                 SetTextureFilename(BSShaderProperty::TextureTypeEnum a_type, const char* a_filename) = 0;                                            // 2C
+		const BSFixedString* GetTextureFilenameFS(BSShaderProperty::TextureTypeEnum a_type)  // 28
+		{
+			return REL::RelocateVirtual<decltype(&BSTextureSet::GetTextureFilenameFS)>(0x28, 0x2A, this, a_type);
+		}
+
+		const char* GetTextureFilename(BSShaderProperty::TextureTypeEnum a_type)  // 29
+		{
+			return REL::RelocateVirtual<decltype(&BSTextureSet::GetTextureFilename)>(0x29, 0x2B, this, a_type);
+		}
+
+		void GetTexture(const void* a_prefetchedHandle, BSShaderProperty::TextureTypeEnum a_type, NiPointer<NiTexture>* a_texture, bool a_srgb)  // 2A
+		{
+			using GetTexture = void (BSTextureSet::*)(const void*, BSShaderProperty::TextureTypeEnum, NiPointer<NiTexture>*, bool);
+			REL::RelocateVirtual<GetTexture>(0x2A, 0x2C, this, a_prefetchedHandle, a_type, a_texture, a_srgb);
+		}
+
+		void GetTexture(BSShaderProperty::TextureTypeEnum a_type, NiPointer<NiTexture>* a_texture, bool a_srgb)  // 2B
+		{
+			using GetTexture = void (BSTextureSet::*)(BSShaderProperty::TextureTypeEnum, NiPointer<NiTexture>*, bool);
+			REL::RelocateVirtual<GetTexture>(0x2B, 0x2D, this, a_type, a_texture, a_srgb);
+		}
+
+		void SetTextureFilename(BSShaderProperty::TextureTypeEnum a_type, const char* a_filename)  // 2C
+		{
+			REL::RelocateVirtual<decltype(&BSTextureSet::SetTextureFilename)>(0x2C, 0x2E, this, a_type, a_filename);
+		}
 	};
 	static_assert(sizeof(BSTextureSet) == 0x10);
 

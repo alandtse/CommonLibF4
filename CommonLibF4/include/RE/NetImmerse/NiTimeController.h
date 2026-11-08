@@ -18,16 +18,55 @@ namespace RE
 		static constexpr auto Ni_RTTI{ Ni_RTTI::NiTimeController };
 
 		// add
-		virtual void  Start(float a_time);                             // 28
-		virtual void  Stop();                                          // 28
-		virtual void  Update(NiUpdateData& a_updateData) = 0;          // 29
-		virtual void  SetTarget(NiObjectNET* a_target);                // 2A
-		virtual bool  IsTransformController() const { return false; }  // 2B
-		virtual bool  IsVertexController() const { return false; }     // 2C
-		virtual float ComputeScaledTime(float a_time);                 // 2D
-		virtual void  OnPreDisplay() { return; }                       // 2E
-		virtual bool  IsStreamable() const { return true; }            // 2F
-		virtual void  Start() = 0;                                     // 30
+		void Start(float a_time)  // 28
+		{
+			REL::RelocateVirtual<decltype(&NiTimeController::Start)>(0x28, 0x2A, this, a_time);
+		}
+
+		void Stop()  // 29
+		{
+			REL::RelocateVirtual<decltype(&NiTimeController::Stop)>(0x29, 0x2B, this);
+		}
+
+		void Update(NiUpdateData& a_updateData)  // 2A
+		{
+			REL::RelocateVirtual<decltype(&NiTimeController::Update)>(0x2A, 0x2C, this, a_updateData);
+		}
+
+		void SetTarget(NiObjectNET* a_target)  // 2B
+		{
+			REL::RelocateVirtual<decltype(&NiTimeController::SetTarget)>(0x2B, 0x2D, this, a_target);
+		}
+
+		bool IsTransformController() const  // 2C
+		{
+			return REL::RelocateVirtual<decltype(&NiTimeController::IsTransformController)>(0x2C, 0x2E, this);
+		}
+
+		bool IsVertexController() const  // 2D
+		{
+			return REL::RelocateVirtual<decltype(&NiTimeController::IsVertexController)>(0x2D, 0x2F, this);
+		}
+
+		float ComputeScaledTime(float a_time)  // 2E
+		{
+			return REL::RelocateVirtual<decltype(&NiTimeController::ComputeScaledTime)>(0x2E, 0x30, this, a_time);
+		}
+
+		void OnPreDisplay()  // 2F
+		{
+			REL::RelocateVirtual<decltype(&NiTimeController::OnPreDisplay)>(0x2F, 0x31, this);
+		}
+
+		bool IsStreamable() const  // 30
+		{
+			return REL::RelocateVirtual<decltype(&NiTimeController::IsStreamable)>(0x30, 0x32, this);
+		}
+
+		bool TargetIsRequiredType() const  // 31
+		{
+			return REL::RelocateVirtual<decltype(&NiTimeController::TargetIsRequiredType)>(0x31, 0x33, this);
+		}
 
 		// members
 		NiTFlags<std::uint16_t, NiTimeController> flags;             // 10

@@ -50,11 +50,6 @@ namespace RE
 		}
 		virtual ~NiAlphaProperty();
 
-		virtual std::int32_t Type()
-		{
-			return 0;
-		}
-
 		F4_HEAP_REDEFINE_ALIGNED_NEW(NiAlphaProperty);
 
 		void SetDestBlendMode(AlphaFunction f)

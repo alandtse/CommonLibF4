@@ -120,27 +120,113 @@ namespace RE
 		static_assert(sizeof(RenderPassArray) == 0x8);
 
 		// add
-		virtual RenderPassArray*     GetRenderPasses(BSGeometry* a_geom, std::uint32_t a_renderMode, BSShaderAccumulator* a_accumulator) = 0;  // 2B
-		virtual RenderPassArray*     GetRenderPasses_ShadowMapOrMask(BSGeometry*, std::uint32_t, BSShaderAccumulator*) { return nullptr; }     // 2C
-		virtual RenderPassArray*     GetRenderPasses_LocalMap(BSGeometry*, std::uint32_t, BSShaderAccumulator*) { return nullptr; }            // 2D
-		virtual BSRenderPass*        CreateVatsMaskRenderPass(BSGeometry*) { return nullptr; }                                                 // 2E
-		virtual std::uint16_t        GetNumberofPasses([[maybe_unused]] BSGeometry* a_geom) { return 1; }                                      // 2F
-		virtual BSRenderPass*        GetRenderDepthPass(BSGeometry*) { return nullptr; }                                                       // 30
-		virtual bool                 CanMerge(const BSShaderProperty* a_prop);                                                                 // 31
-		virtual void                 SetMaterialAlpha(float) { return; }                                                                       // 32
-		virtual float                QMaterialAlpha() const { return 1.0F; }                                                                   // 33
-		virtual const BSFixedString& GetRootName() const;                                                                                      // 34
-		virtual std::int32_t         ForEachTexture(ForEachVisitor&) { return 1; }                                                             // 35
-		virtual std::int32_t         QShader() const { return 0; }                                                                             // 36
-		virtual void                 ClearUnusedMaterialValues() { return; }                                                                   // 37
-		virtual BSShaderProperty*    ClarifyShader(BSGeometry*, bool, bool) { return nullptr; }                                                // 38
-		virtual NiTexture*           GetBaseTexture() const { return nullptr; }                                                                // 39
-		virtual RenderPassArray*     GetWaterFogPassList(BSGeometry*) { return nullptr; }                                                      // 3A
-		virtual bool                 AcceptsEffectData() const { return false; }                                                               // 3B
-		virtual void                 PrecacheTextures() { return; }                                                                            // 3C
-		virtual std::uint32_t        DetermineUtilityShaderDecl() const { return 0; }                                                          // 3D
-		virtual std::uint32_t        GetMaterialType() const { return 0; }                                                                     // 3E
-		virtual void                 DoClearRenderPasses() { return; }                                                                         // 3F
+		RenderPassArray* GetRenderPasses(BSGeometry* a_geom, std::uint32_t a_renderMode, BSShaderAccumulator* a_accumulator)  // 2B
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetRenderPasses)>(0x2B, 0x2D, this, a_geom, a_renderMode, a_accumulator);
+		}
+
+		RenderPassArray* GetRenderPasses_ShadowMapOrMask(BSGeometry* a_geom, std::uint32_t a_renderMode, BSShaderAccumulator* a_accumulator)  // 2C
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetRenderPasses_ShadowMapOrMask)>(0x2C, 0x2E, this, a_geom, a_renderMode, a_accumulator);
+		}
+
+		RenderPassArray* GetRenderPasses_LocalMap(BSGeometry* a_geom, std::uint32_t a_renderMode, BSShaderAccumulator* a_accumulator)  // 2D
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetRenderPasses_LocalMap)>(0x2D, 0x2F, this, a_geom, a_renderMode, a_accumulator);
+		}
+
+		BSRenderPass* CreateVatsMaskRenderPass(BSGeometry* a_geom)  // 2E
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::CreateVatsMaskRenderPass)>(0x2E, 0x30, this, a_geom);
+		}
+
+		std::uint16_t GetNumberofPasses(BSGeometry* a_geom)  // 2F
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetNumberofPasses)>(0x2F, 0x31, this, a_geom);
+		}
+
+		BSRenderPass* GetRenderDepthPass(BSGeometry* a_geom)  // 30
+		{
+			if (REL::Module::IsVR()) {
+				return nullptr;
+			}
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetRenderDepthPass)>(0x30, 0x30, this, a_geom);
+		}
+
+		bool CanMerge(const BSShaderProperty* a_prop)  // 31
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::CanMerge)>(0x31, 0x32, this, a_prop);
+		}
+
+		void SetMaterialAlpha(float a_alpha)  // 32
+		{
+			REL::RelocateVirtual<decltype(&BSShaderProperty::SetMaterialAlpha)>(0x32, 0x33, this, a_alpha);
+		}
+
+		float QMaterialAlpha() const  // 33
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::QMaterialAlpha)>(0x33, 0x34, this);
+		}
+
+		const BSFixedString& GetRootName() const  // 34
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetRootName)>(0x34, 0x35, this);
+		}
+
+		std::int32_t ForEachTexture(ForEachVisitor& a_visitor)  // 35
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::ForEachTexture)>(0x35, 0x36, this, a_visitor);
+		}
+
+		std::int32_t QShader() const  // 36
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::QShader)>(0x36, 0x37, this);
+		}
+
+		void ClearUnusedMaterialValues()  // 37
+		{
+			REL::RelocateVirtual<decltype(&BSShaderProperty::ClearUnusedMaterialValues)>(0x37, 0x38, this);
+		}
+
+		BSShaderProperty* ClarifyShader(BSGeometry* a_geom, bool a_arg2, bool a_arg3)  // 38
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::ClarifyShader)>(0x38, 0x39, this, a_geom, a_arg2, a_arg3);
+		}
+
+		NiTexture* GetBaseTexture() const  // 39
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetBaseTexture)>(0x39, 0x3A, this);
+		}
+
+		RenderPassArray* GetWaterFogPassList(BSGeometry* a_geom)  // 3A
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetWaterFogPassList)>(0x3A, 0x3B, this, a_geom);
+		}
+
+		bool AcceptsEffectData() const  // 3B
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::AcceptsEffectData)>(0x3B, 0x3C, this);
+		}
+
+		void PrecacheTextures()  // 3C
+		{
+			REL::RelocateVirtual<decltype(&BSShaderProperty::PrecacheTextures)>(0x3C, 0x3D, this);
+		}
+
+		std::uint32_t DetermineUtilityShaderDecl() const  // 3D
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::DetermineUtilityShaderDecl)>(0x3D, 0x3E, this);
+		}
+
+		std::uint32_t GetMaterialType() const  // 3E
+		{
+			return REL::RelocateVirtual<decltype(&BSShaderProperty::GetMaterialType)>(0x3E, 0x3F, this);
+		}
+
+		void DoClearRenderPasses()  // 3F
+		{
+			REL::RelocateVirtual<decltype(&BSShaderProperty::DoClearRenderPasses)>(0x3F, 0x40, this);
+		}
 
 		void SetMaterial(BSShaderMaterial* a_material, bool a_unique)
 		{

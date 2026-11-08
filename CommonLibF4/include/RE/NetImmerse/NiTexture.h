@@ -53,7 +53,10 @@ namespace RE
 		}
 
 		// add
-		virtual BSTextureArray::Texture* IsBSTextureArray() { return nullptr; }  // 28
+		BSTextureArray::Texture* IsBSTextureArray()  // 28
+		{
+			return REL::RelocateVirtual<decltype(&NiTexture::IsBSTextureArray)>(0x28, 0x2A, this);
+		}
 
 		static void SetAllowDegrade(bool a_allow)
 		{

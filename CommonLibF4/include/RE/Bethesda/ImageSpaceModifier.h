@@ -30,10 +30,25 @@ namespace RE
 		virtual ~ImageSpaceModifierInstance();  // 00
 
 		// add
-		virtual bool                            IsExpired();                    // 28
-		virtual void                            Apply() = 0;                    // 29
-		virtual void                            PrintInfo(char* a_buffer) = 0;  // 2A
-		virtual ImageSpaceModifierInstanceForm* IsForm();                       // 2B
+		bool IsExpired()  // 28
+		{
+			return REL::RelocateVirtual<decltype(&ImageSpaceModifierInstance::IsExpired)>(0x28, 0x2A, this);
+		}
+
+		void Apply()  // 29
+		{
+			REL::RelocateVirtual<decltype(&ImageSpaceModifierInstance::Apply)>(0x29, 0x2B, this);
+		}
+
+		void PrintInfo(char* a_buffer)  // 2A
+		{
+			REL::RelocateVirtual<decltype(&ImageSpaceModifierInstance::PrintInfo)>(0x2A, 0x2C, this, a_buffer);
+		}
+
+		ImageSpaceModifierInstanceForm* IsForm()  // 2B
+		{
+			return REL::RelocateVirtual<decltype(&ImageSpaceModifierInstance::IsForm)>(0x2B, 0x2D, this);
+		}
 
 		// members
 		float                 strength;  // 10
@@ -51,12 +66,6 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::ImageSpaceModifierInstanceForm };
 
 		virtual ~ImageSpaceModifierInstanceForm();  // 00
-
-		// override (ImageSpaceModifierInstance)
-		virtual bool                            IsExpired() override;                // 28
-		virtual void                            Apply() override;                    // 29
-		virtual void                            PrintInfo(char* a_buffer) override;  // 2A
-		virtual ImageSpaceModifierInstanceForm* IsForm() override;                   // 2B
 
 		static ImageSpaceModifierInstanceForm* Trigger(TESImageSpaceModifier* a_mod, float a_strength, NiAVObject* a_target)
 		{
@@ -104,10 +113,6 @@ namespace RE
 
 		virtual ~ImageSpaceModifierInstanceTemp();  // 00
 
-		// override (ImageSpaceModifierInstance)
-		virtual bool IsExpired() override;                // 28
-		virtual void PrintInfo(char* a_buffer) override;  // 2A
-
 		// members
 		float duration;  // 28
 	};
@@ -122,10 +127,6 @@ namespace RE
 
 		virtual ~ImageSpaceModifierInstanceDOF();  // 00
 
-		// override (ImageSpaceModifierInstanceTemp)
-		virtual void Apply() override;                    // 29
-		virtual void PrintInfo(char* a_buffer) override;  // 2A
-
 		// members
 		ImageSpaceModData data;  // 30
 	};
@@ -139,10 +140,6 @@ namespace RE
 		static constexpr auto VTABLE{ VTABLE::ImageSpaceModifierInstanceRB };
 
 		virtual ~ImageSpaceModifierInstanceRB();  // 00
-
-		// override (ImageSpaceModifierInstanceTemp)
-		virtual void Apply() override;                    // 29
-		virtual void PrintInfo(char* a_buffer) override;  // 2A
 
 		// members
 		ImageSpaceModData data;  // 30

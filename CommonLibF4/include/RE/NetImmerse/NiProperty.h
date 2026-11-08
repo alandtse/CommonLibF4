@@ -15,8 +15,15 @@ namespace RE
 		static constexpr auto Ni_RTTI{ Ni_RTTI::NiProperty };
 
 		// add
-		virtual std::int32_t Type() = 0;                          // 28
-		virtual void         Update(NiUpdateData& a_updateData);  // 29
+		std::int32_t Type()  // 28
+		{
+			return REL::RelocateVirtual<decltype(&NiProperty::Type)>(0x28, 0x2A, this);
+		}
+
+		void Update(NiUpdateData& a_updateData)  // 29
+		{
+			REL::RelocateVirtual<decltype(&NiProperty::Update)>(0x29, 0x2B, this, a_updateData);
+		}
 	};
 	static_assert(sizeof(NiProperty) == 0x28);
 }

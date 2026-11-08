@@ -15,10 +15,25 @@ namespace RE
 		static constexpr auto Ni_RTTI{ Ni_RTTI::NiCollisionObject };
 
 		// add
-		virtual void SetSceneGraphObject(NiAVObject* a_sceneObject);                                               // 28
-		virtual void UpdateWorldData(NiUpdateData& a_updateData);                                                  // 29
-		virtual void Initialize([[maybe_unused]] void* a_data) { return; }                                         // 2A
-		virtual void Convert([[maybe_unused]] std::uint32_t a_version, [[maybe_unused]] void* a_data) { return; }  // 2B
+		void SetSceneGraphObject(NiAVObject* a_sceneObject)  // 28
+		{
+			REL::RelocateVirtual<decltype(&NiCollisionObject::SetSceneGraphObject)>(0x28, 0x2A, this, a_sceneObject);
+		}
+
+		void UpdateWorldData(NiUpdateData& a_updateData)  // 29
+		{
+			REL::RelocateVirtual<decltype(&NiCollisionObject::UpdateWorldData)>(0x29, 0x2B, this, a_updateData);
+		}
+
+		void Initialize(void* a_data)  // 2A
+		{
+			REL::RelocateVirtual<decltype(&NiCollisionObject::Initialize)>(0x2A, 0x2C, this, a_data);
+		}
+
+		void Convert(std::uint32_t a_version, void* a_data)  // 2B
+		{
+			REL::RelocateVirtual<decltype(&NiCollisionObject::Convert)>(0x2B, 0x2D, this, a_version, a_data);
+		}
 
 		// members
 		NiAVObject* sceneObject;  // 10

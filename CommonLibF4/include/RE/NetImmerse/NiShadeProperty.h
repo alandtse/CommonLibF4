@@ -13,7 +13,10 @@ namespace RE
 		static constexpr auto Ni_RTTI{ Ni_RTTI::NiShadeProperty };
 
 		// add
-		virtual bool SetupGeometry([[maybe_unused]] BSGeometry* a_geometry) { return true; }  // 2A
+		bool SetupGeometry(BSGeometry* a_geometry)  // 2A
+		{
+			return REL::RelocateVirtual<decltype(&NiShadeProperty::SetupGeometry)>(0x2A, 0x2C, this, a_geometry);
+		}
 	};
 	static_assert(sizeof(NiShadeProperty) == 0x28);
 }

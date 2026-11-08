@@ -15,8 +15,15 @@ namespace RE
 		static constexpr auto Ni_RTTI{ Ni_RTTI::bhkWorld };
 
 		// add
-		virtual bool Update(std::uint32_t a_updateFlags);  // 28
-		virtual void Init(const hknpWorldCinfo& a_info);   // 29
+		bool Update(std::uint32_t a_updateFlags)  // 28
+		{
+			return REL::RelocateVirtual<decltype(&bhkWorld::Update)>(0x28, 0x2A, this, a_updateFlags);
+		}
+
+		void Init(const hknpWorldCinfo& a_info)  // 29
+		{
+			REL::RelocateVirtual<decltype(&bhkWorld::Init)>(0x29, 0x2B, this, a_info);
+		}
 
 		static bool RemoveObjects(NiAVObject* a_object, bool a_recurse, bool a_force)
 		{
