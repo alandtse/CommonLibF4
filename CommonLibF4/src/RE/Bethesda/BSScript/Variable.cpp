@@ -21,16 +21,16 @@ namespace RE::BSScript
 		return *this;
 	}
 
-	void Variable::SetObject(BSTSmartPointer<Object> a_object, ObjectTypeInfo* a_staticType) {
+	void Variable::SetObject(BSTSmartPointer<Object> a_object, ObjectTypeInfo* a_staticType)
+	{
 		reset();
 		if (a_object && a_staticType) {
 			value.o = std::move(a_object);
 			varType = a_staticType;
-			}
-		else {
+		} else {
 			assert(false);
-			}
 		}
+	}
 
 	Variable& Variable::operator=(BSTSmartPointer<Struct> a_struct)
 	{
