@@ -60,6 +60,9 @@ namespace RE
 			}
 
 			Variable& operator=(BSTSmartPointer<Object> a_object);
+			// Stores a_object but types the variable as a_staticType (the requested/declared
+			// type), as the game's CreateVarFromValue<T> does, instead of the object's own type.
+			void SetObject(BSTSmartPointer<Object> a_object, ObjectTypeInfo* a_staticType);
 
 			Variable& operator=(BSFixedString a_string)
 			{
